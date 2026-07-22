@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Host & Sitemap
+Host: https://sujalenterprise.com
+Sitemap: https://sujalenterprise.com/sitemap.xml
