@@ -1,46 +1,42 @@
 export const config = {
   // =========================================================================
-  // CLIENT NOTICE: All settings below are placeholders and can be verified,
-  // updated, or confirmed by the client at any time.
+  // VERIFIED BUSINESS INFORMATION - Sujal Enterprise
   // =========================================================================
   business: {
-    // =========================================================================
-    // CLIENT PLACEHOLDERS (NOT VERIFIED BUSINESS INFORMATION)
-    // Replace after client confirmation.
-    // =========================================================================
     name: "Sujal Enterprise",
     legalName: "Sujal Enterprise",
+    tagline: "An ISO 9001, 45001 & PED Certified",
+    type: "Manufacturer, Supplier, Exporter and Stockist",
+    gstin: "27ACEPY9541Q1ZI",
+    logo: "/images/logo/sujal-enterprise%20updated%20logo.png",
 
-    // Business category/description are editable until client confirms.
-    category: "INDUSTRIAL STEEL PIPES & FORGED FITTINGS SUPPLIER (EDIT) ",
-    description: "(EDIT) Wholesale distributor, manufacturer, and supplier of industrial steel pipes, forged fittings and flanges. Serving Mumbai, Maharashtra, India.",
+    // Business category/description
+    category: "MANUFACTURER, SUPPLIER, EXPORTER & STOCKIST OF STAINLESS STEEL, MILD STEEL & GI FITTINGS",
+    description: "Sujal Enterprise is a trusted manufacturer, supplier, exporter, and stockist of premium quality Stainless Steel (SS), Mild Steel (MS), and GI Fittings. Based in Mumbai, Maharashtra, we serve industries across India with certified industrial products.",
 
-    // Do not treat foundingYear as final until confirmed.
-    foundingYear: "YEAR_HERE",
+    foundingYear: "",
 
-    // Address and maps embed must be confirmed by client.
-    address: "ADDRESS_HERE, Mumbai - PINCODE, Maharashtra, India",
-    googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=PASTE_GOOGLE_MAPS_EMBED_URL_HERE",
+    // Verified Address
+    address: "Shop No. B-1, Bharat Lokhand Bazaar, 1st Lane, M.S. Ali Road, Mumbai – 400008, Maharashtra, India",
+    googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.105!2d72.8270948!3d18.9618858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce159afbae23%3A0xba55b881e84bd7f9!2sSujal%20Enterprise!5e0!3m2!1sen!2sin!4v1",
 
-    // Geo coordinates must be confirmed by client.
+    // Geo coordinates
     geo: {
-      latitude: "LATITUDE_HERE",
-      longitude: "LONGITUDE_HERE",
+      latitude: "18.9618858",
+      longitude: "72.8270948",
       region: "Mumbai, Maharashtra",
       country: "India"
     },
 
-    // Phones/email must be confirmed by client.
-    phones: ["PHONE_1_HERE", "PHONE_2_HERE"],
-    whatsapp: "WHATSAPP_NUMBER_HERE",
-    email: "EMAIL_HERE",
+    // Phones/email
+    phones: ["+91 9833593672", "+91 8369167479"],
+    whatsapp: "+918369167479",
+    email: "sujalenterprise01@gmail.com",
 
     // Contact Form Backend Integration (Web3Forms)
-    // Request a free access key at https://web3forms.com/ and paste it below
     web3forms_key: "YOUR_ACCESS_KEY_HERE",
 
-    // Optional Social Media Links (Rendered dynamically ONLY if populated)
-    // Keep blank until client confirms.
+    // Social Media Links (Leave blank if not available)
     socials: {
       facebook: "",
       instagram: "",
@@ -81,454 +77,667 @@ export const config = {
     }
   ],
 
-  // Products Section (Scalable architecture supporting unlimited categories and items)
-  // NOTE: This existing structure is kept for backward compatibility with the current products.html category layout.
+  // Products Section
   products: [
-
     {
-      id: "forged-fittings",
-      title: "Forged Fittings",
-      description: "High-pressure forged pipe fittings manufactured in compliance with international dimensional standards.",
-      image: "/images/products/forged-fittings.png",
+      id: "stainless-steel",
+      title: "Stainless Steel (SS)",
+      description: "Premium quality stainless steel products in various grades including SS Sheets, Plates, Coils, Pipes, Pipe Fittings, Flanges, Round Bars, and Valves.",
+      image: "/images/products/Stainless%20Steel%20Sheets.jpg",
       items: [
-        { name: "Threaded Elbows (90° & 45°)", spec: "ASME B16.11, 2000# / 3000# / 6000#" },
-        { name: "Threaded Equal & Unequal Tees", spec: "ASME B16.11, Class 3000 / 6000" },
-        { name: "Socket-Weld Elbows & Tees", spec: "ASME B16.11, Socket-weld joints" },
-        { name: "Threaded Unions & Couplings", spec: "Full and half coupling options" },
-        { name: "Hex Nipples & Head Plugs", spec: "High-quality threaded fasteners" },
-        { name: "Threaded Bushings", spec: "Reducing bushings in various thread profiles" }
+        { name: "Stainless Steel Sheets", spec: "Grades: SS 304/304L, SS 316/316L, Various thicknesses" },
+        { name: "Stainless Steel Plates", spec: "Grades: SS 304/304L, SS 316/316L, Custom sizes" },
+        { name: "Stainless Steel Coils", spec: "Grades: SS 304/304L, SS 316/316L, Various widths" },
+        { name: "Stainless Steel Pipes", spec: "ASTM A312, Seamless & Welded, Schedule 10S to XXS" },
+        { name: "Pipe Fittings", spec: "SS Elbows, Tees, Reducers, Caps - ASME B16.9" },
+        { name: "Flanges", spec: "SS Slip-On, Weld Neck, Blind Flanges - ASME B16.5" },
+        { name: "Round Bars", spec: "SS 304/304L, SS 316/316L, Bright & Black Finish" },
+        { name: "Valves", spec: "SS Gate, Globe, Check & Ball Valves" }
       ]
     },
     {
-      id: "buttweld-fittings",
-      title: "Buttweld Fittings",
-      description: "Seamless and welded buttweld fittings ideal for high-pressure fluid flow distribution.",
-      image: "/images/products/buttweld-fittings.png",
+      id: "mild-steel",
+      title: "Mild Steel (MS)",
+      description: "High-quality mild steel products including MS Pipes, Plates, Sheets, and Coils for industrial and construction applications.",
+      image: "/images/products/MS%20Pipes%201.webp",
       items: [
-        { name: "Long & Short Radius Elbows", spec: "ASME B16.9, 90° & 45° Elbows" },
-        { name: "Concentric & Eccentric Reducers", spec: "Wall thickness Sch 10s to XXS" },
-        { name: "Equal & Reducing Tees", spec: "Seamless steel construction" },
-        { name: "Pipe Caps & Bends", spec: "Custom Piggable Bends and End Caps" }
+        { name: "MS Pipes", spec: "ERW & Seamless, IS 1239 / IS 3589, Various sizes" },
+        { name: "MS Plates", spec: "Hot Rolled & Cold Rolled, Custom thicknesses available" },
+        { name: "MS Sheets", spec: "CR & HR Sheets, Various gauges and sizes" },
+        { name: "MS Coils", spec: "HR & CR Coils, Custom width and thickness options" }
       ]
     },
     {
-      id: "flanges",
-      title: "Industrial Flanges",
-      description: "Forged and plate flanges in carbon steel, stainless steel, and alloy grades.",
-      image: "/images/products/flanges.png",
+      id: "gi-fittings",
+      title: "GI Fittings",
+      description: "Complete range of Galvanized Iron (GI) pipe fittings including Elbows, Unions, Tees, Couplings, Socket Fittings, and other GI pipe fittings.",
+      image: "/images/products/GI%20Elbows%201.webp",
       items: [
-        { name: "Slip-On Flanges (SORF)", spec: "ASME B16.5, Class 150 to 2500" },
-        { name: "Socket Weld Flanges (SWRF)", spec: "ASME B16.5, High security pressure seal" },
-        { name: "Blind Flanges (BLRF)", spec: "ASME B16.5, For pipe endings" },
-        { name: "Welding Neck Flanges (WNRF)", spec: "ASME B16.5, Hubbed heavy duty" },
-        { name: "Spectacle Blind Flanges", spec: "Pressure rating up to Class 1500" }
-      ]
-    },
-    {
-      id: "pipes-tubes",
-      title: "Pipes & Tubes",
-      description: "Heavy-duty industrial pipes in mild steel, stainless steel, and carbon steel grades.",
-      image: "/images/products/pipes-tubes.png",
-      items: [
-        { name: "Stainless Steel Seamless Pipes", spec: "ASTM A312 TP304/304L & TP316/316L" },
-        { name: "Carbon Steel Seamless Pipes", spec: "ASTM A106 Gr. B / A53 / API 5L" },
-        { name: "Mild Steel ERW & GI Pipes", spec: "IS 1239 / IS 3589 Galvanized & Black" }
+        { name: "GI Elbows", spec: "Threaded, 90° & 45°, Various sizes" },
+        { name: "GI Unions", spec: "Threaded Unions, Equal & Reducing" },
+        { name: "GI Tees", spec: "Equal & Reducing Tees, Threaded connections" },
+        { name: "GI Couplings", spec: "Full & Reducing Couplings, Threaded" },
+        { name: "GI Socket Fittings", spec: "Socket connections for GI piping systems" },
+        { name: "Other GI Pipe Fittings", spec: "GI Nipples, Caps, Plugs, Bushings" }
       ]
     }
   ],
 
   // -------------------------------------------------------------------------
-  // Product Details Dataset (dynamic + scalable)
-  // NOTE: For now, these are generated from the legacy category-level
-  // `config.products[].items[]` so the site works immediately. Replace or
-  // extend these entries with real project-grade specs as needed.
+  // Product Details Dataset
   // -------------------------------------------------------------------------
   productDetails: [
-
+    // ===== Stainless Steel (SS) Products =====
     {
-
-      slug: 'forged-threaded-elbows-90-45-2000-3000-6000',
-      categoryIds: ['forged-fittings'],
-      title: 'Threaded Elbows (90° & 45°)',
-      shortDescription: 'Threaded forged elbows (90° & 45°) for high-pressure pipeline systems complying with ASME dimensional requirements.',
-      fullDescription: 'Forged threaded elbows manufactured to industry dimensional standards for reliable flow direction control in industrial pipeline applications. Suitable for carbon steel and stainless steel grades as per project requirement.',
-      image: '/images/products/forged-fittings.png',
-      galleryImages: ['/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png', '/images/products/flanges.png'],
+      slug: 'ss-sheets',
+      categoryIds: ['stainless-steel'],
+      title: 'Stainless Steel Sheets',
+      shortDescription: 'High-quality SS sheets in grades 304/304L and 316/316L, available in various thicknesses and finishes.',
+      fullDescription: 'Our stainless steel sheets are manufactured to precise dimensional tolerances with excellent corrosion resistance. Suitable for industrial fabrication, chemical processing equipment, food processing machinery, and architectural applications.',
+      image: '/images/products/Stainless%20Steel%20Sheets.jpg',
+      galleryImages: ['/images/products/Stainless%20Steel%20Sheets.jpg', '/images/products/Stainless%20Steel%20Sheets%202.webp', '/images/products/Stainless%20Steel%20Sheets%203.jpeg'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.11' },
-        { label: 'Pressure Class', value: '2000# / 3000# / 6000#' }
+        { label: 'Grades', value: 'SS 304/304L, SS 316/316L' },
+        { label: 'Thickness Range', value: '0.5 mm to 12 mm' },
+        { label: 'Finish Options', value: '2B, BA, No.4 Brushed, Mirror Polish' },
+        { label: 'Width Range', value: '1000 mm to 2000 mm' }
       ],
-      sizesOrGrades: ['ASME Class 2000', 'ASME Class 3000', 'ASME Class 6000', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Threaded connection', 'High-pressure rated design', 'Project traceability support'],
-      applications: ['Oil & Gas piping', 'Chemical processing', 'Power generation piping', 'Industrial transmission lines'],
-      materialSpecifications: ['ASTM A105 (typical - project-specific)', 'SS grades (project-specific)'],
-      standards: ['ASME B16.11'],
-      keywords: ['forged', 'threaded elbow', 'ASME B16.11', '2000#', '3000#', '6000#', 'elbow 90', 'elbow 45'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'Custom sizes available'],
+      features: ['Corrosion resistant', 'High strength-to-weight ratio', 'Excellent formability', 'Hygienic surface finish'],
+      applications: ['Food processing equipment', 'Chemical storage tanks', 'Architectural cladding', 'Kitchen equipment'],
+      materialSpecifications: ['ASTM A240', 'JIS G4305', 'EN 10088'],
+      standards: ['ASTM A240', 'JIS G4305'],
+      keywords: ['stainless steel sheets', 'SS sheets', 'SS 304 sheets', 'SS 316 sheets', 'industrial sheets'],
+      relatedProductSlugs: ['ss-plates', 'ss-coils', 'ss-pipes']
     },
     {
-      slug: 'forged-threaded-equal-unequal-tees-asme-b1611-class-3000-6000',
-      categoryIds: ['forged-fittings'],
-      title: 'Threaded Equal & Unequal Tees',
-      shortDescription: 'Forged threaded tees (equal & unequal) for branch connections in industrial piping networks.',
-      fullDescription: 'Threaded equal and unequal tees designed for dependable branch routing with forged construction for robust mechanical performance under pipeline service conditions.',
-      image: '/images/products/forged-fittings.png',
-      galleryImages: ['/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png', '/images/products/flanges.png'],
+      slug: 'ss-plates',
+      categoryIds: ['stainless-steel'],
+      title: 'Stainless Steel Plates',
+      shortDescription: 'Durable SS plates in 304/304L and 316/316L grades for heavy-duty industrial applications.',
+      fullDescription: 'We supply stainless steel plates with certified material traceability, suitable for high-pressure and high-temperature industrial applications including pressure vessels, heat exchangers, and structural components.',
+      image: '/images/products/Stainless%20Steel%20Plates.jpg',
+      galleryImages: ['/images/products/Stainless%20Steel%20Plates.jpg', '/images/products/Stainless%20Steel%20Plates%202.jpg', '/images/products/Stainless%20Steel%20Plates%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.11' },
-        { label: 'Pressure Class', value: 'Class 3000 / 6000' }
+        { label: 'Grades', value: 'SS 304/304L, SS 316/316L' },
+        { label: 'Thickness Range', value: '3 mm to 100 mm' },
+        { label: 'Width Range', value: '1250 mm to 3000 mm' },
+        { label: 'Standard', value: 'ASTM A240 / ASME SA240' }
       ],
-      sizesOrGrades: ['ASME Class 3000', 'ASME Class 6000', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Threaded connection', 'Forged construction', 'Project traceability support'],
-      applications: ['Pipe branching', 'Industrial manifolds', 'Process piping'],
-      materialSpecifications: ['ASTM A105 (typical - project-specific)', 'SS grades (project-specific)'],
-      standards: ['ASME B16.11'],
-      keywords: ['forged', 'threaded tee', 'ASME B16.11', 'Class 3000', 'Class 6000', 'equal tee', 'unequal tee'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'Custom dimensions available'],
+      features: ['High tensile strength', 'Excellent weldability', 'Corrosion resistant', 'Heat resistant options'],
+      applications: ['Pressure vessels', 'Heat exchangers', 'Structural components', 'Shipbuilding'],
+      materialSpecifications: ['ASTM A240', 'ASME SA240', 'EN 10028'],
+      standards: ['ASTM A240', 'ASME SA240'],
+      keywords: ['stainless steel plates', 'SS plates', 'SS 304 plates', 'SS 316 plates', 'heavy duty plates'],
+      relatedProductSlugs: ['ss-sheets', 'ss-coils']
     },
     {
-      slug: 'forged-socket-weld-elbows-tees',
-      categoryIds: ['forged-fittings'],
-      title: 'Socket-Weld Elbows & Tees',
-      shortDescription: 'Socket-weld forged elbows and tees for welded pipeline assemblies requiring compact installation.',
-      fullDescription: 'Socket-weld elbows and tees manufactured for reliable welded joints in industrial pipeline systems, offering controlled fit and durable performance.',
-      image: '/images/products/forged-fittings.png',
-      galleryImages: ['/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png', '/images/products/flanges.png'],
+      slug: 'ss-coils',
+      categoryIds: ['stainless-steel'],
+      title: 'Stainless Steel Coils',
+      shortDescription: 'High-grade SS coils in 304/304L and 316/316L grades for continuous processing applications.',
+      fullDescription: 'Premium stainless steel coils supplied in various widths and thicknesses, ideal for roll forming, tube manufacturing, and sheet metal fabrication industries.',
+      image: '/images/products/Stainless%20Steel%20Coils%201.webp',
+      galleryImages: ['/images/products/Stainless%20Steel%20Coils%201.webp', '/images/products/Stainless%20Steel%20Coils%202.webp', '/images/products/Stainless%20Steel%20Coils%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.11' },
-        { label: 'Joint Type', value: 'Socket-weld joints' }
+        { label: 'Grades', value: 'SS 304/304L, SS 316/316L' },
+        { label: 'Thickness Range', value: '0.3 mm to 8 mm' },
+        { label: 'Coil Weight', value: 'Up to 15 MT per coil' },
+        { label: 'Surface Finish', value: '2B, BA, No.4' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Socket-weld joints', 'Compact installation', 'Project traceability support'],
-      applications: ['Industrial piping', 'Process lines', 'Power plant auxiliary lines'],
-      materialSpecifications: ['ASTM A105 (typical - project-specific)', 'SS grades (project-specific)'],
-      standards: ['ASME B16.11'],
-      keywords: ['socket weld', 'forged elbow', 'forged tee', 'ASME B16.11'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'Custom slit widths'],
+      features: ['Uniform thickness', 'Consistent mechanical properties', 'Excellent surface quality', 'Custom slitting available'],
+      applications: ['Tube manufacturing', 'Roll forming', 'Automotive components', 'Utensil manufacturing'],
+      materialSpecifications: ['ASTM A240', 'JIS G4305'],
+      standards: ['ASTM A240', 'JIS G4305'],
+      keywords: ['stainless steel coils', 'SS coils', 'SS 304 coils', 'SS 316 coils', 'steel coil'],
+      relatedProductSlugs: ['ss-sheets', 'ss-plates']
     },
     {
-      slug: 'forged-threaded-unions-couplings',
-      categoryIds: ['forged-fittings'],
-      title: 'Threaded Unions & Couplings',
-      shortDescription: 'Threaded unions and couplings for easy disassembly and reliable threaded pipeline connections.',
-      fullDescription: 'Forged threaded unions and couplings engineered for secure connection integrity and practical maintenance/assembly workflows in industrial piping.',
-      image: '/images/products/forged-fittings.png',
-      galleryImages: ['/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png', '/images/products/pipes-tubes.png'],
+      slug: 'ss-pipes',
+      categoryIds: ['stainless-steel'],
+      title: 'Stainless Steel Pipes',
+      shortDescription: 'Seamless and welded SS pipes in multiple schedules for industrial piping systems.',
+      fullDescription: 'We supply stainless steel pipes in both seamless and welded constructions, conforming to international standards. Suitable for high-pressure fluid transmission, structural applications, and corrosive environments.',
+      image: '/images/products/Stainless%20Steel%20Pipes%201.jpg',
+      galleryImages: ['/images/products/Stainless%20Steel%20Pipes%201.jpg', '/images/products/Stainless%20Steel%20Pipes%202.webp', '/images/products/Stainless%20Steel%20Pipes%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.11' },
-        { label: 'Options', value: 'Full and half coupling options' }
+        { label: 'Standard', value: 'ASTM A312 / ASME SA312' },
+        { label: 'Grades', value: 'TP304/304L, TP316/316L' },
+        { label: 'Schedule Range', value: 'Sch 10S to Sch 80S' },
+        { label: 'Size Range', value: '1/2" to 24" NB' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Threaded connections', 'Flexible assembly', 'Project traceability support'],
-      applications: ['Maintenance spares', 'Industrial manifolds', 'Process piping connections'],
-      materialSpecifications: ['ASTM A105 (typical - project-specific)', 'SS grades (project-specific)'],
-      standards: ['ASME B16.11'],
-      keywords: ['union', 'coupling', 'threaded', 'forged', 'ASME B16.11'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['TP304', 'TP304L', 'TP316', 'TP316L', 'Custom schedules'],
+      features: ['Seamless & welded options', 'Corrosion resistant', 'High pressure rating', 'Full traceability'],
+      applications: ['Process piping', 'Chemical industries', 'Oil & gas', 'Water treatment'],
+      materialSpecifications: ['ASTM A312', 'ASME SA312', 'EN 10216'],
+      standards: ['ASTM A312', 'ASME SA312'],
+      keywords: ['SS pipes', 'stainless steel pipes', 'SS seamless pipes', 'SS welded pipes', 'ASTM A312'],
+      relatedProductSlugs: ['ss-sheets', 'pipe-fittings', 'flanges']
     },
     {
-      slug: 'forged-hex-nipples-head-plugs',
-      categoryIds: ['forged-fittings'],
-      title: 'Hex Nipples & Head Plugs',
-      shortDescription: 'Hex nipples and head plugs for threaded runs, closures, and service piping accessories.',
-      fullDescription: 'Hex nipples and head plugs manufactured for reliable threaded seating and closure applications in industrial pipe assemblies.',
-      image: '/images/products/forged-fittings.png',
-      galleryImages: ['/images/products/forged-fittings.png', '/images/products/flanges.png', '/images/products/buttweld-fittings.png'],
+      slug: 'pipe-fittings',
+      categoryIds: ['stainless-steel'],
+      title: 'Pipe Fittings',
+      shortDescription: 'Complete range of SS pipe fittings including elbows, tees, reducers, and caps for industrial piping.',
+      fullDescription: 'Our stainless steel pipe fittings are manufactured to precise dimensional standards ensuring perfect fitment in industrial piping networks. Available in both seamless and welded constructions.',
+      image: '/images/products/Pipe%20Fittings%201.webp',
+      galleryImages: ['/images/products/Pipe%20Fittings%201.webp', '/images/products/Pipe%20Fittings%202.png', '/images/products/Pipe%20Fittings%203.webp'],
       technicalSpecifications: [
-        { label: 'Use', value: 'Threaded fasteners / closures' }
+        { label: 'Standard', value: 'ASME B16.9' },
+        { label: 'Grades', value: 'SS 304/304L, SS 316/316L' },
+        { label: 'Types', value: 'Elbows, Tees, Reducers, Caps, Stub Ends' },
+        { label: 'Schedule', value: 'Sch 10S to Sch 80S' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Threaded installation', 'Closure & extension options', 'Project traceability support'],
-      applications: ['Pipe closure', 'Instrumentation connections', 'Industrial service lines'],
-      materialSpecifications: ['ASTM A105 (typical - project-specific)', 'SS grades (project-specific)'],
-      standards: [],
-      keywords: ['hex nipple', 'head plug', 'threaded', 'forged'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'Custom sizes'],
+      features: ['Precision dimensions', 'High corrosion resistance', 'Weld-ready ends', 'Full traceability'],
+      applications: ['Chemical plants', 'Refineries', 'Power generation', 'Pharmaceutical industries'],
+      materialSpecifications: ['ASTM A403', 'ASME B16.9'],
+      standards: ['ASME B16.9', 'ASTM A403'],
+      keywords: ['SS pipe fittings', 'stainless steel fittings', 'elbows', 'tees', 'reducers'],
+      relatedProductSlugs: ['ss-pipes', 'flanges']
     },
     {
-      slug: 'forged-threaded-bushings',
-      categoryIds: ['forged-fittings'],
-      title: 'Threaded Bushings',
-      shortDescription: 'Forged threaded bushings for reducing/transitioning thread sizes in industrial piping.',
-      fullDescription: 'Threaded bushings designed to transition between thread profiles and sizes for controlled flow path integration in industrial pipelines.',
-      image: '/images/products/forged-fittings.png',
-      galleryImages: ['/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png', '/images/products/pipes-tubes.png'],
+      slug: 'flanges',
+      categoryIds: ['stainless-steel'],
+      title: 'Flanges',
+      shortDescription: 'Industrial SS flanges including slip-on, weld neck, and blind flanges as per ASME B16.5.',
+      fullDescription: 'Our stainless steel flanges are forged and machined to precise tolerances for secure pipe connections in high-pressure industrial applications.',
+      image: '/images/products/flanges%201.png',
+      galleryImages: ['/images/products/flanges%201.png', '/images/products/Flanges%202.webp', '/images/products/Flanges%203.webp'],
       technicalSpecifications: [
-        { label: 'Function', value: 'Reducing bushings in various thread profiles' }
+        { label: 'Standard', value: 'ASME B16.5' },
+        { label: 'Grades', value: 'SS 304/304L, SS 316/316L' },
+        { label: 'Types', value: 'Slip-On, Weld Neck, Blind, Socket Weld' },
+        { label: 'Pressure Class', value: 'Class 150 to Class 1500' }
       ],
-      sizesOrGrades: ['Thread-profile dependent', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Thread transition', 'Forged construction', 'Project traceability support'],
-      applications: ['Thread size transitions', 'Industrial piping assemblies'],
-      materialSpecifications: ['ASTM A105 (typical - project-specific)', 'SS grades (project-specific)'],
-      standards: [],
-      keywords: ['bushing', 'thread reducer', 'forged', 'threaded'],
-      relatedProductSlugs: []
-    },
-
-    {
-      slug: 'buttweld-long-short-radius-elbows-asme-b16-9',
-      categoryIds: ['buttweld-fittings'],
-      title: 'Long & Short Radius Elbows',
-      shortDescription: 'Buttweld elbows (long & short radius) for high-pressure fluid flow distribution in industrial pipelines.',
-      fullDescription: 'Long and short radius buttweld elbows manufactured for durable welded joint performance and optimized flow routing in pressure service piping.',
-      image: '/images/products/buttweld-fittings.png',
-      galleryImages: ['/images/products/buttweld-fittings.png', '/images/products/forged-fittings.png', '/images/products/pipes-tubes.png'],
-      technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.9' },
-        { label: 'Angles', value: '90° & 45° Elbows' }
-      ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Buttweld joint', 'High-pressure design', 'Project traceability support'],
-      applications: ['Industrial piping', 'Process lines', 'Oil & gas transmission'],
-      materialSpecifications: ['Seamless steel grades (project-specific)'],
-      standards: ['ASME B16.9'],
-      keywords: ['buttweld elbow', 'long radius', 'short radius', 'ASME B16.9', '90 degree', '45 degree'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'Class 150 to Class 1500'],
+      features: ['Forged construction', 'Precision machined', 'Raised face & RTJ options', 'Full material traceability'],
+      applications: ['Pipeline connections', 'Pressure vessels', 'Pump & valve connections', 'Industrial manifolds'],
+      materialSpecifications: ['ASTM A182', 'ASME B16.5'],
+      standards: ['ASME B16.5', 'ASTM A182'],
+      keywords: ['SS flanges', 'stainless steel flanges', 'slip-on flange', 'weld neck flange', 'blind flange'],
+      relatedProductSlugs: ['ss-pipes', 'pipe-fittings', 'round-bars']
     },
     {
-      slug: 'buttweld-concentric-eccentric-reducers',
-      categoryIds: ['buttweld-fittings'],
-      title: 'Concentric & Eccentric Reducers',
-      shortDescription: 'Buttweld reducers (concentric & eccentric) for transitioning pipe diameters with controlled wall thickness options.',
-      fullDescription: 'Concentric and eccentric reducers designed to transition between pipe sizes while supporting project-specified wall thickness configurations.',
-      image: '/images/products/buttweld-fittings.png',
-      galleryImages: ['/images/products/buttweld-fittings.png', '/images/products/pipes-tubes.png', '/images/products/forged-fittings.png'],
+      slug: 'round-bars',
+      categoryIds: ['stainless-steel'],
+      title: 'Round Bars',
+      shortDescription: 'SS round bars in 304/304L and 316/316L grades for machining and fabrication applications.',
+      fullDescription: 'We supply stainless steel round bars in bright and black finish, used extensively in machining, shaft manufacturing, valves, and fasteners production.',
+      image: '/images/products/Round%20Bars%201.jpg',
+      galleryImages: ['/images/products/Round%20Bars%201.jpg', '/images/products/Round%20Bars%202.webp', '/images/products/Round%20Bars%203.webp'],
       technicalSpecifications: [
-        { label: 'Wall Thickness Range', value: 'Sch 10s to XXS (placeholder - verify per project)' }
+        { label: 'Grades', value: 'SS 304/304L, SS 316/316L' },
+        { label: 'Diameter Range', value: '6 mm to 300 mm' },
+        { label: 'Finish', value: 'Bright (Peeled/Polished), Black (Hot Rolled)' },
+        { label: 'Standard', value: 'ASTM A276 / A479' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Sch 10s to XXS (placeholder)'],
-      features: ['Buttweld joint', 'Concentric/eccentric options', 'Project traceability support'],
-      applications: ['Pipe diameter transitions', 'Process piping upgrades'],
-      materialSpecifications: ['Seamless steel grades (project-specific)'],
-      standards: [],
-      keywords: ['reducer', 'concentric reducer', 'eccentric reducer', 'buttweld'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'Custom diameters'],
+      features: ['Precision straightness', 'Consistent chemical composition', 'Various surface finishes', 'Cut-to-length options'],
+      applications: ['Shaft manufacturing', 'Valve components', 'Fasteners', 'Machining industry'],
+      materialSpecifications: ['ASTM A276', 'ASTM A479', 'EN 10088'],
+      standards: ['ASTM A276', 'ASTM A479'],
+      keywords: ['SS round bars', 'stainless steel bars', 'round bars', 'SS 304 bars', 'SS 316 bars'],
+      relatedProductSlugs: ['flanges', 'valves']
     },
     {
-      slug: 'buttweld-equal-reducing-tees',
-      categoryIds: ['buttweld-fittings'],
-      title: 'Equal & Reducing Tees',
-      shortDescription: 'Buttweld equal and reducing tees for dependable branch connections in industrial piping.',
-      fullDescription: 'Equal and reducing buttweld tees engineered for robust branch performance with welded joint integrity for pressure service.',
-      image: '/images/products/buttweld-fittings.png',
-      galleryImages: ['/images/products/buttweld-fittings.png', '/images/products/forged-fittings.png', '/images/products/flanges.png'],
+      slug: 'valves',
+      categoryIds: ['stainless-steel'],
+      title: 'Valves',
+      shortDescription: 'Industrial SS gate, globe, check, and ball valves for flow control applications.',
+      fullDescription: 'Our stainless steel valves are precision engineered for reliable flow control in industrial piping systems. Available in various types and pressure ratings to suit diverse applications.',
+      image: '/images/products/Valves%201.webp',
+      galleryImages: ['/images/products/Valves%201.webp', '/images/products/Valves%202.png', '/images/products/Valves%203.webp'],
       technicalSpecifications: [
-        { label: 'Construction', value: 'Seamless steel construction' }
+        { label: 'Types', value: 'Gate, Globe, Check, Ball Valves' },
+        { label: 'Grades', value: 'SS 304, SS 316, CF8, CF8M' },
+        { label: 'Pressure Rating', value: 'Class 150 to Class 1500' },
+        { label: 'End Connections', value: 'Flanged, Threaded, Socket Weld' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Buttweld joints', 'Equal/reducing options', 'Project traceability support'],
-      applications: ['Branching', 'Industrial manifolds', 'Process piping'],
-      materialSpecifications: ['Seamless steel grades (project-specific)'],
-      standards: [],
-      keywords: ['tee', 'equal tee', 'reducing tee', 'buttweld'],
-      relatedProductSlugs: []
-    },
-    {
-      slug: 'buttweld-pipe-caps-bends',
-      categoryIds: ['buttweld-fittings'],
-      title: 'Pipe Caps & Bends',
-      shortDescription: 'Buttweld end caps and bends supplied for pipeline closures and routing applications.',
-      fullDescription: 'Pipe caps and bends manufactured for reliable end closures and routing integration in industrial pipeline systems.',
-      image: '/images/products/buttweld-fittings.png',
-      galleryImages: ['/images/products/buttweld-fittings.png', '/images/products/pipes-tubes.png', '/images/products/flanges.png'],
-      technicalSpecifications: [
-        { label: 'Capability', value: 'Custom Piggable Bends and End Caps (placeholder)' }
-      ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon Steel (project-specific)', 'SS Grades (project-specific)'],
-      features: ['Closure/end-cap solutions', 'Piggable bend capability (placeholder)', 'Project traceability support'],
-      applications: ['Pipeline closures', 'Pigging operations', 'Routing assemblies'],
-      materialSpecifications: ['Seamless steel grades (project-specific)'],
-      standards: [],
-      keywords: ['pipe cap', 'end cap', 'bend', 'piggable', 'buttweld'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['SS 304', 'SS 316', 'CF8', 'CF8M', 'Class 150 to Class 1500'],
+      features: ['Leak-proof design', 'Corrosion resistant', 'Low torque operation', 'Certified materials'],
+      applications: ['Oil & gas', 'Chemical processing', 'Water treatment', 'Power plants'],
+      materialSpecifications: ['ASTM A351', 'ASTM A182', 'API 598'],
+      standards: ['API 598', 'ASME B16.34'],
+      keywords: ['SS valves', 'stainless steel valves', 'gate valve', 'globe valve', 'ball valve'],
+      relatedProductSlugs: ['flanges', 'round-bars']
     },
 
+    // ===== Mild Steel (MS) Products =====
     {
-      slug: 'flange-slip-on-sorf',
-      categoryIds: ['flanges'],
-      title: 'Slip-On Flanges (SORF)',
-      shortDescription: 'Slip-on flanges for industrial piping, offered in multiple pressure classes as per ASME B16.5.',
-      fullDescription: 'Slip-on flanges designed for efficient installation with project-grade materials. Delivered with traceability support as required by industrial procurement.',
-      image: '/images/products/flanges.png',
-      galleryImages: ['/images/products/flanges.png', '/images/products/forged-fittings.png', '/images/products/pipes-tubes.png'],
+      slug: 'ms-pipes',
+      categoryIds: ['mild-steel'],
+      title: 'MS Pipes',
+      shortDescription: 'High-quality mild steel pipes in ERW and seamless constructions for structural and industrial use.',
+      fullDescription: 'Our mild steel pipes conform to Indian and international standards, suitable for structural applications, water supply lines, scaffolding, and general engineering purposes.',
+      image: '/images/products/MS%20Pipes%201.webp',
+      galleryImages: ['/images/products/MS%20Pipes%201.webp', '/images/products/MS%20Pipes%202.webp', '/images/products/MS%20Pipes%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.5' },
-        { label: 'Pressure Class', value: 'Class 150 to 2500' }
+        { label: 'Standards', value: 'IS 1239, IS 3589' },
+        { label: 'Types', value: 'ERW, Seamless, Galvanized' },
+        { label: 'Size Range', value: '15 mm NB to 300 mm NB' },
+        { label: 'Wall Thickness', value: 'Light, Medium, Heavy series' }
       ],
-      sizesOrGrades: ['ASME Class 150', 'ASME Class 300', 'ASME Class 600', 'ASME Class 900', 'ASME Class 1500', 'ASME Class 2500 (verify per project)'],
-      features: ['Slip-on design', 'Project traceability support'],
-      applications: ['Process piping', 'Industrial manifolds', 'Pressure pipelines'],
-      materialSpecifications: ['Carbon steel / stainless steel (project-specific)'],
-      standards: ['ASME B16.5'],
-      keywords: ['slip-on flange', 'SORF', 'ASME B16.5', 'Class 150', 'Class 2500'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['IS 1239 Light', 'IS 1239 Medium', 'IS 1239 Heavy', 'IS 3589', 'Custom sizes'],
+      features: ['Strong and durable', 'Weldable', 'Cost effective', 'Available in black & GI finish'],
+      applications: ['Structural steelwork', 'Water supply lines', 'Scaffolding', 'Fencing'],
+      materialSpecifications: ['IS 1239', 'IS 3589', 'ASTM A53'],
+      standards: ['IS 1239', 'IS 3589', 'ASTM A53'],
+      keywords: ['MS pipes', 'mild steel pipes', 'ERW pipes', 'IS 1239', 'steel pipes'],
+      relatedProductSlugs: ['ms-plates', 'ms-sheets', 'ms-coils']
     },
     {
-      slug: 'flange-socket-weld-swrf',
-      categoryIds: ['flanges'],
-      title: 'Socket Weld Flanges (SWRF)',
-      shortDescription: 'Socket-weld flanges for high security pressure seal in welded pipeline assemblies.',
-      fullDescription: 'Socket weld flanges manufactured to enable high-integrity welded joint connection and secure pressure sealing performance.',
-      image: '/images/products/flanges.png',
-      galleryImages: ['/images/products/flanges.png', '/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png'],
+      slug: 'ms-plates',
+      categoryIds: ['mild-steel'],
+      title: 'MS Plates',
+      shortDescription: 'Hot rolled and cold rolled mild steel plates for structural and industrial fabrication.',
+      fullDescription: 'We supply mild steel plates in various thicknesses for heavy fabrication, structural steelwork, shipbuilding, and general engineering applications.',
+      image: '/images/products/Mild%20Steel%20Plates%201.webp',
+      galleryImages: ['/images/products/Mild%20Steel%20Plates%201.webp', '/images/products/Mild%20Steel%20Plates%202.webp', '/images/products/Mild%20Steel%20Plates%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.5' },
-        { label: 'Sealing / Joint Type', value: 'High security pressure seal' }
+        { label: 'Type', value: 'Hot Rolled (HR), Cold Rolled (CR)' },
+        { label: 'Thickness Range', value: '2 mm to 100 mm' },
+        { label: 'Width Range', value: '1250 mm to 2500 mm' },
+        { label: 'Standard', value: 'IS 2062, ASTM A36' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon steel / stainless steel (project-specific)'],
-      features: ['Socket-weld connection', 'High-integrity sealing (placeholder)'],
-      applications: ['Industrial piping', 'High-pressure installations'],
-      materialSpecifications: ['Carbon steel / stainless steel (project-specific)'],
-      standards: ['ASME B16.5'],
-      keywords: ['socket weld flange', 'SWRF', 'ASME B16.5', 'pressure seal'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['IS 2062 Gr. A', 'IS 2062 Gr. B', 'ASTM A36', 'Custom sizes'],
+      features: ['High strength', 'Excellent weldability', 'Good formability', 'Cut-to-size options'],
+      applications: ['Structural fabrication', 'Shipbuilding', 'Heavy machinery', 'Storage tanks'],
+      materialSpecifications: ['IS 2062', 'ASTM A36', 'EN 10025'],
+      standards: ['IS 2062', 'ASTM A36'],
+      keywords: ['MS plates', 'mild steel plates', 'HR plates', 'steel plates', 'IS 2062'],
+      relatedProductSlugs: ['ms-pipes', 'ms-sheets', 'ms-coils']
     },
     {
-      slug: 'flange-blind-flanges-blrf',
-      categoryIds: ['flanges'],
-      title: 'Blind Flanges (BLRF)',
-      shortDescription: 'Blind flanges for sealing pipe ends in industrial piping systems with ASME B16.5 compliance.',
-      fullDescription: 'Blind flanges manufactured to seal and close pipe ends reliably for industrial piping assemblies in high-pressure applications.',
-      image: '/images/products/flanges.png',
-      galleryImages: ['/images/products/flanges.png', '/images/products/pipes-tubes.png', '/images/products/forged-fittings.png'],
+      slug: 'ms-sheets',
+      categoryIds: ['mild-steel'],
+      title: 'MS Sheets',
+      shortDescription: 'Cold rolled and hot rolled mild steel sheets for general engineering and fabrication.',
+      fullDescription: 'Our mild steel sheets are manufactured to tight gauge tolerances, suitable for automotive components, roofing, panels, and general sheet metal work.',
+      image: '/images/products/Mild%20Steel%20sheet%201.webp',
+      galleryImages: ['/images/products/Mild%20Steel%20sheet%201.webp', '/images/products/Mild%20Steel%20sheet%202.webp', '/images/products/Mild%20Steel%20sheet%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.5' },
-        { label: 'Function', value: 'For pipe endings' }
+        { label: 'Types', value: 'CR Sheets, HR Sheets' },
+        { label: 'Gauge Range', value: '10 Gauge to 26 Gauge' },
+        { label: 'Sizes', value: 'Standard Coils & Cut Sheets' },
+        { label: 'Standard', value: 'IS 513, IS 1079' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon steel / stainless steel (project-specific)'],
-      features: ['End-sealing', 'Project traceability support'],
-      applications: ['Pipeline closures', 'Maintenance isolation points'],
-      materialSpecifications: ['Carbon steel / stainless steel (project-specific)'],
-      standards: ['ASME B16.5'],
-      keywords: ['blind flange', 'BLRF', 'ASME B16.5', 'pipe end closure'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['CR Sheets', 'HR Sheets', 'Galvanized Sheets', 'Custom sizes'],
+      features: ['Consistent gauge', 'Smooth surface finish', 'Easy to form', 'Cost effective'],
+      applications: ['Automotive panels', 'Roofing', 'Ducting', 'General sheet metal'],
+      materialSpecifications: ['IS 513', 'IS 1079', 'ASTM A1008'],
+      standards: ['IS 513', 'IS 1079', 'ASTM A1008'],
+      keywords: ['MS sheets', 'mild steel sheets', 'CR sheets', 'HR sheets', 'steel sheets'],
+      relatedProductSlugs: ['ms-pipes', 'ms-plates', 'ms-coils']
     },
     {
-      slug: 'flange-welding-neck-flanges-wnrf',
-      categoryIds: ['flanges'],
-      title: 'Welding Neck Flanges (WNRF)',
-      shortDescription: 'Welding neck flanges for heavy-duty welded pipeline connections compliant with ASME B16.5.',
-      fullDescription: 'Welding neck flanges engineered for robust welded connection performance and high-pressure application suitability.',
-      image: '/images/products/flanges.png',
-      galleryImages: ['/images/products/flanges.png', '/images/products/buttweld-fittings.png', '/images/products/pipes-tubes.png'],
+      slug: 'ms-coils',
+      categoryIds: ['mild-steel'],
+      title: 'MS Coils',
+      shortDescription: 'Hot rolled and cold rolled mild steel coils for continuous processing and manufacturing.',
+      fullDescription: 'Our MS coils are supplied with uniform mechanical properties for slitting, roll forming, and tube manufacturing applications.',
+      image: '/images/products/Mild%20Steel%20Coils%201.webp',
+      galleryImages: ['/images/products/Mild%20Steel%20Coils%201.webp', '/images/products/Mild%20Steel%20Coils%202.webp', '/images/products/Mild%20Steel%20Coils%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASME B16.5' },
-        { label: 'Design', value: 'Hubbed heavy duty' }
+        { label: 'Types', value: 'HR Coils, CR Coils' },
+        { label: 'Thickness', value: '1.2 mm to 12 mm' },
+        { label: 'Coil Weight', value: 'Up to 25 MT' },
+        { label: 'Standard', value: 'IS 1079, IS 513' }
       ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon steel / stainless steel (project-specific)'],
-      features: ['Heavy duty welded hub (placeholder)', 'Project traceability support'],
-      applications: ['High-pressure piping', 'Power and process lines'],
-      materialSpecifications: ['Carbon steel / stainless steel (project-specific)'],
-      standards: ['ASME B16.5'],
-      keywords: ['welding neck flange', 'WNRF', 'ASME B16.5', 'hubbed'],
-      relatedProductSlugs: []
-    },
-    {
-      slug: 'flange-spectacle-blind-flanges',
-      categoryIds: ['flanges'],
-      title: 'Spectacle Blind Flanges',
-      shortDescription: 'Spectacle blind flanges for isolation and flow control applications with pressure ratings up to Class 1500 (placeholder).',
-      fullDescription: 'Spectacle blind flanges used for controlled isolation with high pressure rating capability per project requirement.',
-      image: '/images/products/flanges.png',
-      galleryImages: ['/images/products/flanges.png', '/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png'],
-      technicalSpecifications: [
-        { label: 'Pressure Rating', value: 'Up to Class 1500 (placeholder)' }
-      ],
-      sizesOrGrades: ['Project-specified sizes', 'Carbon steel / stainless steel (project-specific)'],
-      features: ['Isolation capability', 'Project traceability support'],
-      applications: ['Isolation valves / blind arrangements', 'Pipe system control'],
-      materialSpecifications: ['Carbon steel / stainless steel (project-specific)'],
-      standards: [],
-      keywords: ['spectacle blind flange', 'isolation flange', 'Class 1500 (placeholder)'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['HR Coils', 'CR Coils', 'Pickled & Oiled', 'Custom widths'],
+      features: ['Uniform properties', 'Consistent quality', 'Custom slitting', 'Competitive pricing'],
+      applications: ['Tube manufacturing', 'Roll forming', 'Automotive industry', 'General fabrication'],
+      materialSpecifications: ['IS 1079', 'IS 513', 'ASTM A1011'],
+      standards: ['IS 1079', 'IS 513', 'ASTM A1011'],
+      keywords: ['MS coils', 'mild steel coils', 'HR coils', 'CR coils', 'steel coils'],
+      relatedProductSlugs: ['ms-pipes', 'ms-plates', 'ms-sheets']
     },
 
+    // ===== GI Fittings =====
     {
-      slug: 'pipes-stainless-steel-seamless-pipes-astm-a312',
-      categoryIds: ['pipes-tubes'],
-      title: 'Stainless Steel Seamless Pipes',
-      shortDescription: 'Seamless stainless steel pipes for critical industrial applications with ASTM A312 coverage.',
-      fullDescription: 'Stainless steel seamless pipes supplied for durable high-performance industrial piping systems, typically for corrosive and pressure service requirements.',
-      image: '/images/products/pipes-tubes.png',
-      galleryImages: ['/images/products/pipes-tubes.png', '/images/products/flanges.png', '/images/products/buttweld-fittings.png'],
+      slug: 'gi-elbows',
+      categoryIds: ['gi-fittings'],
+      title: 'GI Elbows',
+      shortDescription: 'Threaded galvanized iron elbows for plumbing and industrial piping systems.',
+      fullDescription: 'Our GI elbows are manufactured to precise thread standards for leak-proof connections in water supply, plumbing, and firefighting piping systems.',
+      image: '/images/products/GI%20Elbows%201.webp',
+      galleryImages: ['/images/products/GI%20Elbows%201.webp', '/images/products/GI%20Elbows%202.webp', '/images/products/GI%20Elbows%203.webp'],
       technicalSpecifications: [
-        { label: 'Primary Standard', value: 'ASTM A312' },
-        { label: 'Grades', value: 'TP304/304L & TP316/316L' }
+        { label: 'Types', value: '90° Elbow, 45° Elbow' },
+        { label: 'Sizes', value: '15 mm (1/2") to 150 mm (6")' },
+        { label: 'Connection', value: 'Threaded (BSP/NPT)' },
+        { label: 'Standard', value: 'IS 1239 Part 2' }
       ],
-      sizesOrGrades: ['TP304', 'TP304L', 'TP316', 'TP316L'],
-      features: ['Seamless construction', 'Corrosion-resistant grades (project-specific)'],
-      applications: ['Chemical processing', 'Process piping', 'Industrial fluid systems'],
-      materialSpecifications: ['TP304/304L (project-specific)', 'TP316/316L (project-specific)'],
-      standards: ['ASTM A312'],
-      keywords: ['stainless seamless pipe', 'ASTM A312', 'TP304', 'TP316'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['15 mm (1/2")', '20 mm (3/4")', '25 mm (1")', '32 mm (1-1/4")', '40 mm (1-1/2")', '50 mm (2")', 'Larger sizes available'],
+      features: ['Hot dip galvanized', 'Precision threads', 'Leak-proof joints', 'Corrosion resistant'],
+      applications: ['Plumbing systems', 'Firefighting lines', 'Water supply', 'Irrigation'],
+      materialSpecifications: ['IS 1239 Part 2', 'Malleable Iron'],
+      standards: ['IS 1239 Part 2'],
+      keywords: ['GI elbows', 'galvanized elbows', 'threaded elbows', 'GI fittings', 'plumbing elbows'],
+      relatedProductSlugs: ['gi-unions', 'gi-tees', 'gi-couplings']
     },
     {
-      slug: 'pipes-carbon-steel-seamless-pipes-astm-a106-a53-api-5l',
-      categoryIds: ['pipes-tubes'],
-      title: 'Carbon Steel Seamless Pipes',
-      shortDescription: 'Carbon steel seamless pipes supplied for pressure service with ASTM A106, A53 and API 5L options.',
-      fullDescription: 'Carbon steel seamless pipes for robust industrial pipeline installations where reliable strength and quality control are required.',
-      image: '/images/products/pipes-tubes.png',
-      galleryImages: ['/images/products/pipes-tubes.png', '/images/products/buttweld-fittings.png', '/images/products/flanges.png'],
+      slug: 'gi-unions',
+      categoryIds: ['gi-fittings'],
+      title: 'GI Unions',
+      shortDescription: 'Threaded GI unions for easy disconnection and maintenance of piping systems.',
+      fullDescription: 'Our galvanized iron unions allow quick disconnection of pipe sections for maintenance and repair, providing reliable sealing in plumbing and industrial applications.',
+      image: '/images/products/GI%20Unions%201.webp',
+      galleryImages: ['/images/products/GI%20Unions%201.webp', '/images/products/GI%20Unions%202.webp', '/images/products/GI%20Unions%203.webp'],
       technicalSpecifications: [
-        { label: 'Standards', value: 'ASTM A106 / ASTM A53 / API 5L' },
-        { label: 'Typical Grade', value: 'Gr. B (placeholder)' }
+        { label: 'Types', value: 'Equal Unions, Reducing Unions' },
+        { label: 'Sizes', value: '15 mm (1/2") to 80 mm (3")' },
+        { label: 'Connection', value: 'Threaded (BSP)' },
+        { label: 'Standard', value: 'IS 1239 Part 2' }
       ],
-      sizesOrGrades: ['ASTM A106 Gr. B (verify)', 'ASTM A53 (verify)', 'API 5L (verify)'],
-      features: ['Seamless construction', 'Pressure-service ready (project-specific)'],
-      applications: ['Oil & gas piping', 'Transmission lines', 'Industrial boilers'],
-      materialSpecifications: ['Carbon steel grades (project-specific)'],
-      standards: ['ASTM A106', 'ASTM A53', 'API 5L'],
-      keywords: ['carbon seamless pipe', 'ASTM A106', 'ASTM A53', 'API 5L', 'Gr. B'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['15 mm (1/2")', '20 mm (3/4")', '25 mm (1")', '32 mm (1-1/4")', '40 mm (1-1/2")', '50 mm (2")'],
+      features: ['Easy disassembly', 'Secure sealing', 'Galvanized finish', 'Durable construction'],
+      applications: ['Plumbing maintenance', 'Industrial piping', 'Water treatment', 'HVAC systems'],
+      materialSpecifications: ['IS 1239 Part 2', 'Malleable Iron'],
+      standards: ['IS 1239 Part 2'],
+      keywords: ['GI unions', 'galvanized unions', 'pipe unions', 'threaded unions', 'GI fittings'],
+      relatedProductSlugs: ['gi-elbows', 'gi-tees', 'gi-couplings']
     },
     {
-      slug: 'pipes-mild-steel-erw-gi-pipes',
-      categoryIds: ['pipes-tubes'],
-      title: 'Mild Steel ERW & GI Pipes',
-      shortDescription: 'Mild steel ERW and galvanized iron (GI) pipes for industrial and construction pipeline needs.',
-      fullDescription: 'ERW and GI pipes supplied as per relevant Indian standards for dependable performance in general industrial and construction piping applications.',
-      image: '/images/products/pipes-tubes.png',
-      galleryImages: ['/images/products/pipes-tubes.png', '/images/products/forged-fittings.png', '/images/products/flanges.png'],
+      slug: 'gi-tees',
+      categoryIds: ['gi-fittings'],
+      title: 'GI Tees',
+      shortDescription: 'Threaded GI tees for branch connections in plumbing and industrial pipe networks.',
+      fullDescription: 'Our GI tees provide reliable branch connections in piping systems, manufactured with precise threading for secure and leak-free joints.',
+      image: '/images/products/GI%20Tees%201.webp',
+      galleryImages: ['/images/products/GI%20Tees%201.webp', '/images/products/GI%20Tees%202.webp', '/images/products/GI%20Tees%203.webp'],
       technicalSpecifications: [
-        { label: 'Standards', value: 'IS 1239 / IS 3589' },
-        { label: 'Coating / Type', value: 'Galvanized & Black (as applicable)' }
+        { label: 'Types', value: 'Equal Tees, Reducing Tees' },
+        { label: 'Sizes', value: '15 mm (1/2") to 150 mm (6")' },
+        { label: 'Connection', value: 'Threaded (BSP)' },
+        { label: 'Standard', value: 'IS 1239 Part 2' }
       ],
-      sizesOrGrades: ['ERW', 'GI (project-specific)', 'Black steel (project-specific)'],
-      features: ['ERW & GI options', 'Project traceability support'],
-      applications: ['Water lines', 'HVAC and MEP plumbing', 'Industrial civil projects'],
-      materialSpecifications: ['Mild steel (project-specific)'],
-      standards: ['IS 1239', 'IS 3589'],
-      keywords: ['ERW pipe', 'GI pipe', 'IS 1239', 'IS 3589', 'mild steel'],
-      relatedProductSlugs: []
+      sizesOrGrades: ['15 mm (1/2")', '20 mm (3/4")', '25 mm (1")', '32 mm (1-1/4")', '40 mm (1-1/2")', '50 mm (2")', 'Larger sizes available'],
+      features: ['Precision threads', 'Hot dip galvanized', 'Corrosion resistant', 'High pressure rating'],
+      applications: ['Branch piping', 'Plumbing networks', 'Fire sprinkler systems', 'Industrial pipelines'],
+      materialSpecifications: ['IS 1239 Part 2', 'Malleable Iron'],
+      standards: ['IS 1239 Part 2'],
+      keywords: ['GI tees', 'galvanized tees', 'pipe tees', 'threaded tees', 'GI fittings'],
+      relatedProductSlugs: ['gi-elbows', 'gi-unions', 'gi-couplings']
+    },
+    {
+      slug: 'gi-couplings',
+      categoryIds: ['gi-fittings'],
+      title: 'GI Couplings',
+      shortDescription: 'Threaded GI couplings for connecting two pipe sections in plumbing and industrial systems.',
+      fullDescription: 'Our GI couplings provide secure connections between pipe sections, manufactured with accurate threading for reliable joints in water supply and industrial piping.',
+      image: '/images/products/GI%20Couplings%201.jpeg',
+      galleryImages: ['/images/products/GI%20Couplings%201.jpeg', '/images/products/GI%20Couplings%202.webp', '/images/products/GI%20Couplings%203.webp'],
+      technicalSpecifications: [
+        { label: 'Types', value: 'Full Couplings, Reducing Couplings' },
+        { label: 'Sizes', value: '15 mm (1/2") to 150 mm (6")' },
+        { label: 'Connection', value: 'Threaded (BSP)' },
+        { label: 'Standard', value: 'IS 1239 Part 2' }
+      ],
+      sizesOrGrades: ['15 mm (1/2")', '20 mm (3/4")', '25 mm (1")', '32 mm (1-1/4")', '40 mm (1-1/2")', '50 mm (2")', 'Larger sizes available'],
+      features: ['Precision threading', 'Hot dip galvanized', 'Easy installation', 'Leak-proof joints'],
+      applications: ['Pipe connections', 'Plumbing repairs', 'Extension joints', 'Water lines'],
+      materialSpecifications: ['IS 1239 Part 2', 'Malleable Iron'],
+      standards: ['IS 1239 Part 2'],
+      keywords: ['GI couplings', 'galvanized couplings', 'pipe couplings', 'threaded couplings', 'GI fittings'],
+      relatedProductSlugs: ['gi-elbows', 'gi-unions', 'gi-tees']
+    },
+    {
+      slug: 'gi-socket-fittings',
+      categoryIds: ['gi-fittings'],
+      title: 'GI Socket Fittings',
+      shortDescription: 'GI socket connections for joining pipes in plumbing and industrial applications.',
+      fullDescription: 'Our galvanized iron socket fittings provide reliable pipe connections for various applications, manufactured to standard thread specifications for secure installation.',
+      image: '/images/products/GI%20Socket%20Fittings%201.webp',
+      galleryImages: ['/images/products/GI%20Socket%20Fittings%201.webp', '/images/products/GI%20Socket%20Fittings%202.webp', '/images/products/GI%20Socket%20Fittings%203.webp'],
+      technicalSpecifications: [
+        { label: 'Types', value: 'Socket (Coupling) Fittings' },
+        { label: 'Sizes', value: '15 mm (1/2") to 100 mm (4")' },
+        { label: 'Connection', value: 'Threaded (BSP)' },
+        { label: 'Standard', value: 'IS 1239 Part 2' }
+      ],
+      sizesOrGrades: ['15 mm (1/2")', '20 mm (3/4")', '25 mm (1")', '32 mm (1-1/4")', '40 mm (1-1/2")', '50 mm (2")'],
+      features: ['Precision threads', 'Durable GI coating', 'Reliable sealing', 'Easy installation'],
+      applications: ['Plumbing systems', 'Pipe joining', 'Industrial pipelines', 'Water supply'],
+      materialSpecifications: ['IS 1239 Part 2', 'Malleable Iron'],
+      standards: ['IS 1239 Part 2'],
+      keywords: ['GI socket', 'socket fittings', 'GI pipe fittings', 'galvanized socket', 'pipe socket'],
+      relatedProductSlugs: ['gi-elbows', 'gi-couplings', 'gi-other-fittings']
+    },
+    {
+      slug: 'gi-other-fittings',
+      categoryIds: ['gi-fittings'],
+      title: 'Other GI Pipe Fittings',
+      shortDescription: 'Additional GI fittings including nipples, caps, plugs, and bushings for complete piping solutions.',
+      fullDescription: 'We stock a comprehensive range of GI pipe fittings including hex nipples, pipe caps, head plugs, and reducing bushings to fulfill all plumbing and industrial piping requirements.',
+      image: '/images/products/Other%20GI%20Pipe%20Fittings%201.webp',
+      galleryImages: ['/images/products/Other%20GI%20Pipe%20Fittings%201.webp', '/images/products/Other%20GI%20Pipe%20Fittings%202.webp', '/images/products/Other%20GI%20Pipe%20Fittings%203.jpg'],
+      technicalSpecifications: [
+        { label: 'Products', value: 'Nipples, Caps, Plugs, Bushings' },
+        { label: 'Sizes', value: '15 mm (1/2") to 80 mm (3")' },
+        { label: 'Connection', value: 'Threaded (BSP/NPT)' },
+        { label: 'Standard', value: 'IS 1239 Part 2' }
+      ],
+      sizesOrGrades: ['15 mm (1/2") to 80 mm (3")', 'Various configurations'],
+      features: ['Full thread engagement', 'Hot dip galvanized', 'Corrosion resistant', 'Comprehensive range'],
+      applications: ['Pipe closures', 'Thread extensions', 'Size transitions', 'Plumbing accessories'],
+      materialSpecifications: ['IS 1239 Part 2', 'Malleable Iron'],
+      standards: ['IS 1239 Part 2'],
+      keywords: ['GI nipples', 'GI caps', 'GI plugs', 'GI bushings', 'GI fittings accessories'],
+      relatedProductSlugs: ['gi-elbows', 'gi-unions', 'gi-tees', 'gi-couplings']
     }
   ],
 
   // Gallery Section (Scalable list)
   gallery: [
-    { category: "products", image: "/images/gallery/products-1.webp", alt: "Industrial Flanges Grid" },
-
-    { category: "products", image: "/images/gallery/products-2.webp", alt: "Forged Socketweld Elbows" },
+    { category: "products", image: "/images/gallery/products-1.webp", alt: "Stainless Steel Sheets & Plates Stack" },
+    { category: "products", image: "/images/gallery/products-2.webp", alt: "Mild Steel Pipes Inventory" },
     { category: "warehouse", image: "/images/gallery/warehouse-1.webp", alt: "Sujal Enterprise Warehouse Racks" },
     { category: "warehouse", image: "/images/gallery/warehouse-2.webp", alt: "Inside Industrial Storage Yard" },
-    { category: "inventory", image: "/images/gallery/inventory-1.webp", alt: "Seamless Pipes Stacked" },
+    { category: "inventory", image: "/images/gallery/inventory-1.webp", alt: "SS Coils & Sheets Stacked" },
     { category: "inventory", image: "/images/gallery/inventory-2.webp", alt: "GI Fittings Shelves" },
     { category: "deliveries", image: "/images/gallery/deliveries-1.webp", alt: "Truck Loading Dispatch" },
-    { category: "deliveries", image: "/images/gallery/deliveries-2.webp", alt: "Packed Pipes Ready for Shipping" },
+    { category: "deliveries", image: "/images/gallery/deliveries-2.webp", alt: "Packed Steel Products Ready for Shipping" },
     { category: "office", image: "/images/gallery/office-1.webp", alt: "Sujal Enterprise Sales Desk" },
-    { category: "operations", image: "/images/gallery/operations-1.webp", alt: "Thickness Measurement Inspection" },
-    { category: "operations", image: "/images/gallery/operations-2.webp", alt: "Hydro-testing Quality Verification" }
+    { category: "operations", image: "/images/gallery/operations-1.webp", alt: "Quality Inspection of SS Products" },
+    { category: "operations", image: "/images/gallery/operations-2.webp", alt: "GI Fittings Quality Verification" }
   ],
 
   // Client Logos (Optional logo items)
   clients: [
-
     { name: "Gujarat Gas", image: "/images/clients/gujarat-gas.png" },
     { name: "GAIL", image: "/images/clients/gail.png" },
     { name: "L&T", image: "/images/clients/lnt.png" },
     { name: "Indian Oil", image: "/images/clients/indian-oil.png" },
     { name: "ONGC", image: "/images/clients/ongc.png" },
     { name: "Torrent Gas", image: "/images/clients/torrent-gas.png" }
-  ]
+  ],
+
+  // =========================================================================
+  // PRODUCT IMAGE MAP - Maps each product slug to its actual product images
+  // from public/images/products/. The first image is used as the card thumbnail.
+  // All images are used in the product detail page gallery.
+  // =========================================================================
+  productImageMap: {
+    // Stainless Steel (SS)
+    'ss-sheets': {
+      image: '/images/products/Stainless%20Steel%20Sheets.jpg',
+      galleryImages: [
+        '/images/products/Stainless%20Steel%20Sheets.jpg',
+        '/images/products/Stainless%20Steel%20Sheets%202.webp',
+        '/images/products/Stainless%20Steel%20Sheets%203.jpeg'
+      ]
+    },
+    'ss-plates': {
+      image: '/images/products/Stainless%20Steel%20Plates.jpg',
+      galleryImages: [
+        '/images/products/Stainless%20Steel%20Plates.jpg',
+        '/images/products/Stainless%20Steel%20Plates%202.jpg',
+        '/images/products/Stainless%20Steel%20Plates%203.webp'
+      ]
+    },
+    'ss-coils': {
+      image: '/images/products/Stainless%20Steel%20Coils%201.webp',
+      galleryImages: [
+        '/images/products/Stainless%20Steel%20Coils%201.webp',
+        '/images/products/Stainless%20Steel%20Coils%202.webp',
+        '/images/products/Stainless%20Steel%20Coils%203.webp'
+      ]
+    },
+    'ss-pipes': {
+      image: '/images/products/Stainless%20Steel%20Pipes%201.jpg',
+      galleryImages: [
+        '/images/products/Stainless%20Steel%20Pipes%201.jpg',
+        '/images/products/Stainless%20Steel%20Pipes%202.webp',
+        '/images/products/Stainless%20Steel%20Pipes%203.webp'
+      ]
+    },
+    'pipe-fittings': {
+      image: '/images/products/Pipe%20Fittings%201.webp',
+      galleryImages: [
+        '/images/products/Pipe%20Fittings%201.webp',
+        '/images/products/Pipe%20Fittings%202.png',
+        '/images/products/Pipe%20Fittings%203.webp'
+      ]
+    },
+    'flanges': {
+      image: '/images/products/flanges%201.png',
+      galleryImages: [
+        '/images/products/flanges%201.png',
+        '/images/products/Flanges%202.webp',
+        '/images/products/Flanges%203.webp'
+      ]
+    },
+    'round-bars': {
+      image: '/images/products/Round%20Bars%201.jpg',
+      galleryImages: [
+        '/images/products/Round%20Bars%201.jpg',
+        '/images/products/Round%20Bars%202.webp',
+        '/images/products/Round%20Bars%203.webp'
+      ]
+    },
+    'valves': {
+      image: '/images/products/Valves%201.webp',
+      galleryImages: [
+        '/images/products/Valves%201.webp',
+        '/images/products/Valves%202.png',
+        '/images/products/Valves%203.webp'
+      ]
+    },
+    // Mild Steel (MS)
+    'ms-pipes': {
+      image: '/images/products/MS%20Pipes%201.webp',
+      galleryImages: [
+        '/images/products/MS%20Pipes%201.webp',
+        '/images/products/MS%20Pipes%202.webp',
+        '/images/products/MS%20Pipes%203.webp'
+      ]
+    },
+    'ms-plates': {
+      image: '/images/products/Mild%20Steel%20Plates%201.webp',
+      galleryImages: [
+        '/images/products/Mild%20Steel%20Plates%201.webp',
+        '/images/products/Mild%20Steel%20Plates%202.webp',
+        '/images/products/Mild%20Steel%20Plates%203.webp'
+      ]
+    },
+    'ms-sheets': {
+      image: '/images/products/Mild%20Steel%20sheet%201.webp',
+      galleryImages: [
+        '/images/products/Mild%20Steel%20sheet%201.webp',
+        '/images/products/Mild%20Steel%20sheet%202.webp',
+        '/images/products/Mild%20Steel%20sheet%203.webp'
+      ]
+    },
+    'ms-coils': {
+      image: '/images/products/Mild%20Steel%20Coils%201.webp',
+      galleryImages: [
+        '/images/products/Mild%20Steel%20Coils%201.webp',
+        '/images/products/Mild%20Steel%20Coils%202.webp',
+        '/images/products/Mild%20Steel%20Coils%203.webp'
+      ]
+    },
+    // GI Fittings
+    'gi-elbows': {
+      image: '/images/products/GI%20Elbows%201.webp',
+      galleryImages: [
+        '/images/products/GI%20Elbows%201.webp',
+        '/images/products/GI%20Elbows%202.webp',
+        '/images/products/GI%20Elbows%203.webp'
+      ]
+    },
+    'gi-unions': {
+      image: '/images/products/GI%20Unions%201.webp',
+      galleryImages: [
+        '/images/products/GI%20Unions%201.webp',
+        '/images/products/GI%20Unions%202.webp',
+        '/images/products/GI%20Unions%203.webp'
+      ]
+    },
+    'gi-tees': {
+      image: '/images/products/GI%20Tees%201.webp',
+      galleryImages: [
+        '/images/products/GI%20Tees%201.webp',
+        '/images/products/GI%20Tees%202.webp',
+        '/images/products/GI%20Tees%203.webp'
+      ]
+    },
+    'gi-couplings': {
+      image: '/images/products/GI%20Couplings%201.jpeg',
+      galleryImages: [
+        '/images/products/GI%20Couplings%201.jpeg',
+        '/images/products/GI%20Couplings%202.webp',
+        '/images/products/GI%20Couplings%203.webp'
+      ]
+    },
+    'gi-socket-fittings': {
+      image: '/images/products/GI%20Socket%20Fittings%201.webp',
+      galleryImages: [
+        '/images/products/GI%20Socket%20Fittings%201.webp',
+        '/images/products/GI%20Socket%20Fittings%202.webp',
+        '/images/products/GI%20Socket%20Fittings%203.webp'
+      ]
+    },
+    'gi-other-fittings': {
+      image: '/images/products/Other%20GI%20Pipe%20Fittings%201.webp',
+      galleryImages: [
+        '/images/products/Other%20GI%20Pipe%20Fittings%201.webp',
+        '/images/products/Other%20GI%20Pipe%20Fittings%202.webp',
+        '/images/products/Other%20GI%20Pipe%20Fittings%203.jpg'
+      ]
+    }
+  }
 };
+
+/**
+ * Resolves the correct product images for a given product object.
+ * Uses the productImageMap if available, otherwise falls back to the
+ * product's existing image/galleryImages fields.
+ * 
+ * @param {Object} product - A product detail object from config.productDetails
+ * @returns {{ image: string, galleryImages: string[] }}
+ */
+export function resolveProductImages(product) {
+  if (!product) {
+    return { image: '', galleryImages: [] };
+  }
+
+  const imageMap = config.productImageMap || {};
+  const slug = product.slug || '';
+
+  // Check if we have a mapped entry for this slug
+  if (imageMap[slug]) {
+    return {
+      image: imageMap[slug].image,
+      galleryImages: imageMap[slug].galleryImages
+    };
+  }
+
+  // Fallback: use the product's existing image/galleryImages, or empty
+  return {
+    image: product.image || '',
+    galleryImages: (product.galleryImages && product.galleryImages.length > 0) ? product.galleryImages : (product.image ? [product.image] : [])
+  };
+}

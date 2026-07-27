@@ -272,6 +272,45 @@ button, input, textarea, select {
   gap: 12px;
 }
 
+.logo-img {
+  width: auto;
+  height: auto;
+  max-width: 180px;
+  max-height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+  image-rendering: auto;
+}
+
+/* Retina / high-DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo-img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Responsive logo sizing */
+@media (max-width: 1024px) {
+  .logo-img {
+    max-width: 156px;
+    max-height: 48px;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo-img {
+    max-width: 140px;
+    max-height: 44px;
+  }
+}
+
+/* When the logo contains the brand name, hide the duplicate text */
+.logo-link.has-full-logo .logo-text,
+.logo-link.has-full-logo .logo-sub {
+  display: none;
+}
+
 .logo-text {
   font-family: var(--font-heading);
   font-size: clamp(1.3rem, 3vw, 1.75rem);
@@ -1470,6 +1509,11 @@ button, input, textarea, select {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes pageEnter {

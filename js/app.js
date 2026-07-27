@@ -1,4 +1,4 @@
-import { config } from './config.js';
+import { config, resolveProductImages } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('page-enter');
@@ -81,10 +81,11 @@ function injectHeader() {
     <!-- Main Navigation Bar -->
     <nav class="nav-bar">
       <div class="container nav-container">
-        <a href="/index.html" class="logo-link">
+        <a href="/index.html" class="logo-link has-full-logo">
+          <img class="logo-img" src="" alt="Sujal Enterprise Logo" data-config="logo" loading="eager" />
           <div>
             <span class="logo-text" data-config="name">Sujal Enterprise</span>
-            <span class="logo-sub">Pipes & Fittings</span>
+            <span class="logo-sub">SS, MS & GI Specialists</span>
           </div>
         </a>
         
@@ -133,7 +134,7 @@ function injectFooter() {
       <div class="container grid-4">
         <div>
           <h3 data-config="name">Sujal Enterprise</h3>
-          <p class="footer-desc">Premium wholesale supplier and manufacturer of industrial pipe fittings, flanges, and steel products in Bharat Lokhand Bazar, Mumbai.</p>
+          <p class="footer-desc">ISO 9001, 45001 & PED Certified manufacturer, supplier, exporter, and stockist of premium Stainless Steel (SS), Mild Steel (MS), and GI Fittings based at Bharat Lokhand Bazaar, Mumbai.</p>
           <ul class="social-links" id="footer-socials-list">
             <!-- Populated dynamically if socials are set -->
           </ul>
@@ -154,10 +155,9 @@ function injectFooter() {
         <div>
           <h3>Our Products</h3>
           <ul class="footer-links">
-            <li><a href="/products.html#cat-forged-fittings"><i class="fa fa-chevron-right"></i> Forged Fittings</a></li>
-            <li><a href="/products.html#cat-buttweld-fittings"><i class="fa fa-chevron-right"></i> Buttweld Fittings</a></li>
-            <li><a href="/products.html#cat-flanges"><i class="fa fa-chevron-right"></i> Flanges</a></li>
-            <li><a href="/products.html#cat-pipes-tubes"><i class="fa fa-chevron-right"></i> Steel Pipes</a></li>
+            <li><a href="/products.html#cat-stainless-steel"><i class="fa fa-chevron-right"></i> Stainless Steel (SS)</a></li>
+            <li><a href="/products.html#cat-mild-steel"><i class="fa fa-chevron-right"></i> Mild Steel (MS)</a></li>
+            <li><a href="/products.html#cat-gi-fittings"><i class="fa fa-chevron-right"></i> GI Fittings</a></li>
           </ul>
         </div>
         
@@ -216,13 +216,62 @@ function populateConfigData() {
     document.title = `${document.title} | ${business.name}`;
   }
 
-  // Populate plain texts
+  // Populate business name
   document.querySelectorAll('[data-config="name"]').forEach(el => {
     el.textContent = business.name;
   });
+
+  // Populate logo image
+  document.querySelectorAll('[data-config="logo"]').forEach(el => {
+    if (business.logo) {
+      el.src = business.logo;
+      el.alt = business.name + ' Logo';
+      
+      // Apply lazy loading for non-header logos (e.g., footer/other areas)
+      if (el.closest('.footer')) {
+        el.loading = 'lazy';
+      }
+    }
+  });
+
+  // Inject favicon using the logo if available
+  const existingFavicon = document.querySelector('link[rel="icon"]');
+  if (business.logo) {
+    // Create a PNG favicon from the logo if an ico favicon isn't already explicitly set
+    if (!existingFavicon || existingFavicon.getAttribute('href')?.endsWith('.ico')) {
+      if (existingFavicon) existingFavicon.remove();
+      const faviconLink = document.createElement('link');
+      faviconLink.rel = 'icon';
+      faviconLink.type = 'image/png';
+      // Use the logo path for favicon (browsers will auto-convert)
+      faviconLink.href = business.logo;
+      document.head.appendChild(faviconLink);
+      
+      // Also add apple-touch-icon
+      const appleIcon = document.createElement('link');
+      appleIcon.rel = 'apple-touch-icon';
+      appleIcon.href = business.logo;
+      document.head.appendChild(appleIcon);
+    }
+  }
   
   document.querySelectorAll('[data-config="address"]').forEach(el => {
     el.textContent = business.address;
+  });
+
+  // Populate GSTIN
+  document.querySelectorAll('[data-config="gstin"]').forEach(el => {
+    el.textContent = business.gstin || '';
+  });
+
+  // Populate tagline
+  document.querySelectorAll('[data-config="tagline"]').forEach(el => {
+    el.textContent = business.tagline || '';
+  });
+
+  // Populate business type
+  document.querySelectorAll('[data-config="type"]').forEach(el => {
+    el.textContent = business.type || '';
   });
 
   // Populate phone links
@@ -378,15 +427,17 @@ function initHomeSearch() {
 
     resultsBox.innerHTML = `
       <div class="home-search-results">
-        ${results.slice(0, 6).map(p => `
+        ${results.slice(0, 6).map(p => {
+          const resolved = resolveProductImages(p);
+          return `
           <a class="home-search-item" href="${getProductUrl(p)}">
-            <img src="${p.image || (p.galleryImages && p.galleryImages[0]) || ''}" alt="${p.title}" loading="lazy"/>
+            <img src="${resolved.image || (p.galleryImages && p.galleryImages[0]) || ''}" alt="${p.title}" loading="lazy"/>
             <div>
               <div class="home-search-item-title">${p.title}</div>
               <div class="home-search-item-sub">${(p.shortDescription || '').slice(0, 55)}</div>
             </div>
           </a>
-        `).join('')}
+        `}).join('')}
         <div class="home-search-more">
           <a href="/products.html?q=${encodeURIComponent(q)}">View all matching products</a>
         </div>
@@ -559,12 +610,13 @@ function populateProductsPage() {
     if (searchEmpty) searchEmpty.style.display = 'none';
 
     results.forEach(p => {
+      const resolved = resolveProductImages(p);
       const card = document.createElement('a');
       card.className = 'product-card reveal';
       card.href = getProductUrl(p);
       card.innerHTML = `
         <div class="product-card-img-wrapper">
-          <img src="${p.image || (p.galleryImages && p.galleryImages[0]) || ''}" alt="${p.title}" loading="lazy"/>
+          <img src="${resolved.image || ''}" alt="${p.title}" loading="lazy"/>
         </div>
         <div class="product-card-content">
           <span class="product-card-category">${(p.categoryIds || []).map(getCategoryTitleById).filter(Boolean)[0] || 'Industrial Product'}</span>
@@ -702,10 +754,9 @@ function populateProductsPage() {
 
 function getCategoryIcon(id) {
   switch(id) {
-    case 'forged-fittings': return 'fa-circle-nodes';
-    case 'buttweld-fittings': return 'fa-gears';
-    case 'flanges': return 'fa-ring';
-    case 'pipes-tubes': return 'fa-lines-leaning';
+    case 'stainless-steel': return 'fa-gem';
+    case 'mild-steel': return 'fa-industry';
+    case 'gi-fittings': return 'fa-wrench';
     default: return 'fa-wrench';
   }
 }
@@ -724,7 +775,7 @@ function populateGalleryPage() {
 
     card.innerHTML = `
       <div style="background-color: var(--charcoal); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: var(--metal);">
-        <i class="fa ${getCategoryIcon(item.category === 'products' ? 'forged-fittings' : item.category === 'inventory' ? 'pipes-tubes' : 'wrench')}"></i>
+        <i class="fa ${item.category === 'products' ? 'fa-gem' : item.category === 'inventory' ? 'fa-industry' : 'fa-wrench'}"></i>
       </div>
       <div class="gallery-card-overlay">
         <h4>${item.alt}</h4>
@@ -927,6 +978,9 @@ function populateProductDetailsPage() {
     return;
   }
 
+  // Resolve correct product images from the image map
+  const resolvedImages = resolveProductImages(product);
+
   // Build breadcrumbs
   const crumbs = document.getElementById('product-breadcrumbs');
   if (crumbs) {
@@ -976,12 +1030,12 @@ function populateProductDetailsPage() {
   const mainImg = document.getElementById('product-main-image');
   const thumbs = document.getElementById('product-thumbnails');
   if (mainImg) {
-    mainImg.src = product.galleryImages && product.galleryImages[0] ? product.galleryImages[0] : product.image;
+    mainImg.src = (resolvedImages.galleryImages && resolvedImages.galleryImages[0]) ? resolvedImages.galleryImages[0] : resolvedImages.image;
     mainImg.alt = product.title;
   }
   if (thumbs) {
     thumbs.innerHTML = '';
-    const images = product.galleryImages && product.galleryImages.length ? product.galleryImages : (product.image ? [product.image] : []);
+    const images = resolvedImages.galleryImages && resolvedImages.galleryImages.length ? resolvedImages.galleryImages : (resolvedImages.image ? [resolvedImages.image] : []);
     images.forEach((src, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -996,8 +1050,23 @@ function populateProductDetailsPage() {
         thumbs.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       });
+      // Double-click to enlarge (lightbox)
+      btn.addEventListener('dblclick', () => {
+        openLightbox(src, product.title, images, idx);
+      });
       if (idx === 0) btn.classList.add('active');
       thumbs.appendChild(btn);
+    });
+  }
+
+  // Add click-to-enlarge on main image
+  if (mainImg) {
+    mainImg.style.cursor = 'zoom-in';
+    mainImg.addEventListener('click', () => {
+      const images = resolvedImages.galleryImages && resolvedImages.galleryImages.length ? resolvedImages.galleryImages : (resolvedImages.image ? [resolvedImages.image] : []);
+      const currentSrc = mainImg.src;
+      const currentIdx = images.findIndex(img => img === currentSrc) || 0;
+      openLightbox(currentSrc, product.title, images, currentIdx);
     });
   }
 
@@ -1100,12 +1169,13 @@ function populateProductDetailsPage() {
     } else {
       if (empty) empty.style.display = 'none';
       related.forEach(p => {
+        const resolved = resolveProductImages(p);
         const card = document.createElement('div');
         card.className = 'premium-card related-card';
         card.innerHTML = `
 
           <div class="related-card-img">
-            <img src="${p.image || (p.galleryImages && p.galleryImages[0]) || ''}" alt="${p.title}" loading="lazy"/>
+            <img src="${resolved.image || ''}" alt="${p.title}" loading="lazy"/>
           </div>
           <div class="related-card-content">
             <h3>${p.title}</h3>
@@ -1180,6 +1250,8 @@ function injectProductJsonLd(product) {
   const old = document.getElementById('product-jsonld');
   if (old) old.remove();
 
+  const resolved = resolveProductImages(product);
+
   const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.id = 'product-jsonld';
@@ -1187,7 +1259,7 @@ function injectProductJsonLd(product) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
-    image: product.galleryImages || [product.image],
+    image: resolved.galleryImages || [resolved.image],
     description: product.fullDescription || product.shortDescription,
     brand: {
       '@type': 'Brand',
@@ -1201,4 +1273,140 @@ function injectProductJsonLd(product) {
     }))
   });
   document.head.appendChild(script);
+}
+
+/**
+ * Opens a full-screen lightbox modal for product image viewing.
+ * Supports thumbnail navigation, prev/next arrows, and closing via Escape or backdrop click.
+ */
+function openLightbox(imageSrc, title, images = [], startIndex = 0) {
+  // Remove existing lightbox if any
+  const existing = document.getElementById('product-lightbox');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'product-lightbox';
+  overlay.style.cssText = `
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(0,0,0,0.92);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    animation: fadeIn 200ms ease;
+  `;
+
+  const container = document.createElement('div');
+  container.style.cssText = `
+    position: relative; max-width: 90vw; max-height: 90vh;
+    display: flex; flex-direction: column; align-items: center;
+    cursor: default;
+  `;
+
+  const img = document.createElement('img');
+  img.src = imageSrc;
+  img.alt = title;
+  img.style.cssText = `
+    max-width: 100%; max-height: 80vh; object-fit: contain;
+    border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    animation: fadeSlideUp 300ms ease both;
+  `;
+  img.loading = 'eager';
+
+  const caption = document.createElement('div');
+  caption.style.cssText = `
+    color: #ccc; font-size: 0.875rem; margin-top: 12px;
+    font-family: 'Inter', sans-serif;
+  `;
+  caption.textContent = title;
+
+  container.appendChild(img);
+  container.appendChild(caption);
+
+  // Close button
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '&times;';
+  closeBtn.style.cssText = `
+    position: fixed; top: 20px; right: 30px;
+    background: none; border: none; color: white;
+    font-size: 2.5rem; cursor: pointer; z-index: 10001;
+    transition: transform 200ms;
+    line-height: 1;
+  `;
+  closeBtn.addEventListener('mouseenter', () => closeBtn.style.transform = 'scale(1.2)');
+  closeBtn.addEventListener('mouseleave', () => closeBtn.style.transform = 'scale(1)');
+
+  // Navigation arrows
+  if (images && images.length > 1) {
+    const navLeft = document.createElement('button');
+    navLeft.innerHTML = '<i class="fa fa-chevron-left"></i>';
+    navLeft.style.cssText = `
+      position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: none; color: white;
+      width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem;
+      cursor: pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;
+      transition: background 200ms;
+    `;
+    navLeft.addEventListener('mouseenter', () => navLeft.style.background = 'rgba(255,255,255,0.25)');
+    navLeft.addEventListener('mouseleave', () => navLeft.style.background = 'rgba(255,255,255,0.1)');
+
+    const navRight = document.createElement('button');
+    navRight.innerHTML = '<i class="fa fa-chevron-right"></i>';
+    navRight.style.cssText = navLeft.style.cssText;
+    navRight.style.left = 'auto';
+    navRight.style.right = '20px';
+
+    let currentIdx = startIndex;
+
+    const updateImage = (idx) => {
+      currentIdx = (idx + images.length) % images.length;
+      img.src = images[currentIdx];
+      caption.textContent = `${title} (${currentIdx + 1}/${images.length})`;
+      // Re-trigger animation
+      img.style.animation = 'none';
+      img.offsetHeight; // reflow
+      img.style.animation = 'fadeSlideUp 300ms ease both';
+    };
+
+    navLeft.addEventListener('click', (e) => { e.stopPropagation(); updateImage(currentIdx - 1); });
+    navRight.addEventListener('click', (e) => { e.stopPropagation(); updateImage(currentIdx + 1); });
+
+    // Keyboard navigation
+    overlay.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') updateImage(currentIdx - 1);
+      if (e.key === 'ArrowRight') updateImage(currentIdx + 1);
+      if (e.key === 'Escape') overlay.click();
+    });
+
+    overlay.appendChild(navLeft);
+    overlay.appendChild(navRight);
+
+    caption.textContent = `${title} (${startIndex + 1}/${images.length})`;
+  }
+
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(container);
+
+  // Close on backdrop click
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 200);
+    }
+  });
+
+  closeBtn.addEventListener('click', () => {
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.remove(), 200);
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('product-lightbox')) {
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 200);
+    }
+  });
+
+  overlay.style.transition = 'opacity 200ms ease';
+  document.body.appendChild(overlay);
+  overlay.focus();
 }
