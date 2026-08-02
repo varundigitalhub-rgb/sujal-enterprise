@@ -1,158 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sujalenterprise.com/index.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <loc>https://sujalenterprise.com/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://sujalenterprise.com/about-us.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://sujalenterprise.com/products.html</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/forged-threaded-elbows-90-45-2000-3000-6000/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/flanges/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/forged-threaded-equal-unequal-tees-asme-b1611-class-3000-6000/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/round-bar/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/forged-socket-weld-elbows-tees/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/pipes/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/forged-threaded-unions-couplings/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/sheets/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/forged-hex-nipples-head-plugs/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/plates/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/forged-threaded-bushings/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/buttweld-fittings/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/buttweld-long-short-radius-elbows-asme-b16-9/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/forged-fittings/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/buttweld-concentric-eccentric-reducers/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/products/channel-angle/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/buttweld-equal-reducing-tees/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/materials.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sujalenterprise.com/materials/mild-steel/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/buttweld-pipe-caps-bends/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/materials/stainless-steel/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/flange-slip-on-sorf/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/materials/alloy-steel/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/products/flange-socket-weld-swrf/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://sujalenterprise.com/materials/ibr/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/products/flange-blind-flanges-blrf/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/products/flange-welding-neck-flanges-wnrf/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/products/flange-spectacle-blind-flanges/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/products/pipes-stainless-steel-seamless-pipes-astm-a312/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/products/pipes-carbon-steel-seamless-pipes-astm-a106-a53-api-5l/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/products/pipes-mild-steel-erw-gi-pipes/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/services.html</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://sujalenterprise.com/industries-served.html</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://sujalenterprise.com/certifications-quality.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://sujalenterprise.com/gallery.html</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
     <loc>https://sujalenterprise.com/contact-us.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>

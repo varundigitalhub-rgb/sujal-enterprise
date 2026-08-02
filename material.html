@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Details | Sujal Enterprise</title>
-  <meta name="description" content="Product details including specifications, standards, applications, and inquiry options from Sujal Enterprise."/>
-  <meta name="keywords" content="Sujal Enterprise, product specifications, ASTM, ASME, ANSI"/>
+  <title>Material Details | Sujal Enterprise</title>
+  <meta name="description" content="Material details including specifications, grades, applications, and inquiry options from Sujal Enterprise."/>
+  <meta name="keywords" content="Sujal Enterprise, material specifications, grades, applications"/>
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sujalenterprise.com/products/">
-  <meta property="og:title" content="Product Details | Sujal Enterprise">
-  <meta property="og:description" content="Product details including specifications, standards, applications, and inquiry options.">
+  <meta property="og:url" content="https://sujalenterprise.com/materials/">
+  <meta property="og:title" content="Material Details | Sujal Enterprise">
+  <meta property="og:description" content="Material details including specifications, grades, applications, and inquiry options.">
   <meta property="og:image" content="https://sujalenterprise.com/images/logo/sujal-enterprise%20updated%20logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Product Details | Sujal Enterprise">
-  <meta name="twitter:description" content="Product details including specifications, standards, applications, and inquiry options.">
+  <meta name="twitter:title" content="Material Details | Sujal Enterprise">
+  <meta name="twitter:description" content="Material details including specifications, grades, applications, and inquiry options.">
   <meta name="twitter:image" content="https://sujalenterprise.com/images/logo/sujal-enterprise%20updated%20logo.png">
   <meta name="robots" content="index, follow">
   <link rel="icon" type="image/png" sizes="any" href="/images/logo/sujal-enterprise%20updated%20logo.png">
@@ -33,13 +33,13 @@
   <div id="header-root"></div>
 
   <!-- ============ LOADING ============ -->
-  <div id="pd-loading" style="text-align:center; padding:120px 0;">
+  <div id="md-loading" style="text-align:center; padding:120px 0;">
     <i class="fa fa-spinner fa-spin" style="font-size:3rem; color:var(--accent);"></i>
-    <p style="margin-top:16px; color:var(--text-muted);">Loading product details...</p>
+    <p style="margin-top:16px; color:var(--text-muted);">Loading material details...</p>
   </div>
 
   <!-- ============ 70/30 LAYOUT ============ -->
-  <div id="product-details-layout" class="pd-main-layout" style="display:none;">
+  <div id="material-details-layout" class="pd-main-layout" style="display:none;">
 
     <!-- ===== LEFT CONTENT (70%) ===== -->
     <div class="pd-left-column">
@@ -49,50 +49,50 @@
         <div class="pd-breadcrumbs">
           <a href="/index.html">Home</a>
           <i class="fa fa-chevron-right"></i>
-          <a href="/products.html">Products</a>
+          <a href="/materials.html">Materials</a>
           <i class="fa fa-chevron-right"></i>
-          <span id="pd-breadcrumb-current">Product</span>
+          <span id="md-breadcrumb-current">Material</span>
         </div>
-        <div class="pd-hero-badge" id="pd-category-chip">Category</div>
-        <h1 id="pd-title" class="pd-hero-title">Product Title</h1>
-        <p id="pd-short-desc" class="pd-hero-desc">Product short description</p>
+        <div class="pd-hero-badge" id="md-material-badge">Material</div>
+        <h1 id="md-title" class="pd-hero-title">Material Title</h1>
+        <p id="md-short-desc" class="pd-hero-desc">Material short description</p>
         <div class="pd-hero-actions">
-          <a href="#" class="btn btn-primary" id="pd-hero-call"><i class="fa fa-phone"></i> Call Now</a>
-          <a href="#" class="btn btn-whatsapp" id="pd-hero-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-          <a href="#pd-inquiry-section" class="btn btn-dark"><i class="fa fa-paper-plane"></i> Get Quote</a>
+          <a href="#" class="btn btn-primary" id="md-hero-call"><i class="fa fa-phone"></i> Call Now</a>
+          <a href="#" class="btn btn-whatsapp" id="md-hero-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="#md-inquiry-section" class="btn btn-dark"><i class="fa fa-paper-plane"></i> Get Quote</a>
         </div>
       </section>
 
       <!-- GALLERY -->
       <section class="pd-section">
         <div class="section-header" style="text-align:left; max-width:100%;">
-          <span class="sub-title">Product Gallery</span>
+          <span class="sub-title">Material Gallery</span>
           <h2>Visual Overview</h2>
         </div>
         <div class="pd-gallery-modern">
           <div class="pd-gallery-main-wrap">
-            <img id="pd-gallery-main-img" src="" alt="Product Image" loading="eager"/>
-            <button id="pd-gallery-zoom-btn" class="pd-gallery-zoom" aria-label="Zoom image">
+            <img id="md-gallery-main-img" src="" alt="Material Image" loading="eager"/>
+            <button id="md-gallery-zoom-btn" class="pd-gallery-zoom" aria-label="Zoom image">
               <i class="fa fa-expand"></i>
             </button>
             <button class="pd-gallery-prev" aria-label="Previous"><i class="fa fa-chevron-left"></i></button>
             <button class="pd-gallery-next" aria-label="Next"><i class="fa fa-chevron-right"></i></button>
           </div>
-          <div class="pd-gallery-thumbs" id="pd-gallery-thumbs"></div>
+          <div class="pd-gallery-thumbs" id="md-gallery-thumbs"></div>
         </div>
       </section>
 
       <!-- COMPANY INTRO -->
       <section class="pd-section pd-section-intro">
         <div class="section-header" style="text-align:left; max-width:100%;">
-          <span class="sub-title">Company Overview</span>
-          <h2 id="pd-intro-heading">Product Manufacturer in India</h2>
+          <span class="sub-title">Material Overview</span>
+          <h2 id="md-overview-heading">About This Material</h2>
         </div>
-        <div class="pd-intro-content" id="pd-intro-content"></div>
+        <div class="pd-intro-content" id="md-intro-content"></div>
       </section>
 
       <!-- TECHNICAL SPECIFICATIONS -->
-      <section class="pd-section bg-light" id="pd-specs-section">
+      <section class="pd-section bg-light" id="md-specs-section">
         <div class="section-header" style="text-align:left; max-width:100%;">
           <span class="sub-title">Technical Data</span>
           <h2>Technical Specifications</h2>
@@ -100,9 +100,9 @@
         <div class="pd-specs-toolbar">
           <div class="pd-specs-search">
             <i class="fa fa-search"></i>
-            <input type="text" id="pd-specs-search-input" placeholder="Search specifications..." autocomplete="off" aria-label="Search specifications"/>
+            <input type="text" id="md-specs-search-input" placeholder="Search specifications..." autocomplete="off" aria-label="Search specifications"/>
           </div>
-          <button id="pd-specs-copy-btn" class="pd-specs-copy"><i class="fa fa-copy"></i> Copy</button>
+          <button id="md-specs-copy-btn" class="pd-specs-copy"><i class="fa fa-copy"></i> Copy</button>
         </div>
         <div class="pd-specs-table-wrap">
           <table class="pd-specs-table">
@@ -112,12 +112,21 @@
                 <th>Specification</th>
               </tr>
             </thead>
-            <tbody id="pd-specs-body"></tbody>
+            <tbody id="md-specs-body"></tbody>
           </table>
-          <div id="pd-specs-empty" class="pd-specs-empty" style="display:none;">
+          <div id="md-specs-empty" class="pd-specs-empty" style="display:none;">
             <i class="fa fa-search"></i> No matching specifications found.
           </div>
         </div>
+      </section>
+
+      <!-- GRADES -->
+      <section class="pd-section" id="md-grades-section">
+        <div class="section-header" style="text-align:left; max-width:100%;">
+          <span class="sub-title">Grades</span>
+          <h2>Available Grades</h2>
+        </div>
+        <div class="md-grades-grid" id="md-grades-grid"></div>
       </section>
 
       <!-- APPLICATIONS -->
@@ -126,16 +135,29 @@
           <span class="sub-title">Applications</span>
           <h2>Industry Applications</h2>
         </div>
-        <div class="pd-apps-grid" id="pd-apps-grid"></div>
+        <div class="pd-apps-grid" id="md-apps-grid"></div>
       </section>
 
-      <!-- PACKAGING & DELIVERY -->
-      <section class="pd-section bg-light">
+      <!-- PRODUCTS USING THIS MATERIAL -->
+      <section class="pd-section" id="md-products-section">
+        <div class="section-header" style="text-align:left; max-width:100%;">
+          <span class="sub-title">Product Range</span>
+          <h2>Available Products in this Material</h2>
+          <p>These products are manufactured using this material grade</p>
+        </div>
+        <div class="pd-related-grid" id="md-products-grid"></div>
+        <div id="md-products-empty" class="text-center" style="display:none; color:var(--text-muted); padding:24px;">
+          No products found for this material.
+        </div>
+      </section>
+
+      <!-- PACKAGING -->
+      <section class="pd-section bg-light" id="md-packaging-section">
         <div class="section-header" style="text-align:left; max-width:100%;">
           <span class="sub-title">Logistics</span>
           <h2>Packaging & Delivery</h2>
         </div>
-        <div class="pd-delivery-grid" id="pd-delivery-grid"></div>
+        <div class="pd-delivery-grid" id="md-packaging-grid"></div>
       </section>
 
       <!-- CITIES -->
@@ -144,7 +166,7 @@
           <span class="sub-title">Pan-India Coverage</span>
           <h2>Cities We Supply</h2>
         </div>
-        <div class="pd-cities-grid" id="pd-cities-grid"></div>
+        <div class="pd-cities-grid" id="md-cities-grid"></div>
       </section>
 
       <!-- COUNTRIES -->
@@ -153,7 +175,7 @@
           <span class="sub-title">Global Reach</span>
           <h2>Countries We Export To</h2>
         </div>
-        <div class="pd-countries-grid" id="pd-countries-grid"></div>
+        <div class="pd-countries-grid" id="md-countries-grid"></div>
       </section>
 
       <!-- FAQ -->
@@ -162,75 +184,84 @@
           <span class="sub-title">FAQs</span>
           <h2>Frequently Asked Questions</h2>
         </div>
-        <div class="pd-faq-list" id="pd-faq-list"></div>
+        <div class="pd-faq-list" id="md-faq-list"></div>
       </section>
 
-      <!-- RELATED PRODUCTS -->
-      <section class="pd-section bg-light" id="pd-section-related">
+      <!-- RELATED MATERIALS -->
+      <section class="pd-section bg-light" id="md-section-related">
         <div class="section-header" style="text-align:left; max-width:100%;">
-          <span class="sub-title">Related Products</span>
+          <span class="sub-title">Related Materials</span>
           <h2>You May Also Need</h2>
         </div>
-        <div class="pd-related-slider" id="pd-related-slider">
-          <div class="pd-related-grid" id="pd-related-grid"></div>
+        <div class="md-related-grid" id="md-related-grid"></div>
+        <div id="md-related-empty" class="text-center" style="display:none; color:var(--text-muted); padding:24px;">
+          No related materials found.
         </div>
-        <div id="pd-related-empty" class="text-center" style="display:none; color:var(--text-muted); padding:24px;">
-          No related products found.
+      </section>
+
+      <!-- CTA -->
+      <section class="pd-section cta-banner" style="border-radius:12px; padding:60px 40px; text-align:center;" id="md-cta-section">
+        <h2 style="font-size:1.75rem; color:var(--white); margin-bottom:16px;">Need <span id="md-cta-name">This Material</span>?</h2>
+        <p style="color:var(--metal); max-width:600px; margin:0 auto 32px;">Contact our sales team for pricing, availability, and technical specifications. We respond within 24 hours.</p>
+        <div class="cta-btns" style="justify-content:center;">
+          <a href="#" class="btn btn-primary" id="md-cta-call"><i class="fa fa-phone"></i> Call Now</a>
+          <a href="#" class="btn btn-whatsapp" id="md-cta-wa" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="#md-inquiry-section" class="btn btn-secondary" style="color:var(--white); border-color:rgba(255,255,255,0.4);"><i class="fa fa-paper-plane"></i> Submit Inquiry</a>
         </div>
       </section>
 
       <!-- INQUIRY FORM -->
-      <section class="pd-section" id="pd-inquiry-section">
+      <section class="pd-section" id="md-inquiry-section">
         <div class="section-header" style="text-align:left; max-width:100%;">
           <span class="sub-title">Get a Quote</span>
-          <h2>Submit Your Inquiry</h2>
+          <h2>Submit Your Material Inquiry</h2>
         </div>
-        <div id="pd-inquiry-success" class="pd-inquiry-success" style="display:none;"></div>
+        <div id="md-inquiry-success" class="pd-inquiry-success" style="display:none;"></div>
         <div class="pd-inquiry-form-wrapper">
-          <form class="pd-inquiry-form" id="pd-inquiry-form" novalidate>
+          <form class="pd-inquiry-form" id="md-inquiry-form" novalidate>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="pd-inq-name">Full Name *</label>
-                <input type="text" id="pd-inq-name" class="form-control" placeholder="Your full name" required/>
+                <label class="form-label" for="md-inq-name">Full Name *</label>
+                <input type="text" id="md-inq-name" class="form-control" placeholder="Your full name" required/>
                 <span class="validation-error">Please enter your name</span>
               </div>
               <div class="form-group">
-                <label class="form-label" for="pd-inq-company">Company Name *</label>
-                <input type="text" id="pd-inq-company" class="form-control" placeholder="Your company name" required/>
+                <label class="form-label" for="md-inq-company">Company Name *</label>
+                <input type="text" id="md-inq-company" class="form-control" placeholder="Your company name" required/>
                 <span class="validation-error">Please enter your company</span>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="pd-inq-email">Email Address *</label>
-                <input type="email" id="pd-inq-email" class="form-control" placeholder="john@example.com" required/>
+                <label class="form-label" for="md-inq-email">Email Address *</label>
+                <input type="email" id="md-inq-email" class="form-control" placeholder="john@example.com" required/>
                 <span class="validation-error">Please enter a valid email</span>
               </div>
               <div class="form-group">
-                <label class="form-label" for="pd-inq-phone">Phone Number *</label>
-                <input type="tel" id="pd-inq-phone" class="form-control" placeholder="+91 98XXX XXXXX" required/>
+                <label class="form-label" for="md-inq-phone">Phone Number *</label>
+                <input type="tel" id="md-inq-phone" class="form-control" placeholder="+91 98XXX XXXXX" required/>
                 <span class="validation-error">Please enter a valid phone</span>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="pd-inq-country">Country</label>
-                <input type="text" id="pd-inq-country" class="form-control" placeholder="Your country"/>
+                <label class="form-label" for="md-inq-country">Country</label>
+                <input type="text" id="md-inq-country" class="form-control" placeholder="Your country"/>
               </div>
               <div class="form-group">
-                <label class="form-label" for="pd-inq-product">Product *</label>
-                <input type="text" id="pd-inq-product" class="form-control" readonly/>
-                <span class="validation-error">Product is required</span>
+                <label class="form-label" for="md-inq-material">Material *</label>
+                <input type="text" id="md-inq-material" class="form-control" readonly/>
+                <span class="validation-error">Material is required</span>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="pd-inq-qty">Quantity Required</label>
-                <input type="text" id="pd-inq-qty" class="form-control" placeholder="e.g. 100 pieces"/>
+                <label class="form-label" for="md-inq-qty">Quantity Required</label>
+                <input type="text" id="md-inq-qty" class="form-control" placeholder="e.g. 100 MT"/>
               </div>
               <div class="form-group">
-                <label class="form-label" for="pd-inq-msg">Specifications *</label>
-                <textarea id="pd-inq-msg" class="form-control" rows="3" placeholder="Grades, standards, timeline..." required></textarea>
+                <label class="form-label" for="md-inq-msg">Specifications *</label>
+                <textarea id="md-inq-msg" class="form-control" rows="3" placeholder="Grades, standards, sizes, timeline..." required></textarea>
                 <span class="validation-error">Please enter specifications</span>
               </div>
             </div>
@@ -247,32 +278,26 @@
     <aside class="pd-sidebar">
       <div class="pd-sidebar-inner">
 
-        <!-- Categories -->
+        <!-- Material Categories -->
         <div class="pd-sidebar-block">
-          <h3 class="pd-sidebar-block-title"><i class="fa fa-list"></i> Product Categories</h3>
-          <nav class="pd-sidebar-nav">
-            <a href="/products.html#flanges" class="pd-sidebar-link" data-category="flanges">Flanges</a>
-            <a href="/products.html#round-bar" class="pd-sidebar-link" data-category="round-bar">Round Bar</a>
-            <a href="/products.html#pipes" class="pd-sidebar-link" data-category="pipes">Pipes</a>
-            <a href="/products.html#sheets" class="pd-sidebar-link" data-category="sheets">Sheets</a>
-            <a href="/products.html#plates" class="pd-sidebar-link" data-category="plates">Plates</a>
-            <a href="/products.html#buttweld-fittings" class="pd-sidebar-link" data-category="buttweld-fittings">Buttweld Fittings</a>
-            <a href="/products.html#forged-fittings" class="pd-sidebar-link" data-category="forged-fittings">Forged Fittings</a>
-            <a href="/products.html#channel-angle" class="pd-sidebar-link" data-category="channel-angle">Channel & Angle</a>
+          <h3 class="pd-sidebar-block-title"><i class="fa fa-cube"></i> Material Categories</h3>
+          <nav class="pd-sidebar-nav" id="md-sidebar-nav">
+            <!-- Populated dynamically -->
           </nav>
         </div>
 
-        <!-- Materials -->
-        <div class="pd-sidebar-block">
-          <h3 class="pd-sidebar-block-title"><i class="fa fa-cube"></i> Materials</h3>
-          <div class="pd-sidebar-tags" id="pd-sidebar-materials">
+        <!-- Products using this material -->
+        <div class="pd-sidebar-block" id="md-sidebar-products-block">
+          <h3 class="pd-sidebar-block-title"><i class="fa fa-box"></i> Products in this Material</h3>
+          <div class="pd-sidebar-tags" id="md-sidebar-products">
+            <!-- Populated dynamically -->
           </div>
         </div>
 
         <!-- Quick Inquiry -->
         <div class="pd-sidebar-block pd-sidebar-inquiry">
           <h3 class="pd-sidebar-block-title"><i class="fa fa-envelope"></i> Quick Inquiry</h3>
-          <form id="pd-sidebar-inquiry-form" novalidate>
+          <form id="md-sidebar-inquiry-form" novalidate>
             <div class="form-group" style="margin-bottom:12px;">
               <input type="text" class="form-control" placeholder="Your Name *" aria-label="Your Name" required>
               <span class="validation-error">Required</span>
@@ -297,15 +322,15 @@
 
         <!-- CTA Buttons -->
         <div class="pd-sidebar-block pd-sidebar-ctas">
-          <a href="#" id="pd-sidebar-call" class="pd-sidebar-cta pd-sidebar-cta-call">
+          <a href="#" id="md-sidebar-call" class="pd-sidebar-cta pd-sidebar-cta-call">
             <i class="fa fa-phone"></i>
             <span>Call Now</span>
           </a>
-          <a href="#" id="pd-sidebar-wa" target="_blank" class="pd-sidebar-cta pd-sidebar-cta-wa">
+          <a href="#" id="md-sidebar-wa" target="_blank" class="pd-sidebar-cta pd-sidebar-cta-wa">
             <i class="fab fa-whatsapp"></i>
             <span>WhatsApp</span>
           </a>
-          <a href="#" id="pd-sidebar-email" class="pd-sidebar-cta pd-sidebar-cta-email">
+          <a href="#" id="md-sidebar-email" class="pd-sidebar-cta pd-sidebar-cta-email">
             <i class="fa fa-envelope"></i>
             <span>Email Us</span>
           </a>
@@ -337,7 +362,7 @@
         <!-- Need Help -->
         <div class="pd-sidebar-block pd-sidebar-help">
           <h3 class="pd-sidebar-block-title"><i class="fa fa-life-ring"></i> Need Help?</h3>
-          <p>Our team is ready to assist you with product selection, technical specifications, and pricing.</p>
+          <p>Our team is ready to assist you with material selection, technical specifications, and pricing.</p>
           <a href="tel:+919833593672" class="pd-sidebar-help-phone">
             <i class="fa fa-phone"></i> +91 9833593672
           </a>
@@ -349,13 +374,13 @@
   </div>
 
   <!-- ============ LIGHTBOX ============ -->
-  <div id="product-lightbox" class="pd-lightbox" style="display:none;">
-    <button id="pd-lightbox-close" class="pd-lightbox-close" aria-label="Close">&times;</button>
-    <button id="pd-lightbox-prev" class="pd-lightbox-nav pd-lightbox-prev" aria-label="Previous image"><i class="fa fa-chevron-left"></i></button>
-    <button id="pd-lightbox-next" class="pd-lightbox-nav pd-lightbox-next" aria-label="Next image"><i class="fa fa-chevron-right"></i></button>
+  <div id="material-lightbox" class="pd-lightbox" style="display:none;">
+    <button id="md-lightbox-close" class="pd-lightbox-close" aria-label="Close">&times;</button>
+    <button id="md-lightbox-prev" class="pd-lightbox-nav pd-lightbox-prev" aria-label="Previous image"><i class="fa fa-chevron-left"></i></button>
+    <button id="md-lightbox-next" class="pd-lightbox-nav pd-lightbox-next" aria-label="Next image"><i class="fa fa-chevron-right"></i></button>
     <div class="pd-lightbox-content">
-      <img id="pd-lightbox-img" src="" alt="Product Image"/>
-      <div class="pd-lightbox-counter" id="pd-lightbox-counter"></div>
+      <img id="md-lightbox-img" src="" alt="Material Image"/>
+      <div class="pd-lightbox-counter" id="md-lightbox-counter"></div>
     </div>
   </div>
 

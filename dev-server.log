@@ -1,0 +1,112 @@
+
+> sujal-enterprise-website@1.0.0 dev
+> vite
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m495[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m2:22:26 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m2:22:50 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m2:23:06 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m3:06:18 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m3:18:03 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:18:04 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m3:18:30 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m3:20:16 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m3:22:14 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:22:14 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m3:24:07 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m3:31:35 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:31:35 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m3:34:13 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:34:13 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m3:34:52 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:34:52 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m3:43:55 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m3:51:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m3:52:19 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m3:52:33 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/style.css?direct[22m
+[2m3:53:19 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m3:53:36 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m3:53:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m3:54:10 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:54:10 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m3:54:25 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m3:54:25 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m4:24:54 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m4:25:09 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:25:21 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:25:33 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterials.html[22m
+[2m4:25:46 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcertifications-quality.html[22m
+[2m4:25:59 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcontact-us.html[22m
+[2m4:26:18 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m4:26:32 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:26:45 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:26:58 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterials.html[22m
+[2m4:27:11 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcertifications-quality.html[22m
+[2m4:27:22 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcontact-us.html[22m
+[2m4:27:32 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcertifications-quality.html[22m
+[2m4:27:46 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:27:59 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterials.html[22m
+[2m4:28:14 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:28:26 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:28:35 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:28:46 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:28:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:29:21 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:29:40 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:30:01 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:30:19 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:30:34 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:30:46 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m4:31:01 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:31:11 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:31:21 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterials.html[22m
+[2m4:31:31 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcertifications-quality.html[22m
+[2m4:31:41 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcontact-us.html[22m
+[2m4:32:24 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:32:35 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:32:51 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:33:02 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:33:23 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:34:09 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:34:41 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:34:50 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:35:15 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:35:51 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:36:51 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:37:15 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:37:37 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:37:48 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:37:58 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:38:51 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m4:38:51 pm[22m [36m[1m[vite][22m[39m [32mjs/config.js changed, restarting server...[39m
+[2m4:38:51 pm[22m [36m[1m[vite][22m[39m server restarted.
+[2m4:41:14 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:43:59 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m4:45:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:45:15 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:45:27 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:45:38 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:45:48 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mjs/app.js[22m
+[2m4:46:55 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m4:47:08 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mabout-us.html[22m
+[2m4:47:09 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:47:10 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterials.html[22m
+[2m4:47:11 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcertifications-quality.html[22m
+[2m4:47:12 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcontact-us.html[22m
+[2m4:47:13 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:47:15 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:47:30 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproducts.html[22m
+[2m4:47:40 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterials.html[22m
+[2m4:47:50 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcertifications-quality.html[22m
+[2m4:48:00 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mcontact-us.html[22m
+[2m4:48:10 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mproduct.html[22m
+[2m4:48:21 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmaterial.html[22m
+[2m4:48:32 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m4:58:47 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/style.css?direct[22m
+[2m5:02:04 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/style.css?direct[22m
