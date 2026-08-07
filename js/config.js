@@ -17,7 +17,6 @@ export const config = {
     legalName: "Sujal Enterprise",
     tagline: "",
     type: "Manufacturer, Supplier, Exporter and Stockist",
-    gstin: "27ACEPY9541Q1ZI",
     logo: "/images/logo/sujal-enterprise%20updated%20logo.png",
 
     // Business category/description
@@ -39,12 +38,10 @@ export const config = {
     },
 
     // Phones/email
-    phones: ["+91 9833593672", "+91 8369167479"],
+    phones: ["+91 8369167479"],
     whatsapp: "+918369167479",
     email: "sujalenterprise01@gmail.com",
 
-    // Contact Form Backend Integration (Web3Forms)
-    web3forms_key: "YOUR_ACCESS_KEY_HERE",
 
     // Social Media Links (Leave blank if not available)
     socials: {
@@ -95,6 +92,18 @@ export const config = {
       description: "Our experienced team assists you with grade selection, size calculations and application guidance for engineering, fabrication and infrastructure projects.",
       icon: "fa-headset"
     }
+  ],
+
+  // -------------------------------------------------------------------------
+  // SHARED LOGISTICS / PACKAGING & DELIVERY INFO
+  // -------------------------------------------------------------------------
+  // Reused on every product detail page under the "Packaging & Delivery"
+  // section. Rendered as a numbered list (1-4) with bold labels.
+  logisticsInfo: [
+    { label: 'Payment Modes', value: 'LC (Letter of Credit), TT (Telegraphic Transfer or Wire Transfer), Cheque, and others.' },
+    { label: 'Packaging', value: 'Products are packaged with proper care and safety to ensure they reach our clients in excellent condition. Packaging charges are extra.' },
+    { label: 'Port of Dispatch', value: 'Mumbai Port or Kalamboli Port, Maharashtra, India.' },
+    { label: 'Tax', value: '18% GST Applicable.' }
   ],
 
   // Products Section - Core Product Catalog
@@ -215,7 +224,7 @@ export const config = {
       id: "channel-angle",
       title: "Channel & Angle",
       description: "Structural steel channels and angles in carbon steel and stainless steel. Used in construction, fabrication, infrastructure, and industrial applications.",
-      image: "/images/products/MS%20Pipes%201.webp",
+      image: "/images/products/channel-angle.jpg",
       items: [
         { name: "Mild Steel Channels", spec: "ISMC, ISJB, ISJC, ISMB" },
         { name: "Mild Steel Angles", spec: "ISA, Equal & Unequal Legs" },
@@ -269,17 +278,27 @@ export const config = {
         { icon: 'fa-truck', title: 'Pan-India Delivery', text: 'Express dispatch from Mumbai warehouse to all major industrial hubs across India.' },
         { icon: 'fa-globe', title: 'Global Exports', text: 'Reliable export partner for Middle East, Africa, Europe, Southeast Asia & Americas.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standards', value: 'ASME B16.5, ASME B16.47, BS 4504, DIN, EN 1092, IS 6392' },
-        { label: 'Pressure Classes', value: 'Class 150, 300, 600, 900, 1500, 2500 / PN 6 to PN 420' },
-        { label: 'Materials', value: 'SS 304/L, SS 316/L, SS 321, SS 310, SS 347, Duplex 2205, Super Duplex 2507, Carbon Steel A105, Alloy Steel F11/F22/F91' },
-        { label: 'Types', value: 'Slip-On, Weld Neck, Blind, Socket Weld, Threaded, Lap Joint, Orifice, Ring Type Joint, Spectacle Blind, Figure-8' },
-        { label: 'Facing', value: 'Raised Face (RF), Flat Face (FF), Ring Type Joint (RTJ), Male & Female (M&F), Tongue & Groove (T&G)' },
-        { label: 'Size Range', value: '1/2" to 60" (15 NB to 1500 NB)' },
-        { label: 'Thickness Schedule', value: 'Sch 10, Sch 20, Sch 40, Sch 80, Sch 160, XXS' },
-        { label: 'Testing', value: 'Hydrostatic, Pneumatic, NDT, PMI, Dye Penetrant, Ultrasonic' },
-        { label: 'Certifications', value: 'ISO 9001:2015, PED 2014/68/EU, IBR, NACE MR0103/MR0175' }
-      ],
+      technicalSpecifications: {
+        heading: 'Flanges Standard, Size & Specification',
+        rows: [
+          { label: 'Size', value: '½” (15 NB) to 48” (1200 NB).' },
+          { label: 'Types', value: 'Weld Neck, Slip On, Blind, Socket Weld, RTJ, Threaded, Lap Joint, AWWA Flange, Spade, Spacer, Spectacle, Groove, Orifice & Tongue, etc.' },
+          { label: 'Standards', value: 'ANSI B16.5 / B16.47 / B16.48 / AWWA / EN1092-1 / Custom Drawing' },
+          { label: 'Dimension', value: 'ANSI B 16.5, BS 1560. BS 10, IS 6392, B-2.1 NPT, API, DIN, JIS. MSS SP 44' },
+          { label: 'Material', value: 'ASTM A105, ASME A105 ASTM A266 GR.1, GR.2, GR.3, GR.4 ASTM A350 LF1, LF2 CL1/CL2, LF3 CL1/CL2 ASTM A694 F42, F46, F48, F50, F52, F56, F60, F65, F70' },
+          { label: 'Class', value: '150#, 300#, 600#, 900#, 1500# & 2500#' },
+          { label: 'Wall Thickness', value: 'SCH.10, 20, 30, 40, 80, 120, 160, STD, XS, XXS.' },
+          { label: 'Form', value: 'Flange – SWRF' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: 'ASTM /ASME A/SA 182 - 304 , 304L , 304H, 309S ,309H , 310S, 310H , 316 , 316TI , 316H , 316 LN , 317 , 317L , 321 , 321H , 347 , 347 H , 904L , SMO 254.' },
+          { label: 'Duplex Steel', value: 'ASTM/ASME A/SA 182 - F44, F51, F53, F60, F61.' },
+          { label: 'Carbon Steel', value: 'ASTM A105N, A350 LF2/LF3, A694 F42/F46/F52/F60/F65/F70, A516 GR.70.' },
+          { label: 'Alloy Steel', value: 'ASTM /ASME A/SA 182, A387 - F5,F9,F11,F12,F22,F91.' },
+          { label: 'Nickel Alloys', value: 'ASTM SB 366 – UNS N04400, N08020, N06625, N07718, N08800, N08825, N06600, N06601, N06022, UNS N02200, UNS 2201.' },
+          { label: 'Hastelloy', value: 'ASTM B564 Hastelloy C-22, Hastelloy C-276, Hastelloy C-2000, Hastelloy C-4, Hastelloy X, Hastelloy B, Hastelloy N, Hastelloy G.' }
+        ]
+      },
       topSelling: [
         { name: 'Slip-On Flanges', shortDesc: 'Class 150, RF, SS 304/316, 1/2" to 24"' },
         { name: 'Weld Neck Flanges', shortDesc: 'Class 600, RF, Carbon Steel A105, 2" to 36"' },
@@ -349,17 +368,22 @@ export const config = {
         { icon: 'fa-cubes', title: 'Extensive Inventory', text: 'Over 500 tons in stock across 8 material grades and all standard sizes.' },
         { icon: 'fa-tools', title: 'Custom Finishes', text: 'Bright, black, peeled, polished, centreless ground, and cold drawn finishes.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standards', value: 'ASTM A276, ASTM A479, ASTM A582, ASTM A108, BS 970, DIN 671, EN 10088' },
-        { label: 'Diameter Range', value: '3 mm to 500 mm (1/8" to 20")' },
-        { label: 'Length', value: '3 MTR to 6 MTR (Custom lengths available)' },
-        { label: 'Materials', value: 'SS 304/L, SS 316/L, SS 321, SS 310, SS 347, Duplex 2205, Super Duplex 2507, Carbon Steel AISI 1018/1045, Alloy Steel AISI 4140/4340' },
-        { label: 'Finishes', value: 'Bright (Peeled & Polished), Black (Hot Rolled), Cold Drawn, Centreless Ground, Turned' },
-        { label: 'Shapes', value: 'Round, Hexagonal, Square, Flat' },
-        { label: 'Tolerances', value: 'h9, h11, h8 as per ASTM A484' },
-        { label: 'Mechanical Properties', value: 'Tensile, Yield, Elongation, Hardness (Brinell/Rockwell) as per applicable standards' },
-        { label: 'Packaging', value: 'Hexagon bundles, wooden crates, or as per customer specification' }
-      ],
+      technicalSpecifications: {
+        heading: 'Round Bar Standard, Size & Specification',
+        rows: [
+          { label: 'Size', value: '10 mm to 125 mm' },
+          { label: 'Type', value: 'Round & Square, Hex.' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: 'ASTM / ASME SA 182 F 304 , 304L , 304H, 309H, 310H , 316 , 316H , 316L , 316 LN , 317 , 317L , 321 , 321H , 347 , 347 H ASTM / ASME A105 / ASTM / ASME A 350 LF 2 .' },
+          { label: 'Carbon Steel', value: 'A36, 1045, 1018, 4140, 1095, 5160, A992, A500, A515, A516, A53, A106, A2, D2, SA-210, SA-192, A513, A105, 1075' },
+          { label: 'Alloy Steel', value: 'AISI 4130, AISI 4140, AISI 4340, AISI 8620, AISI 52100, AISI 6150, AISI 4145, ASTM A387, ASTM A514, ASTM A572, ASTM A588, ASTM A193, ASTM A519, SAE 8620, SAE 9310, SAE 6150' },
+          { label: 'High Nickel Alloys Steel', value: 'ASTM / ASME SB 564 UNS 2200 (Nickel 200), ASTM / ASME SB 564 UNS 4400 (Monel 400), ASTM / ASME SB 564 UNS 8825 (Inconel 825), ASTM / ASME SB 564 UNS 6600 (Inconel 600), ASTM / ASME SB 564 UNS 6601 (Inconel 601), ASTM / ASME SB 564 UNS 6625 (Inconel 625), ASTM / ASME SB 564 UNS 10276 (Hastelloy C-276), ASTM / ASME SB 160 UNS 2201 (Nickel 201), ASTM / ASME SB 472 UNS 8020 (Alloy 20 / 20 CB 3)' },
+          { label: 'Non Ferrous Metal', value: 'A1000 Series, 2000 Series, 3000 Series, 5000 Series, C10100, C11000, C26000, 260 Brass, 360 Brass, 630 Bronze, C51000, Monel 400, AZ31, Zirconium 702' },
+          { label: 'Duplex Steel', value: 'ASTM / ASME SA 182 F 44 , F 45 , F51 , F 53 , F 55 , F 60 , F 61.' },
+          { label: 'Alloy Steel (Chrome Moly)', value: 'ASTM / ASME A 182 GR F 5, F 9 , F 11 , F 12 , F 22 , F 91.' }
+        ]
+      },
       topSelling: [
         { name: 'SS 304 Round Bars', shortDesc: '6 mm to 200 mm, Bright Finish, ASTM A276' },
         { name: 'SS 316L Round Bars', shortDesc: '10 mm to 150 mm, Peeled & Polished' },
@@ -429,17 +453,20 @@ export const config = {
         { icon: 'fa-tachometer-alt', title: 'High Pressure', text: 'Seamless pipes rated for extreme pressure applications up to 5000 PSI.' },
         { icon: 'fa-truck', title: 'Express Logistics', text: 'Pan-India delivery network with dedicated transport for pipe shipments.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standards', value: 'ASTM A312, A106, A53, A335, API 5L, IS 1239, IS 3589, EN 10216, DIN 1629' },
-        { label: 'Size Range', value: '1/4" to 48" (6 NB to 1200 NB)' },
-        { label: 'Schedule', value: 'Sch 5, Sch 10S, Sch 40, Sch 80, Sch 160, XXS' },
-        { label: 'Materials', value: 'SS 304/L, SS 316/L, SS 321, SS 310, Duplex 2205, Carbon Steel A106 Gr. B, Alloy Steel A335 P5/P11/P22/P91' },
-        { label: 'Types', value: 'Seamless (SMLS), ERW, LSAW, HSAW, Cold Drawn, Hot Finished' },
-        { label: 'End Types', value: 'Plain End, Beveled End, Threaded & Coupled' },
-        { label: 'Length', value: 'Single Random (SR), Double Random (DR), Custom Cut Lengths' },
-        { label: 'Coating', value: 'Bare, Galvanized, FBE, 3LPE, 3LPP, Coal Tar Epoxy' },
-        { label: 'Testing', value: 'Hydrostatic, NDT, Ultrasonic, Eddy Current, PMI, Bend Test, Flattening Test' }
-      ],
+      technicalSpecifications: {
+        heading: 'Pipes Standard, Size & Specification',
+        rows: [
+          { label: 'Size', value: '4 to 219 mm' },
+          { label: 'Pipe Types', value: 'SS 310 / TP 310 Stainless Steel Pipe / Stainless Steel 310S Pipe / TP 310S Stainless Steel Pipes' },
+          { label: 'Type', value: 'Seamless / ERW / Welded / Fabricated' },
+          { label: 'Dimensions', value: 'ASTM, ASME, and API' },
+          { label: 'Wall Thickness', value: '0.5 to 20 mm' },
+          { label: 'Length', value: 'Within 13,500 mm' },
+          { label: 'Length Options', value: 'Single Random, Double Random, & Cut Length' },
+          { label: 'Form', value: 'Round, Hydraulic, etc.' },
+          { label: 'Specialized In', value: 'Large Diameter Size' }
+        ]
+      },
       topSelling: [
         { name: 'SS 304 Seamless Pipes', shortDesc: 'ASTM A312, Sch 40, 1/2" to 12"' },
         { name: 'Carbon Steel Pipes', shortDesc: 'ASTM A106 Gr. B, Sch 80, 2" to 24"' },
@@ -509,17 +536,23 @@ export const config = {
         { icon: 'fa-shield-alt', title: 'Protective Film', text: 'All sheets supplied with adhesive protective film for surface protection.' },
         { icon: 'fa-truck', title: 'Just-in-Time Delivery', text: 'Express delivery from our Mumbai warehouse to any location in India.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standards', value: 'ASTM A240, ASTM A167, EN 10088, IS 6911, IS 513, DIN 17441' },
-        { label: 'Thickness Range', value: '0.3 mm to 12 mm (30 GA to 1/2")' },
-        { label: 'Width Range', value: '1000 mm to 2500 mm' },
-        { label: 'Length Range', value: '2000 mm to 6000 mm (Custom lengths available)' },
-        { label: 'Materials', value: 'SS 304/304L, SS 316/316L, SS 321, SS 310, SS 430, Carbon Steel IS 1079, ASTM A1011, Alloy Steel ASTM A387' },
-        { label: 'Finishes', value: '2B (Cold Rolled), BA (Bright Annealed), No.4 Brushed, Mirror (8K), HL (Hairline), SATIN' },
-        { label: 'Special Types', value: 'Chequered, Perforated, Shim, Clad, Galvanized, Pre-painted' },
-        { label: 'Edge Types', value: 'Mill Edge, Slit Edge, Sheared Edge, Deburred' },
-        { label: 'Packing', value: 'Wooden crates with VCI paper interleaving for overseas shipments' }
-      ],
+      technicalSpecifications: {
+        heading: 'Sheets Standard, Size & Specification',
+        rows: [
+          { label: 'Types of Materials', value: 'Stainless Steel, Aluminium, Nickel Alloy, Monel, Incoloy, Titanium' },
+          { label: 'Thickness', value: '1mm-200mm' },
+          { label: 'Width', value: '1000mm, 1219mm, 1500mm, 1800mm, 2000mm, 2500mm, 3000mm, 3500mm, etc' },
+          { label: 'Standards', value: 'ASTM A240, JIS4304-2005, ASTM A167, EN10088-2-2005, GB/T3280-2007, etc' },
+          { label: 'Length', value: '2000mm, 2440mm, 3000mm, 5800mm, 6000mm, etc' },
+          { label: 'Class', value: '150#, 300#, 600#, 900#, 1500#, 2500#, PN6, PN10, PN16, PN25, PN40, PN64 etc.' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: 'ASTM / ASME 201, 202, 301, 304, 304L, 310, 310S, 316L, 316TI, 317, 317L, 321, 347, 409, 409M, 409L, 410, 410S, 420, 430, 431, 441, 444, 446, 17.4PH, 904L' },
+          { label: 'Nickel Alloy', value: 'ASTM / ASME SB162 UNS N02200 ( NICKEL 200 ) / UNS N02201 (NICKEL 201 )' },
+          { label: 'Aluminium', value: 'ASTM A387 / ASME SA387 GR F5, F9, F11, F12, F22, F91.' },
+          { label: 'Titanium', value: 'Gr1, Gr2, Gr3, Gr4, Gr5, Gr7, Gr11, Gr12, Gr23' }
+        ]
+      },
       topSelling: [
         { name: 'SS 304 Sheets', shortDesc: '2B Finish, 1.5 mm x 4\' x 8\', Protective Film' },
         { name: 'SS 316L Sheets', shortDesc: 'No.4 Brushed, 2 mm x 5\' x 10\'' },
@@ -589,17 +622,22 @@ export const config = {
         { icon: 'fa-layer-group', title: 'Clad Plates', text: 'SS clad on carbon steel for corrosion resistance with structural strength.' },
         { icon: 'fa-weight-hanging', title: 'Heavy Thickness', text: 'Plates up to 200 mm thickness for heavy structural and pressure applications.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standards', value: 'ASTM A240, A516, A387, A131, A36, IS 2062, EN 10028, DIN 17155' },
-        { label: 'Thickness Range', value: '5 mm to 200 mm (1/4" to 8")' },
-        { label: 'Width Range', value: '1500 mm to 5000 mm' },
-        { label: 'Length Range', value: '3000 mm to 12000 mm' },
-        { label: 'Materials', value: 'SS 304/304L, SS 316/316L, SS 321, SS 310, Carbon Steel IS 2062/ASTM A36/A516 Gr. 70, Alloy Steel ASTM A387 Gr. 11/22/91' },
-        { label: 'Types', value: 'Hot Rolled, Cold Rolled, Clad, Diamond, Chequered, Boiler Quality, Ship Building' },
-        { label: 'Surface Condition', value: 'As-Rolled, Pickled, Blasted & Primed, Machined' },
-        { label: 'Testing', value: 'UT, PMI, Mechanical Testing, Chemical Analysis, Bend Test, Impact Test' },
-        { label: 'Certifications', value: 'ISO 9001, PED, IBR, NACE, DNV/GL/Lloyds for shipbuilding grades' }
-      ],
+      technicalSpecifications: {
+        heading: 'Plates Standard, Size & Specification',
+        rows: [
+          { label: 'Type of Materials', value: 'stainless steel, aluminium, nickel alloy, Monel, Inconel, titanium' },
+          { label: 'Size', value: '1 MM To 200 MM Thk In 1000 MM To 3000 MM Width x 2500 MM/ 5000 MM / 10000 MM Length' },
+          { label: 'Thickness', value: '4.0mm – 100mm' },
+          { label: 'Standards', value: 'ASME: ANSI B16.9, ANSI B16.28, MSS-SP-43, DIN: DIN2605, DIN2615, DIN2616, DIN2617, DIN28011, EN: EN10253-1, EN10253-2' },
+          { label: 'Hardness', value: 'Soft, Hard, Half Hard, Quarter Hard, Spring Hard, etc.' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: 'ASTM A240 / ASME SA240 202, 304, 304L, 304H, 316, 316Ti, 316H, 316L, 316LN, 309S, 309H, 310S, 310H, 317, 317L, 321, 321H, 347, 347H, 201, 202, 904L' },
+          { label: 'Nickel Alloy', value: 'ASTM / ASME SB162 UNS N02200 ( NICKEL 200 ) / UNS N02201 (NICKEL 201 )' },
+          { label: 'Aluminium', value: 'ASTM A387 / ASME SA387 GR F5, F9, F11, F12, F22, F91' },
+          { label: 'Titanium', value: 'Gr1, Gr2, Gr3, Gr4, Gr5, Gr7, Gr11, Gr12, Gr23' }
+        ]
+      },
       topSelling: [
         { name: 'IS 2062 Gr. A Plates', shortDesc: '12 mm to 50 mm, 2500 x 12000 mm' },
         { name: 'SS 304L Plates', shortDesc: '6 mm to 30 mm, 2000 x 6000 mm' },
@@ -669,17 +707,21 @@ export const config = {
         { icon: 'fa-tags', title: 'Competitive Pricing', text: 'Direct mill pricing with no middlemen. Best value for bulk and project orders.' },
         { icon: 'fa-globe-asia', title: 'Export Specialist', text: 'Reliable partner for international projects with complete export documentation.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standard', value: 'ASME B16.9, ASME B16.28, MSS SP-43, DIN 2605, EN 10253' },
-        { label: 'Size Range', value: '1/2" to 48" (15 NB to 1200 NB)' },
-        { label: 'Schedule', value: 'Sch 5S, Sch 10S, Sch 40S, Sch 80S, Sch 160, XXS' },
-        { label: 'Materials', value: 'SS 304/L, SS 316/L, SS 321, SS 310, SS 347, Duplex 2205, Carbon Steel A234 WPB/WPC, Alloy Steel A420 WPL6, A234 WP1/WP5/WP9/WP11/WP22/WP91' },
-        { label: 'Types', value: '90° Elbow LR/SR, 45° Elbow, Equal Tee, Reducing Tee, Concentric Reducer, Eccentric Reducer, Pipe Cap, Stub End, Return Bend, Cross, Pipe Bend' },
-        { label: 'Wall Thickness', value: 'Sch 5 to Sch 160 as per ASME B36.10/B36.19' },
-        { label: 'End Type', value: 'Buttweld (BW), Beveled End as per ASME B16.25' },
-        { label: 'Surface Finish', value: 'Pickled & Passivated, Shot Blasted, Galvanized, as required' },
-        { label: 'Testing', value: 'Dimensional, Hydrostatic, PMI, DPT, Radiography, UT on request' }
-      ],
+      technicalSpecifications: {
+        heading: 'Buttweld Fittings Standard, Size & Specification',
+        rows: [
+          { label: 'Size', value: '1/4"NB to 24"NB(seamless) 4"NB to 72"NB(welded)' },
+          { label: 'Type', value: 'Elbow (1d/1.5d/3d/5d), 180° Return Bend / Miter Bend, Equal Tee, Reducing Tee / Cross Tee, Long Stubend, Short Stubend, Reducer (con./ecc.), End Cap / Dish End Ca' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: 'ASTM / ASME SA 182 F 304 , 304L , 304H, 309H, 310H , 316 , 316H , 316L , 316 LN , 317 , 317L , 321 , 321H , 347 , 347 H ASTM / ASME A105 / ASTM / ASME A 350 LF 2 .' },
+          { label: 'Carbon Steel', value: 'A36, 1045, 1018, 4140, 1095, 5160, A992, A500, A515, A516, A53, A106, A2, D2, SA-210, SA-192, A513, A105, 1075' },
+          { label: 'Alloy Steel', value: 'AISI 4130, AISI 4140, AISI 4340, AISI 8620, AISI 52100, AISI 6150, AISI 4145, ASTM A387, ASTM A514, ASTM A572, ASTM A588, ASTM A193, ASTM A519, SAE 8620, SAE 9310, SAE 6150' },
+          { label: 'High Nickel Alloys Steel', value: 'ASTM / ASME SB 564 UNS 2200 (Nickel 200), ASTM / ASME SB 564 UNS 4400 (Monel 400), ASTM / ASME SB 564 UNS 8825 (Inconel 825), ASTM / ASME SB 564 UNS 6600 (Inconel 600), ASTM / ASME SB 564 UNS 6601 (Inconel 601), ASTM / ASME SB 564 UNS 6625 (Inconel 625), ASTM / ASME SB 564 UNS 10276 (Hastelloy C-276), ASTM / ASME SB 160 UNS 2201 (Nickel 201), ASTM / ASME SB 472 UNS 8020 (Alloy 20 / 20 CB 3)' },
+          { label: 'Non Ferrous Metal', value: 'A1000 Series, 2000 Series, 3000 Series, 5000 Series, C10100, C11000, C26000, 260 Brass, 360 Brass, 630 Bronze, C51000, Monel 400, AZ31, Zirconium 702' },
+          { label: 'Duplex Steel', value: 'ASTM / ASME SA 182 F 44 , F 45 , F51 , F 53 , F 55 , F 60 , F 61.' }
+        ]
+      },
       topSelling: [
         { name: '90° Elbows LR', shortDesc: 'SS 304, Sch 40, 2" to 12", ASME B16.9' },
         { name: 'Concentric Reducers', shortDesc: 'Carbon Steel A234 WPB, Sch 80, 6" x 4"' },
@@ -749,17 +791,25 @@ export const config = {
         { icon: 'fa-tachometer-alt', title: 'High Pressure Rating', text: 'Rated for Class 2000 to Class 9000 pressure applications.' },
         { icon: 'fa-check-circle', title: '100% Inspected', text: 'Dimensional, thread gauging, PMI, and pressure testing on every batch.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standard', value: 'ASME B16.11, BS 3799, DIN 2982, EN 10241' },
-        { label: 'Size Range', value: '1/8" to 4" (6 NB to 100 NB)' },
-        { label: 'Pressure Classes', value: 'Class 2000, Class 3000, Class 6000, Class 9000' },
-        { label: 'Materials', value: 'SS 304/304L, SS 316/316L, SS 321, SS 310, Carbon Steel A105, Alloy Steel A182 F11/F22/F91, Duplex F51/F53' },
-        { label: 'Types', value: '90° Elbow SW/TD, 45° Elbow SW/TD, Equal Tee SW/TD, Reducing Tee, Coupling Full/Reducing, Union, Pipe Nipple, Cap, Bushing, Plug, Cross, Hex Nipple, Swage Nipple' },
-        { label: 'Thread Type', value: 'NPT (National Pipe Thread), BSP (British Standard Pipe), BSPT' },
-        { label: 'Ends', value: 'Socket Weld (SW), Threaded (NPT/BSP), Combination SW x TD' },
-        { label: 'Surface Finish', value: 'Black, Galvanized, Zinc Plated, Pickled & Passivated' },
-        { label: 'Marking', value: 'Grade, Pressure Class, Size, Heat Code, Manufacturer\'s Mark' }
-      ],
+      technicalSpecifications: {
+        heading: 'Forged Fittings Standard, Size & Specification',
+        rows: [
+          { label: 'Size', value: '½”NB to 4” NB' },
+          { label: 'Type', value: "90, 45, Tee, Cross, Coupling, Reducing Coupling, Bushing, Cap, O'Let." },
+          { label: 'Forged Fittings', value: 'Socket Weld Fittings : Elbow 90 Deg , Cross , Tee , Elbow 45 Deg , Coupling , Half Coupling & End Cap.' },
+          { label: 'Class', value: 'SCH20, SCH30, SCH40, STD, SCH80, XS, SCH60, SCH80, SCH120, SCH140, SCH160, XXS' },
+          { label: 'Schedule', value: '2000 LBS, 3000 LBS, 6000 LBS & 9000 LBS' },
+          { label: 'Standards', value: 'ASME / ANSI B16.11' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: '304, 304L, 304H, 309S, 309H, 310S, 310H, 316, 316TI, 316H, 316 LN, 317, 317L, 321, 321H, 347, 347 H, 904L, SMO 254.' },
+          { label: 'Duplex Steel', value: 'UNS NO S 31803, S 32205, S 32550, S 32750, S 32760.' },
+          { label: 'Carbon Steel', value: 'API 5L Gr. A / B, X42, X52, X60 ASTM A 53 Gr. A/B' },
+          { label: 'Alloy Steel', value: 'P5, P9, P11, P12, P22, P91' },
+          { label: 'Nickel Alloys', value: 'ASTM SB 366 – UNS N04400, N08020, N06625, N07718, N08800, N08825, N06600, N06601, N06022, UNS N02200, UNS 2201.' },
+          { label: 'Hastelloy', value: 'Hastelloy C-22, Hastelloy C-276, Hastelloy C-2000, Hastelloy C-4, Hastelloy X, Hastelloy B, Hastelloy N, Hastelloy G' }
+        ]
+      },
       topSelling: [
         { name: 'Socket Weld 90° Elbows', shortDesc: 'SS 316L, Class 3000, 1/2" to 2"' },
         { name: 'Threaded Full Couplings', shortDesc: 'Carbon Steel A105, Class 6000, NPT, 1/4" to 2"' },
@@ -829,17 +879,24 @@ export const config = {
         { icon: 'fa-building', title: 'Construction Ready', text: 'Ready for immediate use in building frames, bridges, and industrial structures.' },
         { icon: 'fa-truck', title: 'Project Delivery', text: 'Bulk deliveries coordinated with project schedules across India.' }
       ],
-      technicalSpecifications: [
-        { label: 'Standards', value: 'IS 2062, IS 808, IS 3954, ASTM A36, ASTM A572, EN 10025' },
-        { label: 'Materials', value: 'Carbon Steel IS 2062 Gr. A/B/C, ASTM A36, ASTM A572 Gr. 50/60, SS 304/L, SS 316/L' },
-        { label: 'Channel Sizes', value: 'ISMC 75 x 40 to ISMC 400 x 100 (ISJB, ISJC, ISMB also available)' },
-        { label: 'Angle Sizes', value: 'ISA 20 x 20 x 3 to ISA 200 x 200 x 25 (Equal & Unequal)' },
-        { label: 'Length', value: '6 MTR to 12 MTR (Standard), Custom lengths on request' },
-        { label: 'Surface Condition', value: 'Black (As-rolled), Galvanized, Painted, Shot Blasted' },
-        { label: 'Special Profiles', value: 'Slotted Channels (Unistrut), Heavy Duty Channels, Lipped Channels, C-Channels' },
-        { label: 'Tolerances', value: 'As per IS 1852, ASTM A6/A6M' },
-        { label: 'Marking', value: 'Rolled-in marks with grade, size, heat number, and mill identification' }
-      ],
+      technicalSpecifications: {
+        heading: 'Channel & Angle Standard, Size & Specification',
+        rows: [
+          { label: 'Types', value: "'L' shaped Angle, Equal Angle, Unequal Angle, C Channel, U Channel, Box Channel etc." },
+          { label: 'Thickness', value: '2mm – 16mm' },
+          { label: 'Dimension', value: 'EN, DIN, JIS, ASTM, BS, ASME, AISI' },
+          { label: 'Length', value: '3MTR, 4MTR, 5MTR, 6MTR, or Custom Cut Sizes' }
+        ],
+        grades: [
+          { label: 'Stainless Steel', value: 'ASTM / ASME SA 182 F 304 , 304L , 304H, 309H, 310H , 316 , 316H , 316L , 316 LN , 317 , 317L , 321 , 321H , 347 , 347 H ASTM / ASME A105 / ASTM / ASME A 350 LF 2 .' },
+          { label: 'Super Duplex Steel', value: 'ASTM / ASME SA 790 UNS NO S31803 , S32205 , S32550 , S32750 , S32760' },
+          { label: 'Carbon Steel', value: 'ASTM / ASME A 335 GRP 1 , P 5 , P 9 , P 11 , P 12 , P 22 , P 23 , P 91' },
+          { label: 'Alloy Steel', value: 'ASTM / ASME A 691 GRP1 CR , 1 1/4 CR , 2 1/4 CR , 5 CR , 9CR , 91.' },
+          { label: 'Nickel Alloys', value: 'Nickel Alloys 200, Nickel Alloys 201' },
+          { label: 'Hastelloy', value: 'Hastelloy C-22, Hastelloy C-276, Hastelloy C-2000, Hastelloy C-4, Hastelloy X, Hastelloy B, Hastelloy N, Hastelloy G' },
+          { label: 'Molybdenum', value: 'ASTM / ASME A 182 GR F5, F9 , F11 , F12 , F22 , F91, ASTM B387, Ferro Molybdenum' }
+        ]
+      },
       topSelling: [
         { name: 'ISMC 100 Channels', shortDesc: 'IS 2062 Gr. A, 6 MTR, Black Finish' },
         { name: 'ISA 50x50x6 Angles', shortDesc: 'Equal Angle, IS 2062, 6 MTR' },
@@ -1250,10 +1307,34 @@ export const config = {
       galleryImages: ['/images/products/forged-fittings.png', '/images/products/buttweld-fittings.png']
     },
     'channel-angle': {
-      image: '/images/products/MS%20Pipes%201.webp',
-      galleryImages: ['/images/products/MS%20Pipes%201.webp']
+      image: '/images/products/channel-angle.jpg',
+      galleryImages: ['/images/products/channel-angle.jpg', '/images/products/channel-angle-2.png']
     }
-  }
+  },
+
+  // Homepage - Our Trusted Clients carousel
+  clients: [
+    { name: "Godrej", logo: "/images/clients/godrej.png" },
+    { name: "BHEL", logo: "/images/clients/bhel.png" },
+    { name: "Aditya Birla Group", logo: "/images/clients/aditya-birla.png" },
+    { name: "Adani", logo: "/images/clients/adani.png" },
+    { name: "Tata Steel", logo: "/images/clients/tata-steel.gif" },
+    { name: "JSW Steel", logo: "/images/clients/jsw.png" },
+    { name: "Jindal Steel", logo: "/images/clients/jindal.png" }
+  ],
+
+  // Homepage - Industries We Serve carousel
+  industries: [
+    { name: "Power Plant", image: "/images/industries/power-plant.jpg", description: "Certified steel products for boilers, turbines, piping and power generation infrastructure." },
+    { name: "Pharma Industry", image: "/images/industries/pharma-industry.jpg", description: "Clean-grade stainless steel for hygienic pharmaceutical processing and cleanrooms." },
+    { name: "Petroleum Industry", image: "/images/industries/petroleum-industry.jpg", description: "Corrosion-resistant steel solutions for refining, storage and distribution." },
+    { name: "Paper Mills", image: "/images/industries/paper-mill.jpg", description: "Durable steel for pulp processing, rollers, structures and paper mill equipment." },
+    { name: "Oil & Gas Industry", image: "/images/industries/oil-gas-industry.jpg", description: "High-pressure flanges, pipes and fittings for upstream and downstream operations." },
+    { name: "Chemical Industry", image: "/images/industries/chemical-industry.jpg", description: "Reliable materials for aggressive chemical media and high-temperature service." },
+    { name: "Automobile Industry", image: "/images/industries/automobile-industry.jpg", description: "Precision steel for automotive components, tooling and manufacturing lines." },
+    { name: "Aerospace Industry", image: "/images/industries/aerospace-industry.jpg", description: "High-grade alloy steel for aerospace components and precision engineering." },
+    { name: "Plumbing Industry", image: "/images/industries/plumbing.jpg", description: "Quality pipes, fittings and valves for modern plumbing and sanitary systems." }
+  ]
 };
 
 /**

@@ -809,7 +809,7 @@ Based on an **8px grid** system.
   "@type": "LocalBusiness",
   "name": "Sujal Enterprise",
   "image": "https://sujalenterprise.com/images/logo/...",
-  "telephone": "+91 9833593672",
+  "telephone": "+91 8369167479",
   "email": "sujalenterprise01@gmail.com",
   "address": { ... },
   "geo": { ... },

@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 6.5 Populate dynamic homepage sections if on homepage
   populateHomepageSections();
+  populateHomepageCarousels();
 
 
   // 7. Products Catalog Dynamic Population (if on products page)
@@ -75,11 +76,15 @@ function injectHeader() {
     <header class="site-header" id="site-header">
       <div class="top-bar">
         <div class="container top-bar-content">
-          <ul class="top-bar-center">
+          <ul class="top-bar-left">
             <li><a href="#" data-config="phone-link"></a></li>
             <li><a href="#" data-config="email-link"></a></li>
-            <li><span>GSTIN: <strong data-config="gstin"></strong></span></li>
           </ul>
+          <div class="top-bar-right">
+            <ul id="header-socials-list">
+              <!-- Populated dynamically if socials are set -->
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -89,21 +94,6 @@ function injectHeader() {
             <img class="logo-img" src="" alt="Sujal Enterprise Logo" data-config="logo" loading="eager" />
           </a>
 
-          <div class="header-actions">
-            <a href="/products.html" class="header-icon-btn" aria-label="Search products"><i class="fa fa-magnifying-glass"></i></a>
-            <a href="#" class="header-icon-btn header-whatsapp-btn" data-config="whatsapp-link" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="/products.html#inquiry" class="quote-btn">Get Quote</a>
-          </div>
-
-          <button class="menu-toggle" aria-label="Toggle Menu" aria-controls="primary-nav" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-
-        <div class="nav-menu-row">
-          <div class="container">
           <ul class="nav-menu" id="primary-nav">
             <li class="mobile-panel-brand">
               <img src="" alt="Sujal Enterprise Logo" data-config="logo" loading="lazy" />
@@ -157,7 +147,18 @@ function injectHeader() {
               <a href="/products.html#inquiry" class="mobile-quote-action">Get Quote</a>
             </li>
           </ul>
+
+          <div class="header-actions">
+            <a href="/products.html" class="header-icon-btn" aria-label="Search products"><i class="fa fa-magnifying-glass"></i></a>
+            <a href="#" class="header-icon-btn header-whatsapp-btn" data-config="whatsapp-link" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="/products.html#inquiry" class="quote-btn">Get Quote</a>
           </div>
+
+          <button class="menu-toggle" aria-label="Toggle Menu" aria-controls="primary-nav" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
     </header>
@@ -323,11 +324,6 @@ function populateConfigData() {
   
   document.querySelectorAll('[data-config="address"]').forEach(el => {
     el.textContent = business.address;
-  });
-
-  // Populate GSTIN
-  document.querySelectorAll('[data-config="gstin"]').forEach(el => {
-    el.textContent = business.gstin || '';
   });
 
   // Populate tagline
@@ -726,6 +722,221 @@ function populateHomepageSections() {
   }
 }
 
+// --- Homepage Client & Industry Carousels (shared reusable component) ---
+function populateHomepageCarousels() {
+  renderClientCarousel();
+  renderIndustriesCarousel();
+}
+
+function renderClientCarousel() {
+  const root = document.querySelector('[data-carousel="clients"]');
+  const track = root && root.querySelector('.carousel-track');
+  if (!track) return;
+
+  track.innerHTML = (config.clients || []).map(client => `
+    <div class="carousel-slide" role="group">
+      <div class="client-logo-card">
+        <img src="${client.logo}" alt="${client.name} logo" loading="lazy" />
+      </div>
+    </div>
+  `).join('');
+
+  initCarousel(root);
+}
+
+function renderIndustriesCarousel() {
+  const root = document.querySelector('[data-carousel="industries"]');
+  const track = root && root.querySelector('.carousel-track');
+  if (!track) return;
+
+  track.innerHTML = (config.industries || []).map(industry => `
+    <div class="carousel-slide" role="group">
+      <article class="premium-card industry-card" tabindex="0">
+        <div class="premium-card-img-wrapper">
+          <img src="${industry.image}" alt="${industry.name}" loading="lazy" />
+        </div>
+        <div class="premium-card-content">
+          <h3>${industry.name}</h3>
+          <p>${industry.description}</p>
+        </div>
+      </article>
+    </div>
+  `).join('');
+
+  initCarousel(root);
+}
+
+function initCarousel(root) {
+  if (!root) return;
+  const viewport = root.querySelector('.carousel-viewport');
+  const track = root.querySelector('.carousel-track');
+  if (!viewport || !track) return;
+
+  const realSlides = Array.from(track.querySelectorAll(':scope > .carousel-slide'));
+  const totalReal = realSlides.length;
+  if (totalReal <= 1) return;
+
+  const prevBtn = root.querySelector('.carousel-prev');
+  const nextBtn = root.querySelector('.carousel-next');
+  const dotsWrap = root.querySelector('.carousel-dots');
+
+  const firstClone = realSlides[0].cloneNode(true);
+  const lastClone = realSlides[totalReal - 1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden', 'true');
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, track.firstChild);
+
+  const total = totalReal + 2;
+  let current = 1;
+  let slideWidth = 0;
+  let autoplayId = null;
+  let isPaused = false;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function getPerView() {
+    const w = window.innerWidth;
+    if (w >= 1200) return 4;
+    if (w >= 992) return 3;
+    if (w >= 641) return 2;
+    return 1;
+  }
+
+  function measure() {
+    slideWidth = viewport.offsetWidth / getPerView();
+  }
+
+  function realIndex(index) {
+    return (index - 1 + totalReal) % totalReal;
+  }
+
+  function updateDots() {
+    if (!dotsWrap) return;
+    const active = realIndex(current);
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+      const isActive = i === active;
+      dot.classList.toggle('active', isActive);
+      dot.setAttribute('aria-pressed', String(isActive));
+    });
+  }
+
+  function buildDots() {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < totalReal; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'carousel-dot';
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.setAttribute('aria-pressed', String(i === 0));
+      dot.addEventListener('click', () => {
+        moveTo(i + 1, true);
+        restartAutoplay();
+      });
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function update() {
+    track.style.transform = 'translate3d(' + (-current * slideWidth) + 'px, 0, 0)';
+    updateDots();
+  }
+
+  function moveTo(index, animate) {
+    track.classList.toggle('no-transition', !animate);
+    current = index;
+    update();
+  }
+
+  function next() {
+    moveTo(current + 1, true);
+  }
+
+  function prev() {
+    moveTo(current - 1, true);
+  }
+
+  function handleTransitionEnd() {
+    if (current === 0) moveTo(totalReal, false);
+    else if (current === total - 1) moveTo(1, false);
+  }
+
+  function stopAutoplay() {
+    if (autoplayId) {
+      clearInterval(autoplayId);
+      autoplayId = null;
+    }
+  }
+
+  function startAutoplay() {
+    if (reduceMotion || isPaused) return;
+    stopAutoplay();
+    autoplayId = setInterval(next, 3000);
+  }
+
+  function restartAutoplay() {
+    startAutoplay();
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); restartAutoplay(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); restartAutoplay(); });
+
+  viewport.addEventListener('mouseenter', () => { isPaused = true; stopAutoplay(); });
+  viewport.addEventListener('mouseleave', () => { isPaused = false; startAutoplay(); });
+  root.addEventListener('focusin', (e) => {
+    if (root.contains(e.target) && e.target !== root) {
+      isPaused = true;
+      stopAutoplay();
+    }
+  });
+  root.addEventListener('focusout', (e) => {
+    if (!root.contains(e.relatedTarget)) {
+      isPaused = false;
+      startAutoplay();
+    }
+  });
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); restartAutoplay(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); next(); restartAutoplay(); }
+  });
+
+  let startX = 0;
+  let startY = 0;
+  let swiping = false;
+  viewport.addEventListener('pointerdown', (e) => {
+    swiping = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    try { if (e.pointerId !== undefined && viewport.setPointerCapture) viewport.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+  });
+  viewport.addEventListener('pointerup', (e) => {
+    if (!swiping) return;
+    swiping = false;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next(); else prev();
+      restartAutoplay();
+    }
+  });
+  viewport.addEventListener('pointercancel', () => { swiping = false; });
+
+  track.addEventListener('transitionend', handleTransitionEnd);
+  window.addEventListener('resize', () => {
+    measure();
+    if (current > totalReal) current = totalReal;
+    if (current < 1) current = 1;
+    moveTo(current, false);
+  });
+
+  measure();
+  buildDots();
+  if (reduceMotion) track.classList.add('no-transition');
+  moveTo(current, false);
+  if (!reduceMotion) startAutoplay();
+}
+
 // --- Products Catalog Population ---
 function populateProductsPage() {
   const container = document.getElementById('products-catalog-container');
@@ -1103,6 +1314,65 @@ function validatePhone(phone) {
 }
 
 // =========================================================================
+// TECHNICAL SPECIFICATIONS TABLE — Reference Design (Config-Driven)
+// =========================================================================
+// Builds the specification table rows dynamically from config:
+//   - Section heading row  (e.g. "Flanges Standard, Size & Specification")
+//   - Header row           (Particulars | Specification)
+//   - Normal rows          (Size, Type, Standards, Dimension, Material, ...)
+//   - Grade divider row    (full width "Grade" band)
+//   - Grade rows           (Stainless Steel | value, Carbon Steel | value, ...)
+//   - Multi-line values    (kept as line breaks via CSS white-space: pre-line)
+
+function buildSpecTableHtml(product) {
+  const specs = product.technicalSpecifications || {};
+  const legacy = Array.isArray(product.technicalSpecifications)
+    ? product.technicalSpecifications
+    : [];
+  const rows = legacy.length ? legacy : (specs.rows || []);
+  const grades = legacy.length ? [] : (specs.grades || []);
+  const parts = [];
+
+  const heading = legacy.length
+    ? `${product.title} Standard, Size & Specification`
+    : (specs.heading || `${product.title} Standard, Size & Specification`);
+  parts.push(`<tr class="pd-specs-title-row"><td colspan="2">${escapeHtml(heading)}</td></tr>`);
+  parts.push(`<tr class="pd-specs-header-row"><th scope="col">Particulars</th><th scope="col">Specification</th></tr>`);
+
+  rows.forEach(spec => {
+    parts.push(`<tr class="pd-specs-data-row"><td>${escapeHtml(spec.label || '')}</td><td>${escapeHtml(spec.value || '')}</td></tr>`);
+  });
+
+  if (grades.length) {
+    parts.push(`<tr class="pd-specs-grade-row"><td colspan="2">Grade</td></tr>`);
+    grades.forEach(spec => {
+      parts.push(`<tr class="pd-specs-data-row pd-specs-grade-data-row"><td>${escapeHtml(spec.label || '')}</td><td>${escapeHtml(spec.value || '')}</td></tr>`);
+    });
+  }
+
+  return parts.join('');
+}
+
+function getProductSpecList(product) {
+  const specs = product.technicalSpecifications;
+  if (Array.isArray(specs)) return specs;
+  if (!specs) return [];
+  return [
+    ...(specs.rows || []),
+    ...(specs.grades || []).map(g => ({ label: `Grade - ${g.label}`, value: g.value }))
+  ];
+}
+
+function escapeHtml(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// =========================================================================
 // PRODUCT DETAILS PAGE — Premium 70/30 Layout (Config-Driven)
 // =========================================================================
 function populateProductDetailsPage() {
@@ -1231,15 +1501,10 @@ function populateProductDetailsPage() {
     });
   }
 
-  // --- TECHNICAL SPECS TABLE ---
+  // --- TECHNICAL SPECS TABLE (Reference Design: Heading / Header / Grade Divider / Grade Rows) ---
   const specsBody = document.getElementById('pd-specs-body');
-  if (specsBody && product.technicalSpecifications && product.technicalSpecifications.length) {
-    specsBody.innerHTML = product.technicalSpecifications.map(spec => `
-      <tr>
-        <td>${spec.label || ''}</td>
-        <td>${spec.value || ''}</td>
-      </tr>
-    `).join('');
+  if (specsBody) {
+    specsBody.innerHTML = buildSpecTableHtml(product);
   }
 
   // Specs search
@@ -1250,15 +1515,31 @@ function populateProductDetailsPage() {
       const rows = specsBody.querySelectorAll('tr');
       let visibleCount = 0;
       const emptyMsg = document.getElementById('pd-specs-empty');
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (!q || text.includes(q)) {
-          row.style.display = '';
-          visibleCount++;
-        } else {
-          row.style.display = 'none';
-        }
-      });
+      let pendingGradeDivider = null;
+
+      if (!q) {
+        rows.forEach(row => { row.style.display = ''; });
+        visibleCount = rows.length;
+      } else {
+        rows.forEach(row => {
+          if (row.classList.contains('pd-specs-title-row') || row.classList.contains('pd-specs-header-row')) {
+            row.style.display = '';
+            return;
+          }
+          if (row.classList.contains('pd-specs-grade-row')) {
+            pendingGradeDivider = row;
+            row.style.display = 'none';
+            return;
+          }
+          if (row.textContent.toLowerCase().includes(q)) {
+            if (pendingGradeDivider) { pendingGradeDivider.style.display = ''; pendingGradeDivider = null; }
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
       if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
     });
   }
@@ -1268,11 +1549,14 @@ function populateProductDetailsPage() {
   if (copyBtn && specsBody) {
     copyBtn.addEventListener('click', () => {
       const rows = specsBody.querySelectorAll('tr');
-      let text = 'Particular\tSpecification\n';
+      let text = 'Particulars\tSpecification\n';
       rows.forEach(row => {
         const cells = row.querySelectorAll('td');
         if (cells.length === 2) {
           text += `${cells[0].textContent}\t${cells[1].textContent}\n`;
+        } else if (cells.length === 1) {
+          const cellText = cells[0].textContent.trim();
+          if (cellText) text += `\n${cellText}\n`;
         }
       });
       navigator.clipboard.writeText(text).then(() => {
@@ -1306,6 +1590,20 @@ function populateProductDetailsPage() {
         <p>${d.text}</p>
       </div>
     `).join('');
+  }
+
+  // --- LOGISTICS INFO (numbered list: Payment Modes / Packaging / Port of Dispatch / Tax) ---
+  const logisticsList = document.getElementById('pd-logistics-list');
+  if (logisticsList) {
+    const logisticsInfo = (product.logisticsInfo && product.logisticsInfo.length)
+      ? product.logisticsInfo
+      : (config.logisticsInfo || []);
+    logisticsList.innerHTML = logisticsInfo.length
+      ? `<ol class="pd-logistics-items">${logisticsInfo.map(item => `
+          <li class="pd-logistics-item">
+            <strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.value)}
+          </li>`).join('')}</ol>`
+      : '';
   }
 
   // --- CITIES ---
@@ -2285,7 +2583,7 @@ function injectProductJsonLd(product) {
       url: 'https://sujalenterprise.com/'
     },
     category: (product.categoryIds || []).map(getCategoryTitleById).filter(Boolean).join(', '),
-    additionalProperty: (product.technicalSpecifications || []).map(spec => ({
+    additionalProperty: getProductSpecList(product).map(spec => ({
       '@type': 'PropertyValue',
       name: spec.label,
       value: spec.value
