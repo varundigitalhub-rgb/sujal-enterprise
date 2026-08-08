@@ -299,11 +299,16 @@ export const config = {
           { label: 'Hastelloy', value: 'ASTM B564 Hastelloy C-22, Hastelloy C-276, Hastelloy C-2000, Hastelloy C-4, Hastelloy X, Hastelloy B, Hastelloy N, Hastelloy G.' }
         ]
       },
-      topSelling: [
-        { name: 'Slip-On Flanges', shortDesc: 'Class 150, RF, SS 304/316, 1/2" to 24"' },
-        { name: 'Weld Neck Flanges', shortDesc: 'Class 600, RF, Carbon Steel A105, 2" to 36"' },
-        { name: 'Blind Flanges', shortDesc: 'Class 300, FF, SS 316L, 4" to 48"' },
-        { name: 'Socket Weld Flanges', shortDesc: 'Class 1500, RF, Alloy Steel F22, 1/2" to 3"' }
+      subProducts: [
+        { name: 'Weld Neck Flange', image: '/images/sub-products/flanges/weld-neck-flange.jpg', alt: 'Weld Neck Flange' },
+        { name: 'Slip On Flange', image: '/images/sub-products/flanges/slip-on-flange.jpg', alt: 'Slip On Flange' },
+        { name: 'Blind Flange', image: '/images/sub-products/flanges/blind-flange.jpg', alt: 'Blind Flange' },
+        { name: 'Lap Joint Flange', image: '/images/sub-products/flanges/lap-joint-flange.jpg', alt: 'Lap Joint Flange' },
+        { name: 'Pressed Flange', image: '/images/sub-products/flanges/pressed-flange.jpg', alt: 'Pressed Flange' },
+        { name: 'Orifice Flange', image: '/images/sub-products/flanges/orifice-flange.jpg', alt: 'Orifice Flange' },
+        { name: 'Reducing Flange', image: '/images/sub-products/flanges/reducing-flange.jpg', alt: 'Reducing Flange' },
+        { name: 'Spade Flange', image: '/images/sub-products/flanges/spade-flange.jpg', alt: 'Spade Flange' },
+        { name: 'Spectacle Flange', image: '/images/sub-products/flanges/spectacle-flange.jpg', alt: 'Spectacle Flange' }
       ],
       applications: [
         { icon: 'fa-oil-can', name: 'Oil & Gas', description: 'Pipeline connections, refineries, offshore platforms' },
@@ -384,11 +389,13 @@ export const config = {
           { label: 'Alloy Steel (Chrome Moly)', value: 'ASTM / ASME A 182 GR F 5, F 9 , F 11 , F 12 , F 22 , F 91.' }
         ]
       },
-      topSelling: [
-        { name: 'SS 304 Round Bars', shortDesc: '6 mm to 200 mm, Bright Finish, ASTM A276' },
-        { name: 'SS 316L Round Bars', shortDesc: '10 mm to 150 mm, Peeled & Polished' },
-        { name: 'EN8 Carbon Steel Bars', shortDesc: '12 mm to 300 mm, Black Finish' },
-        { name: 'Duplex 2205 Round Bars', shortDesc: '20 mm to 250 mm, Solution Annealed' }
+      subProducts: [
+        { name: 'Square Bar', image: '/images/sub-products/round-bars/square-bar.jpg', alt: 'Square Bar' },
+        { name: 'Rectangular Bar', image: '/images/sub-products/round-bars/rectangular-bar.jpg', alt: 'Rectangular Bar' },
+        { name: 'Hex Bar', image: '/images/sub-products/round-bars/hex-bar.jpg', alt: 'Hex Bar' },
+        { name: 'Forged Bar', image: '/images/sub-products/round-bars/forged-bar.jpg', alt: 'Forged Bar' },
+        { name: 'Bright Bar', image: '/images/sub-products/round-bars/bright-bar.jpg', alt: 'Bright Bar' },
+        { name: 'Polish Bar', image: '/images/sub-products/round-bars/polish-bar.jpg', alt: 'Polish Bar' }
       ],
       applications: [
         { icon: 'fa-cogs', name: 'Valve Manufacturing', description: 'Valve stems, balls, seats, and trim components' },
@@ -467,11 +474,13 @@ export const config = {
           { label: 'Specialized In', value: 'Large Diameter Size' }
         ]
       },
-      topSelling: [
-        { name: 'SS 304 Seamless Pipes', shortDesc: 'ASTM A312, Sch 40, 1/2" to 12"' },
-        { name: 'Carbon Steel Pipes', shortDesc: 'ASTM A106 Gr. B, Sch 80, 2" to 24"' },
-        { name: 'Alloy Steel Pipes', shortDesc: 'ASTM A335 P22, Sch 160, 4" to 16"' },
-        { name: 'GI Pipes', shortDesc: 'IS 1239, Medium & Heavy Class, 15 NB to 150 NB' }
+      subProducts: [
+        { name: 'Inconel Pipe', image: '/images/sub-products/pipes/inconel-pipe.jpg', alt: 'Inconel Pipe' },
+        { name: 'Hastelloy Pipe', image: '/images/sub-products/pipes/hastelloy-pipe.jpg', alt: 'Hastelloy Pipe' },
+        { name: 'SS Pipe', image: '/images/sub-products/pipes/ss-pipe.jpg', alt: 'SS Pipe' },
+        { name: 'Titanium Pipe', image: '/images/sub-products/pipes/titanium-pipe.jpg', alt: 'Titanium Pipe' },
+        { name: 'Duplex Pipe', image: '/images/sub-products/pipes/duplex-pipe.jpg', alt: 'Duplex Pipe' },
+        { name: 'Seamless Pipe', image: '/images/sub-products/pipes/seamless-pipe.jpg', alt: 'Seamless Pipe' }
       ],
       applications: [
         { icon: 'fa-oil-can', name: 'Oil & Gas', description: 'Upstream, midstream, and downstream pipeline systems' },
@@ -553,11 +562,10 @@ export const config = {
           { label: 'Titanium', value: 'Gr1, Gr2, Gr3, Gr4, Gr5, Gr7, Gr11, Gr12, Gr23' }
         ]
       },
-      topSelling: [
-        { name: 'SS 304 Sheets', shortDesc: '2B Finish, 1.5 mm x 4\' x 8\', Protective Film' },
-        { name: 'SS 316L Sheets', shortDesc: 'No.4 Brushed, 2 mm x 5\' x 10\'' },
-        { name: 'Chequered Sheets', shortDesc: 'SS 304, 3 mm, Diamond Pattern, 4\' x 8\'' },
-        { name: 'Galvanized Sheets', shortDesc: 'Carbon Steel, 1.2 mm, AZ Coated, 4\' x 10\'' }
+      subProducts: [
+        { name: 'SS Sheet', image: '/images/sub-products/sheets/ss-sheet.jpg', alt: 'SS Sheet' },
+        { name: 'Titanium Sheet', image: '/images/sub-products/sheets/titanium-sheet.jpg', alt: 'Titanium Sheet' },
+        { name: 'Aluminium Sheet', image: '/images/sub-products/sheets/aluminium-sheet.jpg', alt: 'Aluminium Sheet' }
       ],
       applications: [
         { icon: 'fa-building', name: 'Architectural', description: 'Cladding, roofing, façades, elevator panels, handrails, decorative elements' },
@@ -638,11 +646,10 @@ export const config = {
           { label: 'Titanium', value: 'Gr1, Gr2, Gr3, Gr4, Gr5, Gr7, Gr11, Gr12, Gr23' }
         ]
       },
-      topSelling: [
-        { name: 'IS 2062 Gr. A Plates', shortDesc: '12 mm to 50 mm, 2500 x 12000 mm' },
-        { name: 'SS 304L Plates', shortDesc: '6 mm to 30 mm, 2000 x 6000 mm' },
-        { name: 'ASTM A516 Gr. 70', shortDesc: '20 mm to 80 mm, Boiler Quality, NACE' },
-        { name: 'Ship Building Plates', shortDesc: 'ASTM A131 AH36, 10 mm to 60 mm' }
+      subProducts: [
+        { name: 'SS Plates', image: '/images/sub-products/plates/ss-plates.jpg', alt: 'SS Plates' },
+        { name: 'Titanium Plates', image: '/images/sub-products/plates/titanium-plates.jpg', alt: 'Titanium Plates' },
+        { name: 'Aluminium Plates', image: '/images/sub-products/plates/aluminium-plates.jpg', alt: 'Aluminium Plates' }
       ],
       applications: [
         { icon: 'fa-fire', name: 'Pressure Vessels', description: 'Boilers, reactors, columns, storage tanks, autoclaves' },
@@ -722,11 +729,16 @@ export const config = {
           { label: 'Duplex Steel', value: 'ASTM / ASME SA 182 F 44 , F 45 , F51 , F 53 , F 55 , F 60 , F 61.' }
         ]
       },
-      topSelling: [
-        { name: '90° Elbows LR', shortDesc: 'SS 304, Sch 40, 2" to 12", ASME B16.9' },
-        { name: 'Concentric Reducers', shortDesc: 'Carbon Steel A234 WPB, Sch 80, 6" x 4"' },
-        { name: 'Equal Tees', shortDesc: 'SS 316L, Sch 10S, 3" to 10"' },
-        { name: 'Pipe Caps', shortDesc: 'Alloy Steel WP22, Sch 160, 4" to 16"' }
+      subProducts: [
+        { name: 'Elbow', image: '/images/sub-products/buttweld-fittings/elbow.jpg', alt: 'Elbow Buttweld Fitting' },
+        { name: 'Tee', image: '/images/sub-products/buttweld-fittings/tee.jpg', alt: 'Tee Buttweld Fitting' },
+        { name: 'Reducer', image: '/images/sub-products/buttweld-fittings/reducer.jpg', alt: 'Reducer Buttweld Fitting' },
+        { name: 'Cross', image: '/images/sub-products/buttweld-fittings/cross.jpg', alt: 'Cross Buttweld Fitting' },
+        { name: 'End Caps', image: '/images/sub-products/buttweld-fittings/end-caps.jpg', alt: 'End Caps Buttweld Fitting' },
+        { name: 'Outlet fittings', image: '/images/sub-products/buttweld-fittings/outlet-fittings.jpg', alt: 'Outlet Fittings Buttweld Fitting' },
+        { name: 'Nipple Fitting', image: '/images/sub-products/buttweld-fittings/nipple-fitting.jpg', alt: 'Nipple Fitting' },
+        { name: 'Stud Ends', image: '/images/sub-products/buttweld-fittings/stud-ends.jpg', alt: 'Stud Ends Buttweld Fitting' },
+        { name: 'Bends', image: '/images/sub-products/buttweld-fittings/bends.jpg', alt: 'Bends Buttweld Fitting' }
       ],
       applications: [
         { icon: 'fa-oil-can', name: 'Oil & Gas', description: 'Pipeline systems, refineries, gas processing plants, offshore platforms' },
@@ -810,11 +822,16 @@ export const config = {
           { label: 'Hastelloy', value: 'Hastelloy C-22, Hastelloy C-276, Hastelloy C-2000, Hastelloy C-4, Hastelloy X, Hastelloy B, Hastelloy N, Hastelloy G' }
         ]
       },
-      topSelling: [
-        { name: 'Socket Weld 90° Elbows', shortDesc: 'SS 316L, Class 3000, 1/2" to 2"' },
-        { name: 'Threaded Full Couplings', shortDesc: 'Carbon Steel A105, Class 6000, NPT, 1/4" to 2"' },
-        { name: 'Hex Pipe Nipples', shortDesc: 'SS 304, Sch 80, 1/2" to 3", NPT Both Ends' },
-        { name: 'Socket Weld Unions', shortDesc: 'Alloy Steel F22, Class 3000, 1/2" to 2"' }
+      subProducts: [
+        { name: 'Forged Elbow 90 Deg Fittings', image: '/images/sub-products/forged-fittings/forged-elbow-90-deg-fittings.jpg', alt: 'Forged Elbow 90 Deg Fittings' },
+        { name: 'Forged Cross Fittings', image: '/images/sub-products/forged-fittings/forged-cross-fittings.jpg', alt: 'Forged Cross Fittings' },
+        { name: 'Forged Tee Fittings', image: '/images/sub-products/forged-fittings/forged-tee-fittings.jpg', alt: 'Forged Tee Fittings' },
+        { name: 'Forged Elbow 45 Deg Fittings', image: '/images/sub-products/forged-fittings/forged-elbow-45-deg-fittings.jpg', alt: 'Forged Elbow 45 Deg Fittings' },
+        { name: 'Forged Coupling Fittings', image: '/images/sub-products/forged-fittings/forged-coupling-fittings.jpg', alt: 'Forged Coupling Fittings' },
+        { name: 'Forged Half Coupling Fittings', image: '/images/sub-products/forged-fittings/forged-half-coupling-fittings.jpg', alt: 'Forged Half Coupling Fittings' },
+        { name: 'Forged End Cap Fittings', image: '/images/sub-products/forged-fittings/forged-end-cap-fittings.jpg', alt: 'Forged End Cap Fittings' },
+        { name: 'Forged Union Fittings', image: '/images/sub-products/forged-fittings/forged-union-fittings.jpg', alt: 'Forged Union Fittings' },
+        { name: 'Barrel Nipple Fittings', image: '/images/sub-products/forged-fittings/barrel-nipple-fittings.jpg', alt: 'Barrel Nipple Fittings' }
       ],
       applications: [
         { icon: 'fa-oil-can', name: 'Oil & Gas', description: 'Instrumentation piping, manifolds, sampling systems, chemical injection' },
@@ -897,11 +914,10 @@ export const config = {
           { label: 'Molybdenum', value: 'ASTM / ASME A 182 GR F5, F9 , F11 , F12 , F22 , F91, ASTM B387, Ferro Molybdenum' }
         ]
       },
-      topSelling: [
-        { name: 'ISMC 100 Channels', shortDesc: 'IS 2062 Gr. A, 6 MTR, Black Finish' },
-        { name: 'ISA 50x50x6 Angles', shortDesc: 'Equal Angle, IS 2062, 6 MTR' },
-        { name: 'SS 304 Channels', shortDesc: 'C-Channel, 100 x 50, 6 MTR, Brushed' },
-        { name: 'Slotted Channels', shortDesc: 'Unistrut Type, 41x41, Hot Dipped Galvanized' }
+      subProducts: [
+        { name: 'Angle', image: '/images/sub-products/channel-angles/angle.jpg', alt: 'Angle' },
+        { name: 'Channel', image: '/images/sub-products/channel-angles/channel.jpg', alt: 'Channel' },
+        { name: 'I Beam', image: '/images/sub-products/channel-angles/i-beam.jpg', alt: 'I Beam' }
       ],
       applications: [
         { icon: 'fa-building', name: 'Building Construction', description: 'Structural frames, roof trusses, purlins, girts, bracing systems' },
@@ -966,15 +982,23 @@ export const config = {
       longDescription: 'Sujal Enterprise supplies a comprehensive range of Mild Steel (MS) products for structural, industrial, and engineering applications. Our MS inventory covers pipes (seamless & ERW), plates, sheets, coils, channels, angles, buttweld fittings, and forged fittings. All products conform to IS 1239, IS 2062, and international standards with complete material traceability.',
       heroImage: '/images/products/MS%20Pipes%201.webp',
       galleryImages: ['/images/products/MS%20Pipes%201.webp', '/images/products/MS%20Pipes%202.webp', '/images/products/MS%20Pipes%203.webp', '/images/products/Mild%20Steel%20Plates%201.webp', '/images/products/Mild%20Steel%20sheet%201.webp'],
+      specificationHeading: 'Mild Steels Standard, Size & Specification',
+      cardImages: {
+        'buttweld-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-pipe-fittings-manufacturer-india.jpg',
+        'flanges': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-flanges-manufacturer-india.jpg',
+        'round-bar': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-round-bars-manufacturer-india.jpg',
+        'pipes': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-pipe-manufacturer-india.jpg',
+        'forged-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-forge-fittings-manufacturer-india.jpg',
+        'plates': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-plate-manufacturer-india.jpg',
+        'sheets': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-sheet-manufacturer-india.jpg',
+        'channel-angle': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/mild-steel/mild-steel-channel-angles-manufacturer-india.jpg'
+      },
       specifications: [
-        { label: 'Standards', value: 'IS 1239, IS 2062, IS 3589, ASTM A36, ASTM A106 Gr. B, ASTM A53, EN 10025' },
-        { label: 'Product Forms', value: 'Pipes (Seamless/ERW/GI), Plates, Sheets, Coils, Channels, Angles, Flanges, Buttweld Fittings, Forged Fittings' },
-        { label: 'Pipe Sizes', value: '15 NB to 600 NB (1/2" to 24")' },
-        { label: 'Plate Thickness', value: '5 mm to 200 mm' },
-        { label: 'Sheet Thickness', value: '0.5 mm to 12 mm' },
-        { label: 'Structural Sections', value: 'ISMC 75-400, ISA 20x20 to 200x200, ISMB 100-600' },
-        { label: 'Surface Finish', value: 'Black, Galvanized, Painted, Shot Blasted' },
-        { label: 'Certifications', value: 'ISO 9001:2015, IBR (on request)' }
+        {
+          material: 'Mild Steel Grades\nSae 4118, Sae 4120, Sae 4120, Sae 4130, Sae 4135, Sae 4137, Sae 4140, Sae 4142, Sae 4145, Sae 4147, Sae 4150, Sae 4161, Sae 8620.',
+          standard: 'ASTM, ASME, DIN, JIS, BS, and all International Standards',
+          products: 'Mild Steel Pipe Fitting, Mild Steel Flanges, Mild Steel Flanges, Mild Steel Round Bar, Mild Steel Pipes, Mild Steel Forged Fitting, Mild Steel Plates, Mild Steel Sheets, Mild Steel Channel, Angles.'
+        }
       ],
       grades: ['IS 2062 Gr. A', 'IS 2062 Gr. B', 'IS 2062 Gr. C', 'ASTM A36', 'ASTM A106 Gr. B', 'ASTM A53 Gr. B', 'AISI 1018', 'AISI 1045', 'EN8', 'EN9'],
       applications: [
@@ -1040,15 +1064,23 @@ export const config = {
       longDescription: 'Sujal Enterprise is a trusted supplier of Stainless Steel products in grades SS 304/304L, SS 316/316L, SS 321, SS 310, and Duplex 2205. Our SS inventory covers pipes (seamless & welded), flanges (ASME B16.5), buttweld fittings (ASME B16.9), forged fittings (ASME B16.11), sheets, plates, and round bars for corrosion-resistant and high-temperature applications.',
       heroImage: '/images/products/Stainless%20Steel%20Pipes%201.jpg',
       galleryImages: ['/images/products/Stainless%20Steel%20Pipes%201.jpg', '/images/products/Stainless%20Steel%20Pipes%202.webp', '/images/products/Stainless%20Steel%20Pipes%203.webp', '/images/products/Stainless%20Steel%20Plates.jpg', '/images/products/Stainless%20Steel%20Sheets.jpg', '/images/products/flanges%201.png'],
+      specificationHeading: 'Stainless Steels Standard, Size & Specification',
+      cardImages: {
+        'buttweld-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-pipe-fitting-manufacturer-india.jpg',
+        'flanges': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-flanges-manufacturer-india.jpg',
+        'round-bar': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-round-bars-manufacturer-india.jpg',
+        'pipes': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-pipe-manufacturer-india.jpg',
+        'forged-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-forged-fitting-manufacturer-india.jpg',
+        'plates': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-plates-manufacturer-india.jpg',
+        'sheets': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-sheet-manufacturer-india.jpg',
+        'channel-angle': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/stainless-steel/stainless-steel-channel-angles-manufacturer-india.jpg'
+      },
       specifications: [
-        { label: 'Standards', value: 'ASTM A312, A240, A276, A479, A240, A167, ASME B16.5, B16.9, B16.11' },
-        { label: 'Grades', value: 'SS 304/304L, SS 316/316L, SS 321, SS 310, SS 347, SS 430, Duplex 2205, Super Duplex 2507' },
-        { label: 'Product Forms', value: 'Pipes (Seamless/Welded), Flanges, Buttweld Fittings, Forged Fittings, Sheets, Plates, Round Bars, Channels, Angles' },
-        { label: 'Pipe Schedule', value: 'Sch 5S, Sch 10S, Sch 40S, Sch 80S, Sch 160' },
-        { label: 'Flange Classes', value: 'Class 150 to Class 2500' },
-        { label: 'Sheet Finishes', value: '2B, BA, No.4 Brushed, Mirror (8K), Hairline' },
-        { label: 'Round Bar Diameter', value: '3 mm to 500 mm' },
-        { label: 'Certifications', value: 'ISO 9001:2015, PED 2014/68/EU, NACE MR0175/MR0103' }
+        {
+          material: 'Stainless Steel Grades\n200 Series - 201, 202, 205. 300 Series 301, 302, 303, 304, 304L, 308, 309, 309S, 310, 310S, 314, 316, 316L, 316TI, 317, 317L, 321, 347. 400 Series 405, 409, 429, 430, 430F, 430FSe, 434, 436, 442, 446, 403, 410, 414,416, 416Se, 420,420F, 422, 431, 440A, 440B, 440C. 500 Series - 501, 502. 600 Series - 630 (17-4 PH) 17.4PH, 904L.',
+          standard: 'ASTM, ASME, DIN, JIS, BS, and all International Standards',
+          products: 'Stainless Steel Pipe Fitting, Stainless Steel Flanges, Stainless Steel Flanges, Stainless Steel Round Bar, Stainless Steel Pipes, Stainless Steel Forged Fitting, Stainless Steel Plates, Stainless Steel Sheets, Stainless Steel Channel, Angles.'
+        }
       ],
       grades: ['SS 304', 'SS 304L', 'SS 316', 'SS 316L', 'SS 321', 'SS 310', 'SS 347', 'SS 430', 'Duplex 2205 (UNS S31803)', 'Super Duplex 2507 (UNS S32750)'],
       applications: [
@@ -1114,15 +1146,23 @@ export const config = {
       longDescription: 'Sujal Enterprise supplies premium Alloy Steel (Chrome Moly) products for high-temperature and high-pressure applications. Our alloy steel inventory covers pipes (ASTM A335 P5/P9/P11/P22/P91), flanges (ASTM A182 F11/F22/F91), buttweld fittings (ASTM A234 WP1/WP5/WP9/WP11/WP22/WP91), forged fittings, plates (ASTM A387), and round bars for power generation, petrochemical, and refinery applications.',
       heroImage: '/images/products/MS%20Pipes%201.webp',
       galleryImages: ['/images/products/MS%20Pipes%201.webp', '/images/products/pipes-tubes.png', '/images/products/Mild%20Steel%20Plates%201.webp'],
+      specificationHeading: 'Alloy Steels Standard, Size & Specification',
+      cardImages: {
+        'buttweld-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-pipe-fitting-manufacturer-india.jpg',
+        'flanges': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-flanges-manufacturer-india.jpg',
+        'round-bar': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-round-bar-manufacturer-india.jpg',
+        'pipes': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-pipe-manufacturer-india.jpg',
+        'forged-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-forged-fitting-manufacturer-india.jpg',
+        'plates': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-plates-manufacturer-india.jpg',
+        'sheets': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-sheet-manufacturer-india.jpg',
+        'channel-angle': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/alloy-steel/alloy-steel-channel-angles-manufacturer-india.jpg'
+      },
       specifications: [
-        { label: 'Standards', value: 'ASTM A335, A182, A234, A387, A479, A691, ASME B16.5, B16.9, B16.11' },
-        { label: 'Grades', value: 'ASTM A335 P5, P9, P11, P22, P91 / ASTM A182 F11, F22, F91 / ASTM A387 Gr. 11, 22, 91' },
-        { label: 'Product Forms', value: 'Seamless Pipes, Flanges, Buttweld Fittings, Forged Fittings, Plates, Round Bars' },
-        { label: 'Pipe Size', value: '1/4" to 36" (6 NB to 900 NB)' },
-        { label: 'Pipe Schedule', value: 'Sch 40, Sch 80, Sch 120, Sch 160, XXS' },
-        { label: 'Temperature Range', value: 'Up to 650°C (1202°F) continuous service' },
-        { label: 'Applications', value: 'High-pressure steam, boiler tubes, superheater lines, refinery piping' },
-        { label: 'Certifications', value: 'ISO 9001:2015, PED 2014/68/EU, NACE MR0175/MR0103, IBR' }
+        {
+          material: 'Alloy Steel Grades\nASTM / ASME A 691 GRP1 CR , 1 1/4 CR , 2 1/4 CR , 5 CR , 9CR , 91',
+          standard: 'ASTM, ASME, DIN, JIS, BS, and all International Standards',
+          products: 'Alloy Steel Pipe Fitting, Alloy Steel Flanges, Alloy Steel Flanges, Alloy Steel Round Bar, Alloy Steel Pipes, Alloy Steel Forged Fitting, Alloy Steel Plates, Alloy Steel Sheets, Alloy Steel Channel, Angles.'
+        }
       ],
       grades: ['ASTM A335 P5', 'ASTM A335 P9', 'ASTM A335 P11', 'ASTM A335 P22', 'ASTM A335 P91', 'ASTM A182 F11', 'ASTM A182 F22', 'ASTM A182 F91', 'ASTM A387 Gr. 11', 'ASTM A387 Gr. 22', 'ASTM A387 Gr. 91'],
       applications: [
@@ -1186,15 +1226,23 @@ export const config = {
       longDescription: 'Sujal Enterprise supplies IBR (Indian Boiler Regulations) certified materials for boiler and pressure vessel applications. Our IBR range includes carbon steel pipes (ASTM A106 Gr. B), boiler quality plates (ASTM A516 Gr. 60/70), IBR flanges (ASME B16.5), and IBR fittings. All products come with IBR certification and complete material traceability for compliance with Indian boiler regulations.',
       heroImage: '/images/products/Mild%20Steel%20Plates%201.webp',
       galleryImages: ['/images/products/Mild%20Steel%20Plates%201.webp', '/images/products/Mild%20Steel%20Plates%202.webp', '/images/products/Mild%20Steel%20Plates%203.webp', '/images/products/pipes-tubes.png', '/images/products/flanges%201.png'],
+      specificationHeading: 'IBR Standard, Size & Specification',
+      cardImages: {
+        'buttweld-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-pipe-fitting-manufacturer-india.jpg',
+        'flanges': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-flanges-manufacturer-india.jpg',
+        'round-bar': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-pipes-manufacturer-india.jpg',
+        'pipes': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-round-bar-manufacturer-india.jpg',
+        'forged-fittings': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-forged-fitting-manufacturer-india.jpg',
+        'plates': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-plate-manufacturer-india.jpg',
+        'sheets': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-sheet-manufacturer-india.jpg',
+        'channel-angle': 'https://fourty60.net/suniltrading/assets/images/sunil-trading-img/materials/ibr/ibr-angles-channel-manufacturer-india.jpg'
+      },
       specifications: [
-        { label: 'Standards', value: 'IBR 1950, ASTM A106 Gr. B, ASTM A516 Gr. 60/70, ASME B16.5, ASME B16.9, ASME B16.11, IS 2062, IS 2002' },
-        { label: 'IBR Forms', value: 'Pipes (Seamless), Plates (Boiler Quality), Flanges, Buttweld Fittings, Forged Fittings' },
-        { label: 'Pipe Size', value: '1/2" to 24" (15 NB to 600 NB)' },
-        { label: 'Pipe Schedule', value: 'Sch 40, Sch 80, Sch 120, Sch 160' },
-        { label: 'Plate Thickness', value: '5 mm to 150 mm' },
-        { label: 'Flange Classes', value: 'Class 150 to Class 2500' },
-        { label: 'IBR Registration', value: 'All products supplied with IBR certificate from approved manufacturers' },
-        { label: 'Testing', value: 'Hydrostatic, UT, PMI, Mechanical Testing, Chemical Analysis as per IBR requirements' }
+        {
+          material: 'IBR Grades\nASTM / ASME A 691 GRP1 CR , 1 1/4 CR , 2 1/4 CR , 5 CR , 9CR , 91',
+          standard: 'ASTM, ASME, DIN, JIS, BS, and all International Standards',
+          products: 'IBR Pipe Fitting, IBR Flanges, IBR Flanges, IBR Round Bar, IBR Pipes, IBR Forged Fitting, IBR Plates, IBR Sheets, IBR Channel, Angles.'
+        }
       ],
       grades: ['ASTM A106 Gr. B (IBR)', 'ASTM A516 Gr. 60 (IBR)', 'ASTM A516 Gr. 70 (IBR)', 'IS 2062 (IBR)', 'ASTM A105 (IBR Flanges)', 'ASTM A234 WPB (IBR Fittings)'],
       applications: [

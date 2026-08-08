@@ -498,7 +498,9 @@ button, input, textarea, select {
   transform: translateY(0);
 }
 
-.slide-content h1 {
+.slide-content h1,
+.slide-content h2 {
+  margin-top: 0.67em;
   font-size: clamp(2rem, 4.5vw, 3.5rem);
   color: var(--white);
   margin-bottom: var(--space-5);
@@ -509,7 +511,8 @@ button, input, textarea, select {
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
 }
 
-.slide.active .slide-content h1 {
+.slide.active .slide-content h1,
+.slide.active .slide-content h2 {
   opacity: 1;
   transform: translateY(0);
 }
@@ -584,7 +587,8 @@ button, input, textarea, select {
   .hero-slider {
     height: clamp(380px, 70vh, 500px);
   }
-  .slide-content h1 {
+  .slide-content h1,
+  .slide-content h2 {
     font-size: 1.75rem;
   }
   .slide-content p {
@@ -5360,6 +5364,36 @@ main.section-padding {
   font-size: 0.8125rem;
 }
 
+/* ===== TOP SELLING PRODUCTS ===== */
+.pd-top-selling-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pd-top-selling-card .pd-related-body {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 16px;
+}
+
+.pd-top-selling-card .pd-related-body h3 {
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .pd-top-selling-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .pd-top-selling-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ===== INQUIRY FORM ===== */
 .pd-section-inquiry {
   background: var(--light-bg);
@@ -5546,5 +5580,626 @@ main.section-padding {
   .pd-specs-copy {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ========================================================================
+   MATERIAL DETAILS PAGE - Classic Industrial B2B Template (70/30)
+   Distinct from the product-detail (pd-*) template.
+   ======================================================================== */
+
+.mat-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+  align-items: start;
+}
+
+.mat-main {
+  min-width: 0;
+}
+
+/* ---- Section shells ---- */
+.mat-section {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.mat-heading {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.mat-heading h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+.mat-section-lead {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* ---- 1. Hero banner ---- */
+.mat-hero {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius-md);
+  padding: 34px 30px;
+  margin-bottom: 24px;
+  color: var(--white);
+}
+
+.mat-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--metal);
+  margin-bottom: 14px;
+}
+
+.mat-breadcrumb a {
+  color: var(--metal);
+}
+
+.mat-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.mat-breadcrumb .current {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.mat-hero-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.mat-hero-subtitle {
+  color: var(--metal);
+  font-size: 0.9375rem;
+  max-width: 760px;
+  line-height: 1.6;
+}
+
+/* ---- 3. Material introduction ---- */
+.mat-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.mat-intro-lead {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.mat-intro-desc p {
+  color: var(--text-main);
+  line-height: 1.7;
+  font-size: 0.9375rem;
+  margin-bottom: 10px;
+}
+
+.mat-intro-media img,
+.mat-apps-visual img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* ---- 4. Specification table ---- */
+.mat-table-wrap {
+  overflow-x: auto;
+}
+
+.mat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.mat-table thead th {
+  background: var(--primary);
+  color: var(--white);
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.mat-table thead th:first-child {
+  width: 32%;
+}
+
+.mat-table thead th:nth-child(2) {
+  width: 30%;
+}
+
+.mat-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+.mat-table tbody tr:nth-child(even) {
+  background: var(--gray-50);
+}
+
+.mat-table tbody tr:hover {
+  background: var(--accent-light);
+}
+
+.mat-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--primary);
+  white-space: normal;
+}
+
+.mat-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px;
+}
+
+/* ---- 5. Top selling product cards ---- */
+.mat-prod-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.mat-prod-card {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.mat-prod-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.mat-prod-img {
+  aspect-ratio: 4 / 3;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mat-prod-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mat-prod-name {
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.mat-prod-card:hover .mat-prod-name {
+  color: var(--accent);
+}
+
+/* ---- 6. CTA buttons ---- */
+.mat-cta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mat-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.4px;
+  color: var(--white);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.mat-cta-btn i {
+  font-size: 1.1rem;
+}
+
+.mat-cta-call {
+  background: var(--primary);
+}
+
+.mat-cta-call:hover {
+  background: var(--primary-dark);
+}
+
+.mat-cta-mail {
+  background: #1d4ed8;
+}
+
+.mat-cta-mail:hover {
+  background: #1e40af;
+}
+
+.mat-cta-wa {
+  background: var(--whatsapp);
+}
+
+.mat-cta-wa:hover {
+  background: #1da851;
+}
+
+/* ---- 7. Application & Uses ---- */
+.mat-apps-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.mat-apps-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.mat-app-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.mat-app-icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+}
+
+.mat-app-text h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.mat-app-text p {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.mat-apps-visual img {
+  position: sticky;
+  top: 140px;
+}
+
+/* ---- 8. Delivery & Packaging ---- */
+.mat-logistics-list ol {
+  list-style: none;
+  counter-reset: mat-logistics;
+}
+
+.mat-logistics-item {
+  counter-increment: mat-logistics;
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-main);
+}
+
+.mat-logistics-item:last-child {
+  border-bottom: none;
+}
+
+.mat-logistics-item::before {
+  content: counter(mat-logistics);
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.mat-logistics-item strong {
+  color: var(--primary);
+}
+
+/* ---- 9. Cities ---- */
+.mat-cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.mat-city {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 0.8125rem;
+  color: var(--text-main);
+}
+
+.mat-city i {
+  color: var(--accent);
+  font-size: 0.8125rem;
+}
+
+/* ---- 10. Countries ---- */
+.mat-countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.mat-country {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 0.8125rem;
+  color: var(--text-main);
+}
+
+.mat-country i {
+  color: var(--accent);
+}
+
+.mat-country-highlight {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ---- Sidebar ---- */
+.mat-sidebar {
+  position: sticky;
+  top: 128px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.mat-sidebar-block {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.mat-sidebar-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.mat-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mat-sidebar-link {
+  display: block;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid transparent;
+  color: var(--text-main);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.mat-sidebar-link:hover {
+  background: var(--accent-light);
+  color: var(--primary);
+  border-left-color: var(--accent);
+}
+
+.mat-sidebar-link.active {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 800;
+}
+
+.mat-sidebar-inquiry .form-control {
+  font-size: 0.8125rem;
+}
+
+.mat-contact p {
+  font-size: 0.8125rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.mat-contact-name {
+  font-weight: 800;
+  color: var(--primary);
+  font-size: 0.9375rem;
+}
+
+.mat-contact-type {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.mat-contact-address {
+  color: var(--text-muted);
+}
+
+.mat-contact-phone a,
+.mat-contact-email a {
+  color: var(--text-main);
+  word-break: break-all;
+}
+
+.mat-contact-phone a:hover,
+.mat-contact-email a:hover {
+  color: var(--accent);
+}
+
+.mat-contact i {
+  color: var(--accent);
+  margin-right: 6px;
+  width: 14px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .mat-layout {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 24px;
+    padding: 24px 16px 48px;
+  }
+
+  .mat-prod-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .mat-apps-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .mat-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mat-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .mat-prod-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mat-prod-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mat-intro-grid,
+  .mat-apps-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .mat-apps-visual img {
+    position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .mat-hero {
+    padding: 26px 20px;
+  }
+
+  .mat-hero-title {
+    font-size: 1.4rem;
+  }
+
+  .mat-section {
+    padding: 20px 16px;
+  }
+
+  .mat-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .mat-cta-btn {
+    padding: 14px;
+  }
+
+  .mat-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .mat-table tbody td:first-child {
+    white-space: normal;
+  }
+
+  .mat-logistics-item {
+    flex-direction: column;
+    gap: 6px;
   }
 }

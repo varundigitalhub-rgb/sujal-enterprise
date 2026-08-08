@@ -101,30 +101,15 @@ function injectHeader() {
             </li>
             <li><a href="/index.html" class="nav-link" data-nav="home">Home</a></li>
             <li><a href="/about-us.html" class="nav-link" data-nav="about">About</a></li>
-            <li class="nav-item has-dropdown">
+            <li class="nav-item has-dropdown compact-dropdown">
               <a href="/products.html" class="nav-link" data-nav="products" aria-haspopup="true" aria-expanded="false">
                 Products <i class="fa fa-chevron-down"></i>
               </a>
-              <div class="product-mega-menu" aria-label="Product categories">
-                <div class="container mega-menu-inner">
-                  <div class="mega-menu-head">
-                    <strong>Product Catalog</strong>
-                    <a href="/products.html">View Complete Catalog <i class="fa fa-arrow-right"></i></a>
-                  </div>
-                  <div class="mega-menu-groups">
-                    ${(config.products || []).map(cat => `
-                      <div class="mega-group">
-                        <a class="mega-group-title" href="/products.html#cat-${cat.id}">${cat.title}</a>
-                        <ul>
-                          ${(config.productDetails || [])
-                            .filter(product => (product.categoryIds || []).includes(cat.id))
-                            .slice(0, 8)
-                            .map(product => `<li><a href="${getProductUrl(product)}">${product.title}</a></li>`)
-                            .join('')}
-                        </ul>
-                      </div>
-                    `).join('')}
-                  </div>
+              <div class="simple-dropdown" aria-label="Product categories">
+                ${(PRODUCT_NAV_ITEMS || []).map(item => {
+                  const p = (config.productDetails || []).find(prod => prod.slug === item.slug);
+                  return p ? `<a href="${getProductUrl(p)}">${escapeHtml(p.title)}</a>` : '';
+                }).join('')}
               </div>
             </li>
             <li class="nav-item has-dropdown compact-dropdown">
@@ -1280,12 +1265,34 @@ function showFormStatus(statusEl, type, html) {
   statusEl.innerHTML = html;
 }
 
+async function submitInquiryToEndpoint(fd) {
+  if (!FORM_ENDPOINT || FORM_ENDPOINT.includes('YOUR_FORM_ID')) {
+    return { ok: false, notConnected: true };
+  }
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      body: fd,
+      headers: { 'Accept': 'application/json' }
+    });
+    return { ok: res.ok };
+  } catch (err) {
+    return { ok: false };
+  }
+}
+
 function getCategoryTitleById(categoryId) {
   return (config.products || []).find(c => c.id === categoryId)?.title || '';
 }
 
 function getProductUrl(product) {
   return product && product.slug ? `/products/${product.slug}/` : '/products.html';
+}
+
+function getSubProductHref(item, parentProduct) {
+  if (item && item.href) return item.href;
+  if (item && item.slug) return `/products/${item.slug}/`;
+  return parentProduct ? '#pd-inquiry-section' : '';
 }
 
 function getProductSlugFromUrl() {
@@ -1381,28 +1388,32 @@ function populateProductDetailsPage() {
 
   const slug = getProductSlugFromUrl();
   if (!slug) {
-    if (loader) loader.innerHTML = `<p style="color:var(--text-muted);">Missing product slug in URL. <a href="/products.html">Back to products</a></p>`;
+    if (loader) loader.innerHTML = '<p style="color:var(--text-muted);">Missing product slug in URL. <a href="/products.html">Back to products</a></p>';
     return;
   }
 
   const product = (config.productDetails || []).find(p => p.slug === slug);
   if (!product) {
-    if (loader) loader.innerHTML = `<p style="color:var(--text-muted);">Product not found. <a href="/products.html">Back to products</a></p>`;
+    if (loader) loader.innerHTML = '<p style="color:var(--text-muted);">Product not found. <a href="/products.html">Back to products</a></p>';
     return;
   }
 
   const resolved = resolveProductImages(product);
-  const waNum = config.business.whatsapp.replace(/\+/g, '').replace(/\s+/g, '');
+  const category = (product.categoryIds && product.categoryIds[0])
+    ? (config.categories || []).find(c => c.id === product.categoryIds[0])
+    : null;
+  const waNum = String(config.business.whatsapp || '').replace(/\+/g, '').replace(/\s+/g, '');
   const waMsg = encodeURIComponent(`Hello ${config.business.name}, I want to inquire about: ${product.title}.`);
   const waHref = `https://wa.me/${waNum}?text=${waMsg}`;
-  const phoneHref = `tel:${config.business.phones[0].replace(/\s+/g, '')}`;
+  const phoneRaw = (config.business.phones && config.business.phones[0]) || '';
+  const phoneHref = `tel:${phoneRaw.replace(/\s+/g, '')}`;
   const emailHref = `mailto:${config.business.email}`;
   const businessName = config.business.name;
 
   // --- SEO ---
   document.title = product.metaTitle || `${product.title} | ${businessName}`;
   updateMetaTag('description', product.metaDescription || product.shortDescription || '');
-  updateMetaTag('keywords', [...(product.keywords || []), ...(product.standards || []), businessName].join(', '));
+  updateMetaTag('keywords', [...(product.keywords || []), businessName].join(', '));
   updateMetaProperty('og:title', document.title);
   updateMetaProperty('og:description', product.shortDescription || '');
   updateMetaProperty('og:url', window.location.href);
@@ -1413,143 +1424,99 @@ function populateProductDetailsPage() {
   updateMetaName('twitter:image', resolved.image || '');
   updateCanonical(window.location.href);
   injectProductJsonLd(product);
-  injectBreadcrumbJsonLd(product);
+  injectProductBreadcrumbJsonLd(product);
   if (product.faqs && product.faqs.length) injectFaqJsonLd(product.faqs);
 
-  // Helpers
-  const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text || ''; };
-  const setHtml = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html || ''; };
-  const setAttr = (id, attr, val) => { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); };
-
-  const catId = (product.categoryIds && product.categoryIds[0]) || '';
-  const catTitle = getCategoryTitleById(catId) || 'Category';
-
   // --- HERO ---
-  setText('pd-breadcrumb-current', product.title);
-  setText('pd-category-chip', catTitle);
-  setText('pd-title', product.title);
-  setText('pd-short-desc', product.shortDescription || '');
-  setAttr('pd-hero-call', 'href', phoneHref);
-  setAttr('pd-hero-whatsapp', 'href', waHref);
+  const breadcrumbCurrent = document.getElementById('pd-breadcrumb-current');
+  if (breadcrumbCurrent) breadcrumbCurrent.textContent = product.title;
+  const categoryChip = document.getElementById('pd-category-chip');
+  if (categoryChip) categoryChip.textContent = category ? category.title : ((product.categoryIds || []).join(', ') || 'Products');
+  const titleEl = document.getElementById('pd-title');
+  if (titleEl) titleEl.textContent = product.title;
+  const shortDescEl = document.getElementById('pd-short-desc');
+  if (shortDescEl) shortDescEl.textContent = product.shortDescription || '';
+  const heroCall = document.getElementById('pd-hero-call');
+  if (heroCall) heroCall.href = phoneHref;
+  const heroWa = document.getElementById('pd-hero-whatsapp');
+  if (heroWa) heroWa.href = waHref;
+
+  // --- GALLERY ---
+  const galleryImages = (resolved.galleryImages && resolved.galleryImages.length)
+    ? resolved.galleryImages
+    : (resolved.image ? [resolved.image] : []);
+  const galleryMain = document.getElementById('pd-gallery-main-img');
+  if (galleryMain) {
+    galleryMain.src = galleryImages[0] || '';
+    galleryMain.alt = product.title;
+  }
+  const galleryThumbs = document.getElementById('pd-gallery-thumbs');
+  if (galleryThumbs && galleryImages.length > 1) {
+    galleryThumbs.innerHTML = galleryImages.map((src, i) => `
+      <button class="pd-thumb-btn ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="${escapeHtml(product.title)} image ${i + 1}">
+        <img src="${src}" alt="${escapeHtml(product.title)} image ${i + 1}" loading="lazy"/>
+      </button>
+    `).join('');
+  }
+  let galleryIndex = 0;
+  const showGalleryImage = (i) => {
+    galleryIndex = (i + galleryImages.length) % galleryImages.length;
+    if (galleryMain) galleryMain.src = galleryImages[galleryIndex] || '';
+    if (galleryThumbs) {
+      galleryThumbs.querySelectorAll('.pd-thumb-btn').forEach((btn, bi) => {
+        btn.classList.toggle('active', bi === galleryIndex);
+      });
+    }
+  };
+  const galleryPrev = document.querySelector('.pd-gallery-prev');
+  const galleryNext = document.querySelector('.pd-gallery-next');
+  if (galleryPrev) galleryPrev.addEventListener('click', () => showGalleryImage(galleryIndex - 1));
+  if (galleryNext) galleryNext.addEventListener('click', () => showGalleryImage(galleryIndex + 1));
+  if (galleryThumbs) {
+    galleryThumbs.querySelectorAll('.pd-thumb-btn').forEach(btn => {
+      btn.addEventListener('click', () => showGalleryImage(Number(btn.dataset.index)));
+    });
+  }
+  const zoomBtn = document.getElementById('pd-gallery-zoom-btn');
+  if (zoomBtn) zoomBtn.addEventListener('click', () => openLightbox(galleryImages, galleryIndex));
+  if (galleryMain) galleryMain.addEventListener('click', () => openLightbox(galleryImages, galleryIndex));
 
   // --- COMPANY INTRO ---
   const introHeading = document.getElementById('pd-intro-heading');
   if (introHeading) introHeading.textContent = `${product.title} Manufacturer in India`;
   const introContent = document.getElementById('pd-intro-content');
   if (introContent) {
-    introContent.innerHTML = product.companyIntro || `<p>${businessName} is a trusted manufacturer and supplier of premium quality ${product.title} in India. We provide high-quality industrial products to domestic and global markets with complete material traceability and certification.</p>`;
+    let html = '';
+    if (product.companyIntro) html += product.companyIntro;
+    else if (product.fullDescription) html += `<p>${escapeHtml(product.fullDescription)}</p>`;
+    introContent.innerHTML = html;
   }
 
-  // --- GALLERY ---
-  const galleryMain = document.getElementById('pd-gallery-main-img');
-  const thumbs = document.getElementById('pd-gallery-thumbs');
-  let images = (resolved.galleryImages && resolved.galleryImages.length) ? resolved.galleryImages : (resolved.image ? [resolved.image] : []);
-  let currentImgIdx = 0;
-
-  if (galleryMain && images.length) {
-    galleryMain.src = images[0];
-    galleryMain.alt = product.title;
+  // --- TECHNICAL SPECIFICATIONS ---
+  const specBody = document.getElementById('pd-specs-body');
+  if (specBody) {
+    specBody.innerHTML = buildSpecTableHtml(product);
   }
-
-  if (thumbs) {
-    thumbs.innerHTML = '';
-    images.forEach((src, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'pd-thumb-btn' + (idx === 0 ? ' active' : '');
-      btn.setAttribute('aria-label', `View image ${idx + 1}`);
-      btn.innerHTML = `<img src="${src}" alt="${product.title}" loading="lazy"/>`;
-      btn.addEventListener('click', () => {
-        currentImgIdx = idx;
-        if (galleryMain) { galleryMain.src = src; galleryMain.alt = product.title; }
-        thumbs.querySelectorAll('.pd-thumb-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+  const specSearchInput = document.getElementById('pd-specs-search-input');
+  if (specSearchInput) {
+    specSearchInput.addEventListener('input', () => {
+      const q = specSearchInput.value.trim().toLowerCase();
+      const rows = specBody ? specBody.querySelectorAll('tr.pd-specs-data-row') : [];
+      let visible = 0;
+      rows.forEach(row => {
+        const show = !q || row.textContent.toLowerCase().includes(q);
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
       });
-      thumbs.appendChild(btn);
+      const empty = document.getElementById('pd-specs-empty');
+      if (empty) empty.style.display = visible ? 'none' : 'block';
     });
   }
-
-  // Gallery zoom button
-  const zoomBtn = document.getElementById('pd-gallery-zoom-btn');
-  if (zoomBtn) {
-    zoomBtn.addEventListener('click', () => {
-      openLightbox(images[currentImgIdx], product.title, images, currentImgIdx);
-    });
-  }
-
-  // Gallery main image click -> lightbox
-  if (galleryMain) {
-    galleryMain.addEventListener('click', () => {
-      openLightbox(images[currentImgIdx], product.title, images, currentImgIdx);
-    });
-  }
-
-  // Gallery nav
-  const prevBtn = document.querySelector('.pd-gallery-prev');
-  const nextBtn = document.querySelector('.pd-gallery-next');
-  if (prevBtn && images.length > 1) {
-    prevBtn.addEventListener('click', () => {
-      currentImgIdx = (currentImgIdx - 1 + images.length) % images.length;
-      if (galleryMain) galleryMain.src = images[currentImgIdx];
-      if (thumbs) thumbs.querySelectorAll('.pd-thumb-btn').forEach((b, i) => b.classList.toggle('active', i === currentImgIdx));
-    });
-  }
-  if (nextBtn && images.length > 1) {
-    nextBtn.addEventListener('click', () => {
-      currentImgIdx = (currentImgIdx + 1) % images.length;
-      if (galleryMain) galleryMain.src = images[currentImgIdx];
-      if (thumbs) thumbs.querySelectorAll('.pd-thumb-btn').forEach((b, i) => b.classList.toggle('active', i === currentImgIdx));
-    });
-  }
-
-  // --- TECHNICAL SPECS TABLE (Reference Design: Heading / Header / Grade Divider / Grade Rows) ---
-  const specsBody = document.getElementById('pd-specs-body');
-  if (specsBody) {
-    specsBody.innerHTML = buildSpecTableHtml(product);
-  }
-
-  // Specs search
-  const specsSearch = document.getElementById('pd-specs-search-input');
-  if (specsSearch && specsBody) {
-    specsSearch.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      const rows = specsBody.querySelectorAll('tr');
-      let visibleCount = 0;
-      const emptyMsg = document.getElementById('pd-specs-empty');
-      let pendingGradeDivider = null;
-
-      if (!q) {
-        rows.forEach(row => { row.style.display = ''; });
-        visibleCount = rows.length;
-      } else {
-        rows.forEach(row => {
-          if (row.classList.contains('pd-specs-title-row') || row.classList.contains('pd-specs-header-row')) {
-            row.style.display = '';
-            return;
-          }
-          if (row.classList.contains('pd-specs-grade-row')) {
-            pendingGradeDivider = row;
-            row.style.display = 'none';
-            return;
-          }
-          if (row.textContent.toLowerCase().includes(q)) {
-            if (pendingGradeDivider) { pendingGradeDivider.style.display = ''; pendingGradeDivider = null; }
-            row.style.display = '';
-            visibleCount++;
-          } else {
-            row.style.display = 'none';
-          }
-        });
-      }
-      if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
-    });
-  }
-
-  // Specs copy button
   const copyBtn = document.getElementById('pd-specs-copy-btn');
-  if (copyBtn && specsBody) {
+  if (copyBtn) {
     copyBtn.addEventListener('click', () => {
-      const rows = specsBody.querySelectorAll('tr');
-      let text = 'Particulars\tSpecification\n';
+      let text = '';
+      const rows = document.querySelectorAll('#pd-specs-body tr');
       rows.forEach(row => {
         const cells = row.querySelectorAll('td');
         if (cells.length === 2) {
@@ -1568,219 +1535,236 @@ function populateProductDetailsPage() {
     });
   }
 
+  // --- TOP SELLING PRODUCTS ---
+  const topSellingSection = document.getElementById('pd-top-selling-section');
+  const topSellingGrid = document.getElementById('pd-top-selling-grid');
+  if (topSellingSection && topSellingGrid) {
+    const subProducts = product.subProducts || product.topSelling || [];
+    if (subProducts.length) {
+      const topSellingTitle = document.getElementById('pd-top-selling-title');
+      if (topSellingTitle) topSellingTitle.textContent = `Top Selling ${product.title}`;
+      topSellingGrid.innerHTML = subProducts.map((item, idx) => {
+        const imgSrc = item.image || resolved.image || '';
+        const name = item.name || '';
+        const altText = item.alt || name;
+        const cardInner = `
+          <div class="pd-related-img">
+            <img src="${imgSrc}" alt="${escapeHtml(altText)}" loading="lazy"/>
+          </div>
+          <div class="pd-related-body">
+            <h3>${escapeHtml(name)}</h3>
+          </div>
+        `;
+        const revealAttr = `style="animation-delay:${idx * 60}ms"`;
+        const href = getSubProductHref(item, product);
+        return href
+          ? `<a href="${href}" class="pd-related-card pd-top-selling-card reveal" ${revealAttr}>${cardInner}</a>`
+          : `<div class="pd-related-card pd-top-selling-card reveal" ${revealAttr}>${cardInner}</div>`;
+      }).join('');
+    } else {
+      topSellingSection.style.display = 'none';
+    }
+  }
+
   // --- APPLICATIONS ---
   const appsGrid = document.getElementById('pd-apps-grid');
-  if (appsGrid && product.applications && product.applications.length) {
-    appsGrid.innerHTML = product.applications.map(app => `
-      <div class="pd-app-card reveal">
-        <div class="pd-app-icon"><i class="fa ${app.icon}"></i></div>
-        <h4>${app.name}</h4>
-        <p>${app.description || ''}</p>
-      </div>
-    `).join('');
+  if (appsGrid) {
+    const apps = product.applications || [];
+    appsGrid.innerHTML = apps.length
+      ? apps.map(a => `
+        <div class="pd-app-card reveal">
+          <div class="pd-app-icon"><i class="fa ${a.icon || 'fa-industry'}"></i></div>
+          <h4>${escapeHtml(a.name)}</h4>
+          <p>${escapeHtml(a.description || '')}</p>
+        </div>
+      `).join('')
+      : '';
   }
 
-  // --- DELIVERY & PACKAGING ---
+  // --- PACKAGING & DELIVERY ---
   const deliveryGrid = document.getElementById('pd-delivery-grid');
-  if (deliveryGrid && product.deliveryInfo && product.deliveryInfo.length) {
-    deliveryGrid.innerHTML = product.deliveryInfo.map(d => `
-      <div class="pd-delivery-card reveal">
-        <div class="pd-delivery-icon"><i class="fa ${d.icon}"></i></div>
-        <h3>${d.title}</h3>
-        <p>${d.text}</p>
-      </div>
-    `).join('');
+  if (deliveryGrid) {
+    const deliveryInfo = product.deliveryInfo || product.packaging || [];
+    deliveryGrid.innerHTML = deliveryInfo.length
+      ? deliveryInfo.map(d => `
+        <div class="pd-delivery-card reveal">
+          <div class="pd-delivery-icon"><i class="fa ${d.icon || 'fa-box'}"></i></div>
+          <h3>${escapeHtml(d.title || '')}</h3>
+          <p>${escapeHtml(d.text || '')}</p>
+        </div>
+      `).join('')
+      : '';
   }
-
-  // --- LOGISTICS INFO (numbered list: Payment Modes / Packaging / Port of Dispatch / Tax) ---
   const logisticsList = document.getElementById('pd-logistics-list');
   if (logisticsList) {
-    const logisticsInfo = (product.logisticsInfo && product.logisticsInfo.length)
-      ? product.logisticsInfo
-      : (config.logisticsInfo || []);
-    logisticsList.innerHTML = logisticsInfo.length
-      ? `<ol class="pd-logistics-items">${logisticsInfo.map(item => `
-          <li class="pd-logistics-item">
-            <strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.value)}
-          </li>`).join('')}</ol>`
+    const info = config.logisticsInfo || [];
+    logisticsList.innerHTML = info.length
+      ? `<ol class="pd-logistics-items">${info.map(item => `
+        <li class="pd-logistics-item">
+          <strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.value)}
+        </li>
+      `).join('')}</ol>`
       : '';
   }
 
   // --- CITIES ---
   const citiesGrid = document.getElementById('pd-cities-grid');
-  if (citiesGrid && product.cities && product.cities.length) {
-    citiesGrid.innerHTML = product.cities.map(city => `<span class="pd-city-chip">${city}</span>`).join('');
+  if (citiesGrid) {
+    const cities = product.cities || [];
+    citiesGrid.innerHTML = cities.length
+      ? cities.map(c => `<span class="pd-city-chip"><i class="fa fa-location-dot"></i> ${escapeHtml(c)}</span>`).join('')
+      : '';
   }
 
   // --- COUNTRIES ---
   const countriesGrid = document.getElementById('pd-countries-grid');
-  if (countriesGrid && product.countries && product.countries.length) {
-    countriesGrid.innerHTML = product.countries.map(c => `
-      <div class="pd-country-card ${c.highlight ? 'pd-country-highlight' : ''} reveal">
-        <i class="fa fa-globe"></i>
-        <span>${c.name}</span>
-      </div>
-    `).join('');
+  if (countriesGrid) {
+    const countries = product.countries || [];
+    countriesGrid.innerHTML = countries.length
+      ? countries.map(c => `
+        <span class="pd-country-card ${c.highlight ? 'pd-country-highlight' : ''}">
+          <i class="fa fa-globe"></i> ${escapeHtml(c.name)}
+        </span>
+      `).join('')
+      : '';
   }
 
   // --- FAQ ---
   const faqList = document.getElementById('pd-faq-list');
-  if (faqList && product.faqs && product.faqs.length) {
-    faqList.innerHTML = product.faqs.map((faq, idx) => `
-      <div class="pd-faq-item reveal">
-        <button class="pd-faq-question" aria-expanded="false" aria-controls="pd-faq-answer-${idx}">
-          <span>${faq.question}</span>
-          <i class="fa fa-chevron-down"></i>
-        </button>
-        <div class="pd-faq-answer" id="pd-faq-answer-${idx}">
-          <p>${faq.answer}</p>
+  if (faqList) {
+    const faqs = product.faqs || [];
+    faqList.innerHTML = faqs.length
+      ? faqs.map((f, idx) => `
+        <div class="pd-faq-item">
+          <button class="pd-faq-question" aria-expanded="${idx === 0 ? 'true' : 'false'}" aria-controls="pd-faq-answer-${idx}">
+            <span>${escapeHtml(f.question)}</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="pd-faq-answer" id="pd-faq-answer-${idx}" ${idx === 0 ? 'style="max-height:300px"' : ''}>
+            <p>${escapeHtml(f.answer)}</p>
+          </div>
         </div>
-      </div>
-    `).join('');
-
+      `).join('')
+      : '';
     faqList.querySelectorAll('.pd-faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
+        const answer = document.getElementById(btn.getAttribute('aria-controls'));
         const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        faqList.querySelectorAll('.pd-faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
-        faqList.querySelectorAll('.pd-faq-answer').forEach(a => a.style.maxHeight = '0');
-        if (!isOpen) {
-          btn.setAttribute('aria-expanded', 'true');
-          const answer = btn.nextElementSibling;
-          if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        if (answer) answer.style.maxHeight = isOpen ? '0px' : answer.scrollHeight + 'px';
       });
     });
   }
 
   // --- RELATED PRODUCTS ---
+  const relatedSection = document.getElementById('pd-section-related');
   const relatedGrid = document.getElementById('pd-related-grid');
   const relatedEmpty = document.getElementById('pd-related-empty');
-  if (relatedGrid) {
-    const slugs = (product.relatedProductSlugs || []).filter(Boolean);
-    let related = slugs.map(s => (config.productDetails || []).find(p => p.slug === s)).filter(Boolean);
-    if (!related.length && product.categoryIds && product.categoryIds.length) {
-      related = (config.productDetails || []).filter(p => p.slug !== product.slug && p.categoryIds && p.categoryIds.some(cid => product.categoryIds.includes(cid))).slice(0, 4);
-    }
-    if (!related.length) { if (relatedEmpty) relatedEmpty.style.display = 'block'; }
-    else {
-      if (relatedEmpty) relatedEmpty.style.display = 'none';
+  if (relatedSection && relatedGrid) {
+    const related = (product.relatedProductSlugs || [])
+      .map(s => (config.productDetails || []).find(p => p.slug === s))
+      .filter(Boolean);
+    if (related.length) {
       relatedGrid.innerHTML = related.map(p => {
         const r = resolveProductImages(p);
         return `
           <a href="${getProductUrl(p)}" class="pd-related-card reveal">
-            <div class="pd-related-img"><img src="${r.image || ''}" alt="${p.title}" loading="lazy"/></div>
+            <div class="pd-related-img">
+              <img src="${r.image || ''}" alt="${escapeHtml(p.title)}" loading="lazy"/>
+            </div>
             <div class="pd-related-body">
-              <h3>${p.title}</h3>
-              <p>${(p.shortDescription || '').slice(0, 80)}${(p.shortDescription || '').length > 80 ? '...' : ''}</p>
-              <span class="btn btn-dark btn-sm"><i class="fa fa-arrow-right"></i> View</span>
+              <h3>${escapeHtml(p.title)}</h3>
             </div>
           </a>
         `;
       }).join('');
+      if (relatedEmpty) relatedEmpty.style.display = 'none';
+    } else {
+      relatedSection.style.display = 'none';
+      if (relatedEmpty) relatedEmpty.style.display = 'block';
     }
   }
 
-  // --- INQUIRY FORM ---
-  const productField = document.getElementById('pd-inq-product');
-  if (productField) productField.value = product.title;
-
-  const form = document.getElementById('pd-inquiry-form');
-  if (form) {
-    form.addEventListener('submit', async (e) => {
+  // --- MAIN INQUIRY FORM ---
+  const inquiryForm = document.getElementById('pd-inquiry-form');
+  if (inquiryForm) {
+    const productField = document.getElementById('pd-inq-product');
+    if (productField) productField.value = product.title;
+    inquiryForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const required = form.querySelectorAll('[required]');
+      const name = document.getElementById('pd-inq-name');
+      const company = document.getElementById('pd-inq-company');
+      const email = document.getElementById('pd-inq-email');
+      const phone = document.getElementById('pd-inq-phone');
+      const country = document.getElementById('pd-inq-country');
+      const qty = document.getElementById('pd-inq-qty');
+      const msg = document.getElementById('pd-inq-msg');
+      const required = [name, company, email, phone, msg];
       let valid = true;
-      required.forEach(inp => {
-        inp.classList.remove('invalid');
-        if (!inp.value.trim()) { inp.classList.add('invalid'); valid = false; }
-        if (inp.type === 'email' && inp.value.trim() && !validateEmail(inp.value)) { inp.classList.add('invalid'); valid = false; }
-        if (inp.type === 'tel' && inp.value.trim() && !validatePhone(inp.value)) { inp.classList.add('invalid'); valid = false; }
-      });
+      required.forEach(f => { if (f) f.classList.remove('invalid'); });
+      const markInvalid = (f) => { if (f) { f.classList.add('invalid'); valid = false; } };
+      if (name && !name.value.trim()) markInvalid(name);
+      if (company && !company.value.trim()) markInvalid(company);
+      if (email && (!email.value.trim() || !validateEmail(email.value))) markInvalid(email);
+      if (phone && (!phone.value.trim() || !validatePhone(phone.value))) markInvalid(phone);
+      if (msg && !msg.value.trim()) markInvalid(msg);
       if (!valid) return;
-      const btn = form.querySelector('button[type="submit"]');
+      const btn = inquiryForm.querySelector('button[type="submit"]');
       const orig = btn.innerHTML;
       btn.disabled = true;
       btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
       const fd = new FormData();
-      fd.append('name', document.getElementById('pd-inq-name')?.value || '');
-      fd.append('company', document.getElementById('pd-inq-company')?.value || '');
-      fd.append('email', document.getElementById('pd-inq-email')?.value || '');
-      fd.append('phone', document.getElementById('pd-inq-phone')?.value || '');
-      fd.append('country', document.getElementById('pd-inq-country')?.value || '');
-      fd.append('product', document.getElementById('pd-inq-product')?.value || '');
-      fd.append('quantity', document.getElementById('pd-inq-qty')?.value || '');
-      fd.append('message', document.getElementById('pd-inq-msg')?.value || '');
-      fd.append('access_key', config.business.web3forms_key);
+      fd.append('name', name ? name.value : '');
+      fd.append('company', company ? company.value : '');
+      fd.append('email', email ? email.value : '');
+      fd.append('phone', phone ? phone.value : '');
+      fd.append('country', country ? country.value : '');
+      fd.append('quantity', qty ? qty.value : '');
+      fd.append('message', msg ? msg.value : '');
+      fd.append('product', product.title);
       fd.append('subject', `Product Inquiry: ${product.title}`);
-      fd.append('from_name', businessName);
-
-      if (!config.business.web3forms_key || config.business.web3forms_key === 'YOUR_ACCESS_KEY_HERE') {
-        const successMsg = document.getElementById('pd-inquiry-success');
-        if (successMsg) {
-          successMsg.style.display = 'block';
-          successMsg.style.backgroundColor = '#fff7ed';
-          successMsg.style.borderColor = '#f59e0b';
-          successMsg.style.color = '#7c2d12';
-          successMsg.innerHTML = `<i class="fa fa-triangle-exclamation"></i> Inquiry form not connected yet. Please contact us via phone/WhatsApp.`;
-        }
-        btn.disabled = false;
-        btn.innerHTML = orig;
-        return;
-      }
-
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-        const data = await res.json();
-        if (data.success) {
-          const successMsg = document.getElementById('pd-inquiry-success');
-          if (successMsg) {
-            successMsg.style.display = 'block';
-            successMsg.style.backgroundColor = '#ecfdf5';
-            successMsg.style.borderColor = '#10b981';
-            successMsg.style.color = '#065f46';
-            successMsg.innerHTML = '<i class="fa fa-circle-check"></i> Thank you! Your inquiry has been submitted. We will contact you shortly.';
-          }
-          form.reset();
+      fd.append('_replyto', email ? email.value : '');
+      fd.append('_gotcha', '');
+      const result = await submitInquiryToEndpoint(fd);
+      const successEl = document.getElementById('pd-inquiry-success');
+      if (result.ok) {
+        if (successEl) {
+          successEl.style.display = 'block';
+          successEl.textContent = 'Thank you! Your inquiry has been submitted. Our team will contact you shortly.';
+          successEl.style.borderColor = 'var(--success)';
+          successEl.style.color = 'var(--success)';
         } else {
-          alert('Submission failed: ' + data.message);
+          alert('Inquiry submitted! We will contact you shortly.');
         }
-      } catch {
-        alert('An error occurred. Please contact us directly via WhatsApp or email.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = orig;
+        inquiryForm.reset();
+        if (productField) productField.value = product.title;
+      } else {
+        const msg = result.notConnected
+          ? 'Inquiry form is not connected yet. Please contact us via WhatsApp or email.'
+          : 'Submission failed. Please try again or contact us directly via WhatsApp or email.';
+        if (successEl) {
+          successEl.style.display = 'block';
+          successEl.textContent = msg;
+          successEl.style.borderColor = 'var(--error)';
+          successEl.style.color = 'var(--error)';
+        } else {
+          alert(msg);
+        }
       }
+      btn.disabled = false;
+      btn.innerHTML = orig;
     });
   }
 
-  // --- SIDEBAR SETUP ---
-  // Populate materials in sidebar from config
+  // --- SIDEBAR: MATERIALS ---
   const sidebarMaterials = document.getElementById('pd-sidebar-materials');
   if (sidebarMaterials) {
-    sidebarMaterials.innerHTML = (config.materials || []).map(m => {
-      const url = `/materials/${m.slug}/`;
-      return `<a href="${url}" class="pd-sidebar-link" style="display:inline-block; padding:4px 10px; margin:3px; font-size:0.8125rem;">${m.title}</a>`;
-    }).join('');
+    sidebarMaterials.innerHTML = (config.materials || []).map(m => `
+      <span><a href="/materials/${m.slug}/">${escapeHtml(m.title)}</a></span>
+    `).join('');
   }
 
-  // Set active category in sidebar
-  const sidebarLinks = document.querySelectorAll('.pd-sidebar-link');
-  sidebarLinks.forEach(link => {
-    const cat = link.dataset.category;
-    if (cat && cat === catId) {
-      link.classList.add('active');
-    }
-  });
-
-  // Set sidebar contact links
-  const sidebarCall = document.getElementById('pd-sidebar-call');
-  const sidebarWa = document.getElementById('pd-sidebar-wa');
-  const sidebarEmail = document.getElementById('pd-sidebar-email');
-  if (sidebarCall) sidebarCall.href = phoneHref;
-  if (sidebarWa) sidebarWa.href = waHref;
-  if (sidebarEmail) sidebarEmail.href = emailHref;
-
-  // Sidebar inquiry form
+  // --- SIDEBAR: INQUIRY FORM ---
   const sidebarForm = document.getElementById('pd-sidebar-inquiry-form');
   if (sidebarForm) {
     sidebarForm.addEventListener('submit', async (e) => {
@@ -1794,7 +1778,6 @@ function populateProductDetailsPage() {
         if (inp.type === 'tel' && inp.value.trim() && !validatePhone(inp.value)) { inp.classList.add('invalid'); valid = false; }
       });
       if (!valid) return;
-
       const btn = sidebarForm.querySelector('button[type="submit"]');
       const orig = btn.innerHTML;
       btn.disabled = true;
@@ -1805,148 +1788,41 @@ function populateProductDetailsPage() {
       fd.append('phone', inputs[2]?.value || '');
       fd.append('message', inputs[3]?.value || '');
       fd.append('product', product.title);
-      fd.append('access_key', config.business.web3forms_key);
-      fd.append('subject', `Quick Inquiry: ${product.title}`);
-      fd.append('from_name', businessName);
-
-      if (!config.business.web3forms_key || config.business.web3forms_key === 'YOUR_ACCESS_KEY_HERE') {
-        alert('Inquiry form not connected. Please call or WhatsApp us.');
-        btn.disabled = false;
-        btn.innerHTML = orig;
-        return;
+      fd.append('subject', `Product Inquiry: ${product.title}`);
+      fd.append('_replyto', inputs[1]?.value || '');
+      fd.append('_gotcha', '');
+      const result = await submitInquiryToEndpoint(fd);
+      if (result.ok) {
+        alert('Inquiry submitted! We will contact you shortly.');
+        sidebarForm.reset();
+      } else {
+        alert(result.notConnected ? 'Inquiry form is not connected yet. Please contact us via WhatsApp or email.' : 'Submission failed. Please try again or contact us directly.');
       }
-
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-        const data = await res.json();
-        if (data.success) {
-          alert('Inquiry submitted! We will contact you shortly.');
-          sidebarForm.reset();
-        } else {
-          alert('Submission error: ' + data.message);
-        }
-      } catch {
-        alert('Error submitting. Please contact us directly.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = orig;
-      }
+      btn.disabled = false;
+      btn.innerHTML = orig;
     });
   }
 
-  // --- LIGHTBOX ---
-  setupLightbox();
-
-  // --- LOADING ---
-  if (loader) loader.style.display = 'none';
+  // --- SIDEBAR: CTA LINKS ---
+  const sidebarCall = document.getElementById('pd-sidebar-call');
+  const sidebarWa = document.getElementById('pd-sidebar-wa');
+  const sidebarEmail = document.getElementById('pd-sidebar-email');
+  if (sidebarCall) sidebarCall.href = phoneHref;
+  if (sidebarWa) sidebarWa.href = waHref;
+  if (sidebarEmail) sidebarEmail.href = emailHref;
 
   // --- SHOW LAYOUT ---
+  if (loader) loader.style.display = 'none';
   const layout = document.getElementById('product-details-layout');
   if (layout) layout.style.display = 'grid';
 
-  // Reveal animations
   prepareRevealTargets();
   initScrollReveal();
 }
 
-function setupLightbox() {
-  const lightbox = document.getElementById('product-lightbox');
-  if (!lightbox) return;
-
-  const closeBtn = document.getElementById('pd-lightbox-close');
-  const prevBtn = document.getElementById('pd-lightbox-prev');
-  const nextBtn = document.getElementById('pd-lightbox-next');
-  const img = document.getElementById('pd-lightbox-img');
-  const counter = document.getElementById('pd-lightbox-counter');
-
-  let images = [];
-  let currentIdx = 0;
-
-  // Expose open function globally for gallery clicks
-  window.openLightbox = (imageSrc, title, imgs = [], startIdx = 0) => {
-    images = imgs.length ? imgs : [imageSrc];
-    currentIdx = startIdx;
-    lightbox.style.display = 'flex';
-    updateLightboxImage();
-  };
-
-  function updateLightboxImage() {
-    if (!img || !images.length) return;
-    img.src = images[currentIdx];
-    img.alt = `Product image ${currentIdx + 1}`;
-    if (counter) counter.textContent = `${currentIdx + 1} / ${images.length}`;
-    prevBtn.style.display = images.length > 1 ? 'flex' : 'none';
-    nextBtn.style.display = images.length > 1 ? 'flex' : 'none';
-  }
-
-  function closeLightbox() {
-    lightbox.style.display = 'none';
-  }
-
-  function prevImage() {
-    if (images.length < 2) return;
-    currentIdx = (currentIdx - 1 + images.length) % images.length;
-    updateLightboxImage();
-  }
-
-  function nextImage() {
-    if (images.length < 2) return;
-    currentIdx = (currentIdx + 1) % images.length;
-    updateLightboxImage();
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  if (prevBtn) prevBtn.addEventListener('click', prevImage);
-  if (nextBtn) nextBtn.addEventListener('click', nextImage);
-
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (lightbox.style.display !== 'flex') return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') prevImage();
-    if (e.key === 'ArrowRight') nextImage();
-  });
-}
-
-function injectBreadcrumbJsonLd(product) {
-  const old = document.getElementById('breadcrumb-jsonld');
-  if (old) old.remove();
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.id = 'breadcrumb-jsonld';
-  script.textContent = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://sujalenterprise.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://sujalenterprise.com/products.html' },
-      { '@type': 'ListItem', position: 3, name: product.title, item: `https://sujalenterprise.com${getProductUrl(product)}` }
-    ]
-  });
-  document.head.appendChild(script);
-}
-
-function injectFaqJsonLd(faqs) {
-  const old = document.getElementById('faq-jsonld');
-  if (old) old.remove();
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.id = 'faq-jsonld';
-  script.textContent = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(f => ({
-      '@type': 'Question',
-      name: f.question,
-      acceptedAnswer: { '@type': 'Answer', text: f.answer }
-    }))
-  });
-  document.head.appendChild(script);
-}
-
+// =========================================================================
+// SCROLL REVEAL — Smooth Section/Card Entrance Animations
+// =========================================================================
 function prepareRevealTargets() {
   document.querySelectorAll([
     '.section-padding > .container',
@@ -1964,16 +1840,17 @@ function prepareRevealTargets() {
 }
 
 function initScrollReveal() {
-
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     return;
   }
-
   const elements = document.querySelectorAll('.reveal:not(.visible)');
   if (!elements.length) return;
-
+  if (typeof IntersectionObserver === 'undefined') {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    return;
+  }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1982,8 +1859,54 @@ function initScrollReveal() {
       }
     });
   }, { threshold: 0.18 });
-
   elements.forEach(el => observer.observe(el));
+}
+
+// =========================================================================
+// GALLERY LIGHTBOX — Zoom Overlay for Product Detail Pages
+// =========================================================================
+function setupLightbox(images, startIndex = 0) {
+  const existing = document.getElementById('pd-lightbox');
+  if (existing) existing.remove();
+  if (!images || !images.length) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'pd-lightbox';
+  overlay.id = 'pd-lightbox';
+  overlay.innerHTML = `
+    <button class="pd-lightbox-close" aria-label="Close"><i class="fa fa-times"></i></button>
+    <button class="pd-lightbox-prev" aria-label="Previous"><i class="fa fa-chevron-left"></i></button>
+    <img class="pd-lightbox-img" src="" alt="Product Image"/>
+    <button class="pd-lightbox-next" aria-label="Next"><i class="fa fa-chevron-right"></i></button>
+    <div class="pd-lightbox-counter"></div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.style.display = 'flex';
+
+  let index = startIndex;
+  const img = overlay.querySelector('.pd-lightbox-img');
+  const counter = overlay.querySelector('.pd-lightbox-counter');
+  const show = (i) => {
+    index = (i + images.length) % images.length;
+    img.src = images[index] || '';
+    counter.textContent = `${index + 1} / ${images.length}`;
+  };
+  const close = () => overlay.remove();
+  overlay.querySelector('.pd-lightbox-close').addEventListener('click', close);
+  overlay.querySelector('.pd-lightbox-prev').addEventListener('click', () => show(index - 1));
+  overlay.querySelector('.pd-lightbox-next').addEventListener('click', () => show(index + 1));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('pd-lightbox')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(index - 1);
+    if (e.key === 'ArrowRight') show(index + 1);
+  });
+  show(startIndex);
+}
+
+function openLightbox(images, index = 0) {
+  setupLightbox(images, index);
 }
 
 // =========================================================================
@@ -1992,82 +1915,153 @@ function initScrollReveal() {
 function populateMaterialsPage() {
   const container = document.getElementById('materials-catalog-container');
   if (!container) return;
-  container.innerHTML = '';
 
-  const searchInput = document.getElementById('materials-search-input');
-  const countLabel = document.getElementById('materials-result-label');
   const materials = (config.materialDetails || []).slice();
 
-  const renderCards = (results) => {
-    container.innerHTML = '';
-    if (!results.length) {
-      container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--text-muted);"><i class="fa fa-cube" style="font-size:2.5rem; margin-bottom:16px; display:block;"></i><p>No materials found.</p></div>';
-      if (countLabel) countLabel.textContent = '0 materials';
-      return;
-    }
-    if (countLabel) countLabel.textContent = `Showing ${results.length} material${results.length === 1 ? '' : 's'}`;
-
-    results.forEach((m, idx) => {
-      const resolved = resolveMaterialImages(m);
-      const card = document.createElement('a');
-      card.className = 'product-card-premium reveal';
-      card.href = `/materials/${m.slug}/`;
-      card.style.animationDelay = `${idx * 60}ms`;
-      card.innerHTML = `
-        <div class="card-img-wrap">
-          <img src="${resolved.image || ''}" alt="${m.name}" loading="lazy"/>
-          <div class="card-img-overlay"></div>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">${m.name}</h3>
-          <p class="card-desc">${m.shortDescription || ''}</p>
-        </div>
-        <div class="card-footer">
-          <div class="card-standards">
-            ${(m.grades || []).slice(0, 3).map(g => `<span>${g}</span>`).join('')}
-          </div>
-          <span class="card-view-btn">View Material <i class="fa fa-arrow-right"></i></span>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-    initScrollReveal();
+  const render = (list) => {
+    container.innerHTML = list.length
+      ? list.map((m, idx) => `
+        <a href="/materials/${m.slug}/" class="material-card reveal" style="animation-delay:${idx * 60}ms">
+          <div class="material-icon"><i class="fa fa-cubes"></i></div>
+          <h3>${escapeHtml(m.name)}</h3>
+          <p>${escapeHtml(((m.shortDescription || '').slice(0, 110))) }${(m.shortDescription || '').length > 110 ? '...' : ''}</p>
+        </a>
+      `).join('')
+      : '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px;">No materials found.</p>';
   };
 
-  // Search handler
+  render(materials);
+
+  const label = document.getElementById('materials-result-label');
+  if (label) label.textContent = `Showing all materials (${materials.length})`;
+
+  const searchInput = document.getElementById('materials-search-input');
   if (searchInput) {
     searchInput.addEventListener('input', () => {
       const q = searchInput.value.trim().toLowerCase();
-      if (!q) { renderCards(materials); return; }
       const filtered = materials.filter(m => {
-        const text = [
-          m.name, m.shortDescription, m.longDescription,
-          ...(m.grades || []), ...(m.applications || []).map(a => a.name),
-          ...(m.keywords || [])
+        const haystack = [
+          m.name,
+          m.shortDescription,
+          m.longDescription,
+          (m.keywords || []).join(' ')
         ].join(' ').toLowerCase();
-        return text.includes(q);
+        return !q || haystack.includes(q);
       });
-      renderCards(filtered);
+      render(filtered);
+      if (label) label.textContent = q
+        ? `Showing ${filtered.length} of ${materials.length} materials`
+        : `Showing all materials (${materials.length})`;
     });
   }
 
-  renderCards(materials);
-
-  // Populate material inquiry dropdown dynamically
   const matSelect = document.getElementById('materials-inquiry-select');
-  if (matSelect && matSelect.options.length <= 1) {
-    (config.materials || []).forEach(m => {
-      const opt = document.createElement('option');
-      opt.value = m.title;
-      opt.textContent = m.title;
-      matSelect.appendChild(opt);
-    });
+  if (matSelect) {
+    matSelect.innerHTML = '<option value="">Select Material</option>' + materials.map(m =>
+      `<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)}</option>`
+    ).join('');
   }
+
+  prepareRevealTargets();
+  initScrollReveal();
 }
 
 // =========================================================================
-// MATERIAL DETAILS PAGE — Premium 70/30 Layout (Config-Driven)
+// FAQ STRUCTURED DATA (JSON-LD)
 // =========================================================================
+function injectFaqJsonLd(faqs) {
+  if (!faqs || !faqs.length) return;
+  const old = document.getElementById('faq-jsonld');
+  if (old) old.remove();
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'faq-jsonld';
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer }
+    }))
+  });
+  document.head.appendChild(script);
+}
+
+// =========================================================================
+// MATERIAL DETAILS PAGE — Classic Industrial B2B Template (Config-Driven)
+// Distinct from the product-detail (pd-*) template. All 4 material pages
+// (Mild Steel, Stainless Steel, Alloy Steel, IBR) render via this function.
+// =========================================================================
+// Main product categories shown in the Products navigation dropdown.
+// Order matches the 3-column grid layout (read left-to-right, top-to-bottom).
+const PRODUCT_NAV_ITEMS = [
+  { slug: 'flanges' },
+  { slug: 'round-bar' },
+  { slug: 'pipes' },
+  { slug: 'sheets' },
+  { slug: 'plates' },
+  { slug: 'buttweld-fittings' },
+  { slug: 'forged-fittings' },
+  { slug: 'channel-angle' }
+];
+
+const MATERIAL_PRODUCT_ORDER = [
+  'buttweld-fittings',
+  'forged-fittings',
+  'flanges',
+  'round-bar',
+  'pipes',
+  'plates',
+  'sheets',
+  'channel-angle'
+];
+
+// Material-specific "Top Selling" names in the exact category order shown on
+// each material detail page. Each card links to the main product category page.
+const MATERIAL_TOP_SELLING = {
+  'mild-steel': [
+    { slug: 'buttweld-fittings', name: 'Mild Steel Buttweld Fittings' },
+    { slug: 'flanges', name: 'Mild Steel Flanges' },
+    { slug: 'round-bar', name: 'Mild Steel Round Bars' },
+    { slug: 'pipes', name: 'Mild Steel Pipes' },
+    { slug: 'forged-fittings', name: 'Mild Steel Forged Fittings' },
+    { slug: 'plates', name: 'Mild Steel Plates' },
+    { slug: 'sheets', name: 'Mild Steel Sheets' },
+    { slug: 'channel-angle', name: 'Mild Steel Channel, Angles' }
+  ],
+  'stainless-steel': [
+    { slug: 'buttweld-fittings', name: 'Stainless Steel Buttweld Fittings' },
+    { slug: 'flanges', name: 'Stainless Steel Flanges' },
+    { slug: 'round-bar', name: 'Stainless Steel Round Bars' },
+    { slug: 'pipes', name: 'Stainless Steel Pipes' },
+    { slug: 'forged-fittings', name: 'Stainless Steel Forged Fittings' },
+    { slug: 'plates', name: 'Stainless Steel Plates' },
+    { slug: 'sheets', name: 'Stainless Steel Sheets' },
+    { slug: 'channel-angle', name: 'Stainless Steel Channel, Angles' }
+  ],
+  'alloy-steel': [
+    { slug: 'buttweld-fittings', name: 'Alloy Steel Buttweld Fittings' },
+    { slug: 'flanges', name: 'Alloy Steel Flanges' },
+    { slug: 'round-bar', name: 'Alloy Steel Round Bars' },
+    { slug: 'pipes', name: 'Alloy Steel Pipes' },
+    { slug: 'forged-fittings', name: 'Alloy Steel Forged Fittings' },
+    { slug: 'plates', name: 'Alloy Steel Plates' },
+    { slug: 'sheets', name: 'Alloy Steel Sheets' },
+    { slug: 'channel-angle', name: 'Alloy Steel Channel, Angles' }
+  ],
+  'ibr': [
+    { slug: 'buttweld-fittings', name: 'IBR Buttweld Fittings' },
+    { slug: 'flanges', name: 'IBR Flanges' },
+    { slug: 'round-bar', name: 'IBR Round Bars' },
+    { slug: 'pipes', name: 'IBR Pipes' },
+    { slug: 'forged-fittings', name: 'IBR Forged Fittings' },
+    { slug: 'plates', name: 'IBR Plates' },
+    { slug: 'sheets', name: 'IBR Sheets' },
+    { slug: 'channel-angle', name: 'IBR Channel, Angles' }
+  ]
+};
+
 function populateMaterialDetailsPage() {
   const loader = document.getElementById('md-loading');
   if (!loader && !document.getElementById('material-details-layout')) return;
@@ -2085,10 +2079,11 @@ function populateMaterialDetailsPage() {
   }
 
   const resolved = resolveMaterialImages(material);
-  const waNum = config.business.whatsapp.replace(/\+/g, '').replace(/\s+/g, '');
+  const waNum = String(config.business.whatsapp || '').replace(/\+/g, '').replace(/\s+/g, '');
   const waMsg = encodeURIComponent(`Hello ${config.business.name}, I want to inquire about: ${material.name}.`);
   const waHref = `https://wa.me/${waNum}?text=${waMsg}`;
-  const phoneHref = `tel:${config.business.phones[0].replace(/\s+/g, '')}`;
+  const phoneRaw = (config.business.phones && config.business.phones[0]) || '';
+  const phoneHref = `tel:${phoneRaw.replace(/\s+/g, '')}`;
   const emailHref = `mailto:${config.business.email}`;
   const businessName = config.business.name;
 
@@ -2107,361 +2102,170 @@ function populateMaterialDetailsPage() {
   updateCanonical(window.location.href);
   injectMaterialJsonLd(material);
   injectMaterialBreadcrumbJsonLd(material);
-  if (material.faqs && material.faqs.length) injectFaqJsonLd(material.faqs);
 
   const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text || ''; };
   const setHtml = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html || ''; };
   const setAttr = (id, attr, val) => { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); };
 
-  // --- HERO ---
-  setText('md-breadcrumb-current', material.name);
-  setText('md-material-badge', material.name);
-  setText('md-title', material.name);
-  setText('md-short-desc', material.shortDescription || '');
-  setAttr('md-hero-call', 'href', phoneHref);
-  setAttr('md-hero-whatsapp', 'href', waHref);
+  // --- HERO BANNER ---
+  const breadcrumbCurrent = document.querySelector('#mat-breadcrumb .current');
+  if (breadcrumbCurrent) breadcrumbCurrent.textContent = material.name;
+  setText('mat-hero-title', `${material.name} Manufacturer in India`);
+  setText('mat-hero-subtitle', material.shortDescription || '');
 
-  // --- OVERVIEW ---
-  const introHeading = document.getElementById('md-overview-heading');
-  if (introHeading) introHeading.textContent = `About ${material.name}`;
-  const introContent = document.getElementById('md-intro-content');
-  if (introContent) {
-    introContent.innerHTML = `<p>${material.longDescription || material.shortDescription || ''}</p>`;
+  // --- MATERIAL INTRODUCTION ---
+  setText('mat-intro-heading', `About ${material.name}`);
+  setText('mat-intro-lead', material.shortDescription || '');
+  const longDesc = material.longDescription || material.shortDescription || '';
+  setHtml('mat-intro-desc', `<p>${escapeHtml(longDesc)}</p>`);
+  const introImg = document.getElementById('mat-intro-img');
+  if (introImg) {
+    introImg.src = resolved.image || '';
+    introImg.alt = `${material.name} Products`;
   }
 
-  // --- GALLERY ---
-  const galleryMain = document.getElementById('md-gallery-main-img');
-  const thumbs = document.getElementById('md-gallery-thumbs');
-  let images = (resolved.galleryImages && resolved.galleryImages.length) ? resolved.galleryImages : (resolved.image ? [resolved.image] : []);
-  let currentImgIdx = 0;
-
-  if (galleryMain && images.length) {
-    galleryMain.src = images[0];
-    galleryMain.alt = material.name;
+  // --- MATERIAL STANDARD, SIZE & SPECIFICATION ---
+  setText('mat-spec-heading', material.specificationHeading || `${material.name} Standard, Size & Specification`);
+  const specBody = document.getElementById('mat-spec-body');
+  if (specBody) {
+    const specs = material.specifications || [];
+    specBody.innerHTML = specs.length
+      ? specs.map(s => `
+          <tr>
+            <td>${escapeHtml(s.material || '').replace(/\n/g, '<br>')}</td>
+            <td>${escapeHtml(s.standard || '')}</td>
+            <td>${escapeHtml(s.products || '')}</td>
+          </tr>
+        `).join('')
+      : `<tr>
+           <td colspan="3" class="mat-empty">
+             Specification details will be updated soon.
+           </td>
+         </tr>`;
   }
 
-  if (thumbs) {
-    thumbs.innerHTML = '';
-    images.forEach((src, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'pd-thumb-btn' + (idx === 0 ? ' active' : '');
-      btn.setAttribute('aria-label', `View image ${idx + 1}`);
-      btn.innerHTML = `<img src="${src}" alt="${material.name}" loading="lazy"/>`;
-      btn.addEventListener('click', () => {
-        currentImgIdx = idx;
-        if (galleryMain) { galleryMain.src = src; galleryMain.alt = material.name; }
-        thumbs.querySelectorAll('.pd-thumb-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-      thumbs.appendChild(btn);
-    });
+  // --- TOP SELLING MATERIAL PRODUCTS ---
+  setText('mat-top-heading', `Top Selling ${material.name}`);
+  const prodGrid = document.getElementById('mat-prod-grid');
+  if (prodGrid) {
+    const cardImages = material.cardImages || {};
+    const products = (MATERIAL_TOP_SELLING[material.slug] || [])
+      .map(entry => {
+        const p = (config.productDetails || []).find(prod => prod.slug === entry.slug);
+        return p ? { product: p, name: entry.name, image: cardImages[entry.slug] || '' } : null;
+      })
+      .filter(Boolean);
+    prodGrid.innerHTML = products.map(({ product: p, name, image }) => {
+      const r = resolveProductImages(p);
+      return `
+        <a href="${getProductUrl(p)}" class="mat-prod-card reveal">
+          <div class="mat-prod-img"><img src="${image || r.image || ''}" alt="${escapeHtml(name)}" loading="lazy"/></div>
+          <div class="mat-prod-name">${escapeHtml(name)}</div>
+        </a>
+      `;
+    }).join('');
   }
 
-  const zoomBtn = document.getElementById('md-gallery-zoom-btn');
-  if (zoomBtn) {
-    zoomBtn.addEventListener('click', () => {
-      openLightbox(images[currentImgIdx], material.name, images, currentImgIdx);
-    });
-  }
+  // --- CTA BUTTONS ---
+  setAttr('mat-cta-call', 'href', phoneHref);
+  setAttr('mat-cta-mail', 'href', emailHref);
+  setAttr('mat-cta-wa', 'href', waHref);
 
-  if (galleryMain) {
-    galleryMain.addEventListener('click', () => {
-      openLightbox(images[currentImgIdx], material.name, images, currentImgIdx);
-    });
-  }
-
-  const prevBtn = document.querySelector('.pd-gallery-prev');
-  const nextBtn = document.querySelector('.pd-gallery-next');
-  if (prevBtn && images.length > 1) {
-    prevBtn.addEventListener('click', () => {
-      currentImgIdx = (currentImgIdx - 1 + images.length) % images.length;
-      if (galleryMain) galleryMain.src = images[currentImgIdx];
-      if (thumbs) thumbs.querySelectorAll('.pd-thumb-btn').forEach((b, i) => b.classList.toggle('active', i === currentImgIdx));
-    });
-  }
-  if (nextBtn && images.length > 1) {
-    nextBtn.addEventListener('click', () => {
-      currentImgIdx = (currentImgIdx + 1) % images.length;
-      if (galleryMain) galleryMain.src = images[currentImgIdx];
-      if (thumbs) thumbs.querySelectorAll('.pd-thumb-btn').forEach((b, i) => b.classList.toggle('active', i === currentImgIdx));
-    });
-  }
-
-  // --- SPECS TABLE ---
-  const specsBody = document.getElementById('md-specs-body');
-  if (specsBody && material.specifications && material.specifications.length) {
-    specsBody.innerHTML = material.specifications.map(s => `
-      <tr><td>${s.label || ''}</td><td>${s.value || ''}</td></tr>
-    `).join('');
-  }
-
-  const specsSearch = document.getElementById('md-specs-search-input');
-  if (specsSearch && specsBody) {
-    specsSearch.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      const rows = specsBody.querySelectorAll('tr');
-      let visibleCount = 0;
-      const emptyMsg = document.getElementById('md-specs-empty');
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (!q || text.includes(q)) { row.style.display = ''; visibleCount++; }
-        else { row.style.display = 'none'; }
-      });
-      if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
-    });
-  }
-
-  const copyBtn = document.getElementById('md-specs-copy-btn');
-  if (copyBtn && specsBody) {
-    copyBtn.addEventListener('click', () => {
-      const rows = specsBody.querySelectorAll('tr');
-      let text = 'Particular\tSpecification\n';
-      rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        if (cells.length === 2) text += `${cells[0].textContent}\t${cells[1].textContent}\n`;
-      });
-      navigator.clipboard.writeText(text).then(() => {
-        copyBtn.innerHTML = '<i class="fa fa-check"></i> Copied!';
-        setTimeout(() => { copyBtn.innerHTML = '<i class="fa fa-copy"></i> Copy'; }, 2000);
-      }).catch(() => { alert('Could not copy. Please select and copy manually.'); });
-    });
-  }
-
-  // --- GRADES ---
-  const gradesGrid = document.getElementById('md-grades-grid');
-  if (gradesGrid && material.grades && material.grades.length) {
-    gradesGrid.innerHTML = material.grades.map(g => `<span class="pd-city-chip">${g}</span>`).join('');
-  }
-
-  // --- APPLICATIONS ---
-  const appsGrid = document.getElementById('md-apps-grid');
-  if (appsGrid && material.applications && material.applications.length) {
-    appsGrid.innerHTML = material.applications.map(a => `
-      <div class="pd-app-card reveal">
-        <div class="pd-app-icon"><i class="fa ${a.icon}"></i></div>
-        <h4>${a.name}</h4>
-        <p>${a.description || ''}</p>
-      </div>
-    `).join('');
-  }
-
-  // --- PRODUCTS USING THIS MATERIAL ---
-  const productsGrid = document.getElementById('md-products-grid');
-  const productsEmpty = document.getElementById('md-products-empty');
-  if (productsGrid) {
-    const productSlugs = material.products || [];
-    let relatedProducts = productSlugs.map(s => (config.productDetails || []).find(p => p.slug === s)).filter(Boolean);
-    if (!relatedProducts.length) {
-      if (productsEmpty) productsEmpty.style.display = 'block';
-    } else {
-      if (productsEmpty) productsEmpty.style.display = 'none';
-      productsGrid.innerHTML = relatedProducts.map(p => {
-        const r = resolveProductImages(p);
-        return `
-          <a href="${getProductUrl(p)}" class="pd-related-card reveal">
-            <div class="pd-related-img"><img src="${r.image || ''}" alt="${p.title}" loading="lazy"/></div>
-            <div class="pd-related-body">
-              <h3>${p.title}</h3>
-              <p>${(p.shortDescription || '').slice(0, 80)}${(p.shortDescription || '').length > 80 ? '...' : ''}</p>
-              <span class="btn btn-dark btn-sm"><i class="fa fa-arrow-right"></i> View</span>
-            </div>
-          </a>
-        `;
-      }).join('');
-    }
-  }
-
-  // --- PACKAGING ---
-  const packagingGrid = document.getElementById('md-packaging-grid');
-  if (packagingGrid && material.packaging && material.packaging.length) {
-    packagingGrid.innerHTML = material.packaging.map(p => `
-      <div class="pd-delivery-card reveal">
-        <div class="pd-delivery-icon"><i class="fa ${p.icon}"></i></div>
-        <h3>${p.title}</h3>
-        <p>${p.text}</p>
-      </div>
-    `).join('');
-  }
-
-  // --- CITIES ---
-  const citiesGrid = document.getElementById('md-cities-grid');
-  if (citiesGrid && material.citiesSupplied && material.citiesSupplied.length) {
-    citiesGrid.innerHTML = material.citiesSupplied.map(c => `<span class="pd-city-chip">${c}</span>`).join('');
-  }
-
-  // --- COUNTRIES ---
-  const countriesGrid = document.getElementById('md-countries-grid');
-  if (countriesGrid && material.countriesExported && material.countriesExported.length) {
-    countriesGrid.innerHTML = material.countriesExported.map(c => `
-      <div class="pd-country-card ${c.highlight ? 'pd-country-highlight' : ''} reveal">
-        <i class="fa fa-globe"></i>
-        <span>${c.name}</span>
-      </div>
-    `).join('');
-  }
-
-  // --- FAQ ---
-  const faqList = document.getElementById('md-faq-list');
-  if (faqList && material.faqs && material.faqs.length) {
-    faqList.innerHTML = material.faqs.map((faq, idx) => `
-      <div class="pd-faq-item reveal">
-        <button class="pd-faq-question" aria-expanded="false" aria-controls="md-faq-answer-${idx}">
-          <span>${faq.question}</span>
-          <i class="fa fa-chevron-down"></i>
-        </button>
-        <div class="pd-faq-answer" id="md-faq-answer-${idx}">
-          <p>${faq.answer}</p>
+  // --- APPLICATION & USES ---
+  setText('mat-apps-heading', `Application & Uses of ${material.name}`);
+  const appsList = document.getElementById('mat-apps-list');
+  if (appsList) {
+    const apps = material.applications || [];
+    appsList.innerHTML = apps.length
+      ? apps.map(a => `
+        <div class="mat-app-item reveal">
+          <div class="mat-app-icon"><i class="fa ${a.icon || 'fa-industry'}"></i></div>
+          <div class="mat-app-text">
+            <h4>${escapeHtml(a.name)}</h4>
+            <p>${escapeHtml(a.description || '')}</p>
+          </div>
         </div>
-      </div>
-    `).join('');
-    faqList.querySelectorAll('.pd-faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        faqList.querySelectorAll('.pd-faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
-        faqList.querySelectorAll('.pd-faq-answer').forEach(a => a.style.maxHeight = '0');
-        if (!isOpen) {
-          btn.setAttribute('aria-expanded', 'true');
-          const answer = btn.nextElementSibling;
-          if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
-    });
+      `).join('')
+      : '';
+  }
+  const appsImg = document.getElementById('mat-apps-img');
+  if (appsImg) {
+    const visual = (resolved.galleryImages && resolved.galleryImages.length > 1)
+      ? resolved.galleryImages[1]
+      : (resolved.image || '');
+    appsImg.src = visual;
+    appsImg.alt = `${material.name} Applications`;
   }
 
-  // --- RELATED MATERIALS ---
-  const relatedGrid = document.getElementById('md-related-grid');
-  const relatedEmpty = document.getElementById('md-related-empty');
-  if (relatedGrid) {
-    const slugs = (material.relatedMaterials || []).filter(Boolean);
-    const related = slugs.map(s => (config.materialDetails || []).find(m => m.slug === s)).filter(Boolean);
-    if (!related.length) { if (relatedEmpty) relatedEmpty.style.display = 'block'; }
-    else {
-      if (relatedEmpty) relatedEmpty.style.display = 'none';
-      relatedGrid.innerHTML = related.map(m => {
-        const r = resolveMaterialImages(m);
-        return `
-          <a href="/materials/${m.slug}/" class="pd-related-card reveal">
-            <div class="pd-related-img"><img src="${r.image || ''}" alt="${m.name}" loading="lazy"/></div>
-            <div class="pd-related-body">
-              <h3>${m.name}</h3>
-              <p>${(m.shortDescription || '').slice(0, 80)}${(m.shortDescription || '').length > 80 ? '...' : ''}</p>
-              <span class="btn btn-dark btn-sm"><i class="fa fa-arrow-right"></i> View</span>
-            </div>
-          </a>
-        `;
-      }).join('');
-    }
+  // --- DELIVERY & PACKAGING ---
+  setText('mat-delivery-heading', `${material.name} Delivery & Packaging Information`);
+  const logisticsList = document.getElementById('mat-logistics-list');
+  if (logisticsList) {
+    const info = config.logisticsInfo || [];
+    logisticsList.innerHTML = info.length
+      ? `<ol class="mat-logistics-items">${info.map(item => `
+        <li class="mat-logistics-item">
+          <strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.value)}
+        </li>
+      `).join('')}</ol>`
+      : '';
   }
 
-  // --- CTA ---
-  const ctaName = document.getElementById('md-cta-name');
-  if (ctaName) ctaName.textContent = material.name;
-  const ctaCall = document.getElementById('md-cta-call');
-  const ctaWa = document.getElementById('md-cta-wa');
-  if (ctaCall) ctaCall.href = phoneHref;
-  if (ctaWa) ctaWa.href = waHref;
-
-  // --- INQUIRY FORM ---
-  const materialField = document.getElementById('md-inq-material');
-  if (materialField) materialField.value = material.name;
-
-  const form = document.getElementById('md-inquiry-form');
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const required = form.querySelectorAll('[required]');
-      let valid = true;
-      required.forEach(inp => {
-        inp.classList.remove('invalid');
-        if (!inp.value.trim()) { inp.classList.add('invalid'); valid = false; }
-        if (inp.type === 'email' && inp.value.trim() && !validateEmail(inp.value)) { inp.classList.add('invalid'); valid = false; }
-        if (inp.type === 'tel' && inp.value.trim() && !validatePhone(inp.value)) { inp.classList.add('invalid'); valid = false; }
-      });
-      if (!valid) return;
-      const btn = form.querySelector('button[type="submit"]');
-      const orig = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending...';
-      const fd = new FormData();
-      fd.append('name', document.getElementById('md-inq-name')?.value || '');
-      fd.append('company', document.getElementById('md-inq-company')?.value || '');
-      fd.append('email', document.getElementById('md-inq-email')?.value || '');
-      fd.append('phone', document.getElementById('md-inq-phone')?.value || '');
-      fd.append('country', document.getElementById('md-inq-country')?.value || '');
-      fd.append('material', document.getElementById('md-inq-material')?.value || '');
-      fd.append('quantity', document.getElementById('md-inq-qty')?.value || '');
-      fd.append('message', document.getElementById('md-inq-msg')?.value || '');
-      fd.append('access_key', config.business.web3forms_key);
-      fd.append('subject', `Material Inquiry: ${material.name}`);
-      fd.append('from_name', businessName);
-
-      if (!config.business.web3forms_key || config.business.web3forms_key === 'YOUR_ACCESS_KEY_HERE') {
-        const successMsg = document.getElementById('md-inquiry-success');
-        if (successMsg) {
-          successMsg.style.display = 'block';
-          successMsg.style.backgroundColor = '#fff7ed';
-          successMsg.style.borderColor = '#f59e0b';
-          successMsg.style.color = '#7c2d12';
-          successMsg.innerHTML = '<i class="fa fa-triangle-exclamation"></i> Inquiry form not connected yet. Please contact us via phone/WhatsApp.';
-        }
-        btn.disabled = false;
-        btn.innerHTML = orig;
-        return;
-      }
-
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-        const data = await res.json();
-        if (data.success) {
-          const successMsg = document.getElementById('md-inquiry-success');
-          if (successMsg) {
-            successMsg.style.display = 'block';
-            successMsg.style.backgroundColor = '#ecfdf5';
-            successMsg.style.borderColor = '#10b981';
-            successMsg.style.color = '#065f46';
-            successMsg.innerHTML = '<i class="fa fa-circle-check"></i> Thank you! Your inquiry has been submitted. We will contact you shortly.';
-          }
-          form.reset();
-        } else {
-          alert('Submission failed: ' + data.message);
-        }
-      } catch {
-        alert('An error occurred. Please contact us directly via WhatsApp or email.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = orig;
-      }
-    });
+  // --- CITIES WE SUPPLY ---
+  setText('mat-cities-heading', `Cities We Supply ${material.name}`);
+  setText('mat-cities-intro', `Sujal Enterprise supplies ${material.name} products across India. We serve major industrial cities including:`);
+  const citiesGrid = document.getElementById('mat-cities-grid');
+  if (citiesGrid) {
+    const cities = material.citiesSupplied || [];
+    citiesGrid.innerHTML = cities.length
+      ? cities.map(c => `<span class="mat-city"><i class="fa fa-location-dot"></i> ${escapeHtml(c)}</span>`).join('')
+      : '';
   }
 
-  // --- SIDEBAR SETUP ---
-  const sidebarNav = document.getElementById('md-sidebar-nav');
-  if (sidebarNav) {
-    sidebarNav.innerHTML = (config.materials || []).map(m => `
-      <a href="/materials/${m.slug}/" class="pd-sidebar-link ${m.slug === slug ? 'active' : ''}" data-slug="${m.slug}">${m.title}</a>
-    `).join('');
+  // --- COUNTRIES WE EXPORT ---
+  setText('mat-countries-heading', `Countries We Export ${material.name}`);
+  setText('mat-countries-intro', `We export ${material.name} products to countries across the Middle East, Asia, Europe, Africa, and the Americas including:`);
+  const countriesGrid = document.getElementById('mat-countries-grid');
+  if (countriesGrid) {
+    const countries = material.countriesExported || [];
+    countriesGrid.innerHTML = countries.length
+      ? countries.map(c => `
+        <span class="mat-country ${c.highlight ? 'mat-country-highlight' : ''}">
+          <i class="fa fa-globe"></i> ${escapeHtml(c.name)}
+        </span>
+      `).join('')
+      : '';
   }
 
-  const sidebarProducts = document.getElementById('md-sidebar-products');
+  // --- SIDEBAR: OUR PRODUCTS ---
+  const sidebarProducts = document.getElementById('mat-sidebar-products');
   if (sidebarProducts) {
-    const productSlugs = material.products || [];
-    const products = productSlugs.map(s => (config.productDetails || []).find(p => p.slug === s)).filter(Boolean);
-    if (products.length) {
-      sidebarProducts.innerHTML = products.map(p => `<a href="${getProductUrl(p)}" class="pd-sidebar-link">${p.title}</a>`).join('');
-    } else {
-      const block = document.getElementById('md-sidebar-products-block');
-      if (block) block.style.display = 'none';
-    }
+    sidebarProducts.innerHTML = MATERIAL_PRODUCT_ORDER
+      .map(s => (config.productDetails || []).find(p => p.slug === s))
+      .filter(Boolean)
+      .map(p => `<a href="${getProductUrl(p)}" class="mat-sidebar-link">${escapeHtml(p.title)}</a>`)
+      .join('');
   }
 
-  const sidebarCall = document.getElementById('md-sidebar-call');
-  const sidebarWa = document.getElementById('md-sidebar-wa');
-  const sidebarEmail = document.getElementById('md-sidebar-email');
-  if (sidebarCall) sidebarCall.href = phoneHref;
-  if (sidebarWa) sidebarWa.href = waHref;
-  if (sidebarEmail) sidebarEmail.href = emailHref;
+  // --- SIDEBAR: OUR MATERIALS ---
+  const sidebarMaterials = document.getElementById('mat-sidebar-materials');
+  if (sidebarMaterials) {
+    sidebarMaterials.innerHTML = (config.materials || []).map(m => `
+      <a href="/materials/${m.slug}/" class="mat-sidebar-link ${m.slug === slug ? 'active' : ''}">${escapeHtml(m.title)}</a>
+    `).join('');
+  }
 
-  const sidebarForm = document.getElementById('md-sidebar-inquiry-form');
+  // --- SIDEBAR: CONTACT INFO ---
+  setText('mat-contact-name', config.business.name || '');
+  setText('mat-contact-type', config.business.type || '');
+  setText('mat-contact-address', config.business.address || '');
+  setText('mat-contact-phone-link', (config.business.phones || []).join(', '));
+  setText('mat-contact-email-link', config.business.email || '');
+  setAttr('mat-contact-phone-link', 'href', phoneHref);
+  setAttr('mat-contact-email-link', 'href', emailHref);
+
+  // --- SIDEBAR: GET IN TOUCH (inquiry form) ---
+  const sidebarForm = document.getElementById('mat-sidebar-inquiry-form');
   if (sidebarForm) {
     sidebarForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -2484,36 +2288,31 @@ function populateMaterialDetailsPage() {
       fd.append('phone', inputs[2]?.value || '');
       fd.append('message', inputs[3]?.value || '');
       fd.append('material', material.name);
-      fd.append('access_key', config.business.web3forms_key);
-      fd.append('subject', `Quick Material Inquiry: ${material.name}`);
-      fd.append('from_name', businessName);
-      if (!config.business.web3forms_key || config.business.web3forms_key === 'YOUR_ACCESS_KEY_HERE') {
-        alert('Inquiry form not connected. Please call or WhatsApp us.');
-        btn.disabled = false; btn.innerHTML = orig; return;
+      fd.append('subject', `Material Inquiry: ${material.name}`);
+      fd.append('_replyto', inputs[1]?.value || '');
+      fd.append('_gotcha', '');
+      const result = await submitInquiryToEndpoint(fd);
+      if (result.ok) {
+        alert('Inquiry submitted! We will contact you shortly.');
+        sidebarForm.reset();
+      } else {
+        alert(result.notConnected ? 'Inquiry form is not connected yet. Please contact us via WhatsApp or email.' : 'Submission failed. Please try again or contact us directly.');
       }
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-        const data = await res.json();
-        if (data.success) { alert('Inquiry submitted! We will contact you shortly.'); sidebarForm.reset(); }
-        else { alert('Submission error: ' + data.message); }
-      } catch { alert('Error submitting. Please contact us directly.'); }
-      finally { btn.disabled = false; btn.innerHTML = orig; }
+      btn.disabled = false;
+      btn.innerHTML = orig;
     });
   }
 
-  // --- LIGHTBOX ---
-  setupLightbox();
-
-  // --- LOADING ---
-  if (loader) loader.style.display = 'none';
-
   // --- SHOW LAYOUT ---
+  if (loader) loader.style.display = 'none';
   const materialLayout = document.getElementById('material-details-layout');
   if (materialLayout) materialLayout.style.display = 'grid';
 
   prepareRevealTargets();
   initScrollReveal();
 }
+
+
 
 function getMaterialSlugFromUrl() {
   const parts = window.location.pathname.split('/').filter(Boolean);
@@ -2522,6 +2321,24 @@ function getMaterialSlugFromUrl() {
     return parts[materialsIndex + 1];
   }
   return '';
+}
+
+function injectProductBreadcrumbJsonLd(product) {
+  const old = document.getElementById('breadcrumb-jsonld');
+  if (old) old.remove();
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'breadcrumb-jsonld';
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://sujalenterprise.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://sujalenterprise.com/products.html' },
+      { '@type': 'ListItem', position: 3, name: product.title, item: `https://sujalenterprise.com/products/${product.slug}/` }
+    ]
+  });
+  document.head.appendChild(script);
 }
 
 function injectMaterialBreadcrumbJsonLd(material) {
